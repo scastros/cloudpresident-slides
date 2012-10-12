@@ -534,7 +534,7 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
 
 		<translation lang="en">
 		Structure of the Web project:
-		When you use the assiatnt to create the servlet, the standard file
+		When you use the wizard to create the servlet, the standard file
 		web.xml
 		is updated to map the servlet.
 		The file
@@ -803,10 +803,10 @@ romney.png
     
         &lt;form action="" method="post"&gt;
             &lt;textarea name="user-comment"&gt;&lt;/textarea&gt;&lt;br/&gt;
-            &lt;input type="submit" value="OK" /&gt;
-            &lt;!-- <span>lien de déconnexion</span> --&gt;
-            &lt;a href="&lt;%= <span class="u">userService.createLogoutURL(request.getRequestURI())</span> %&gt;"&gt;<span>déconnexion</span>&lt;/a&gt;
+            &lt;input type="submit" value="OK" /&gt;    
         &lt;/form&gt;
+        &lt;!-- <span>lien de déconnexion</span> --&gt;
+        &lt;a href="&lt;%= <span class="u">userService.createLogoutURL(request.getRequestURI())</span> %&gt;"&gt;<span>déconnexion</span>&lt;/a&gt;
 &lt;% } %&gt;
 &lt;/body&gt;&lt;/html&gt;
 </pre>
@@ -883,13 +883,13 @@ logout
         <p style="margin-top: 50px;">Organisation des données: penser "XML" plutôt que tables.</p>
         <p>Requêtes indexées uniquement.</p>
         <p>Cohérence à terme des lectures et écritures.</p>
-        <p class="poplow">Entity = kind + <br/>(multivalued) properties + key</p>
+        <p class="poplow">Entity = kind + <br/>(multivalued) properties + id</p>
         
         <translation lang="en">
         High Replication Datastore
         concurrent access, replication, scale
         Data layout: think "XML" rather than "database table"
-        Indexed requests only
+        Indexed queries only
         Eventually consistent reads and writes
         --self--
         --self--
@@ -1709,7 +1709,7 @@ public class UploadServlet extends HttpServlet
 &lt;% url = BlobstoreServiceFactory.getBlobstoreService().createUploadUrl("/upload"); %&gt;
 &lt;form action="&lt;%= url %&gt;" method="post" enctype="multipart/form-data"&gt;
 &lt;input type="file" name="president-pic"/&gt; ...</pre>
-        <p>Récupérer la clé de l'image dans la servlet <code>/upload</code>:</p>
+        <p>Récupérer la clé de l'image dans la servlet <code> /upload</code>:</p>
         <pre class="lesspace">
 void doPost(HttpServletRequest req, HttpServletResponse resp) {
 BlobstoreService bs = BlobstoreServiceFactory.getBlobstoreService();
@@ -1728,9 +1728,9 @@ TODO: keep the name and the pic URL of the president in the datastore (using an
 Objectify class) and use these values to display the elected president.
 		--self--
 		Upload the photo of the president using Blobstore and ImageService.
-		Create a form for uploading a photo to a URL given by the Blobstore:
+		Create a form that POSTs a photo to a URL given by the Blobstore:
 		Get the Blobstore key of the picture in the servlet
-/upload
+ /upload
 :
 		Serve it to the client using the ImageService:		
         </translation>

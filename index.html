@@ -21,7 +21,7 @@
 
 <html>
   <head>
-    <title>Le président est...</title>
+    <title>Cloud President...</title>
 
     <meta charset='utf-8'>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -315,15 +315,17 @@
         </style>
         
 		<article id="usage-explanations" class="biglogo" onslideenter="hidecontrols()" onslideleave="showcontrols()"> 
-		<div style="margin-top: 100px; width: 100%; text-align: center">précédent<img style="vertical-align: -160px" src="images/keyboard.svg" width="350"/>suivant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+		<div style="margin-top: 50px; width: 100%; text-align: center">précédent<img style="vertical-align: -160px" src="images/keyboard.svg" width="350"/>suivant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
 		action
-		<br/><br/><br/><br/>action = voir au dos (explications complémentaires, solutions, ...)</div>
-		
+		<br/><br/>action = voir au dos <br/>(explications complémentaires, solutions, ...)</div>
+		<p style="text-align: center">use index.html?lang=en#1 to read this in English</p>
 			<translation lang="en">
 			previous
 			next&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			action
-			action = see the backside of the slide (solutions, additional information, ...)
+			action = see the backside of the slide 
+            (solutions, additional information, ...)
+            utilisez index.html?lang=fr#1 pour lire ceci en français
 			</translation>
 		</article>
 
@@ -460,8 +462,11 @@
 
 	  <article class="slide3d" > 
       <div class="backslide3d" style="padding:40px">
-         <div class="screenshot-left" style="padding: 0px; text-align: center;margin-top: 150px;"><img src="images/googlemenu.png"/></div>
-         <p style="margin-top: 240px">Si tout s'est bien déroulé, vous devriez avoir une icône "g" comme "Google" dans Eclipse.</p>
+         <div class="screenshot-left" style="padding: 0px; text-align: center;margin-top: 80px;"><img src="images/googlemenu.png"/></div>
+         <p style="margin-top: 120px">Si tout s'est bien déroulé, vous devriez avoir une icône "g" comme "Google" dans Eclipse.</p>
+         <p style="margin-top: 120px">Java 7 est en mode "preview" depuis la version 1.7.3 (October 2012)</p>
+         <p>Ce lab a été testé avec la version 3.x d'Objectify. La version 4.x est disponible depuis Maven Central.</p>
+         <p>Il n'y a pas de code de départ pour ce lab, nous partons d'une feuille blanche!</p>
       </div>
       
       <img src="images/install.png" class="screenshot-right" style="clear:right; padding:0px; margin-top: 00px; margin-right:0px; margin-left:10px" />
@@ -469,8 +474,8 @@
       <h3 class="num">Prérequis et téléchargements</h3>
          <ul style="margin-top:30px">
             <li> <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK 6</a> (pas JRE et pas JDK 7)</li>
-            <li> <a href="http://www.eclipse.org/downloads/packages/">Eclipse 3.7 ou 4.2</a> (JEE)</li>
-            <li>La <a href="http://code.google.com/p/objectify-appengine/downloads/list?q=label:Featured">librairie objectify</a> à télécharger (on l'ajoutera au projet plus tard)</li>
+            <li> <a href="http://www.eclipse.org/downloads/packages/">Eclipse 3.7 ou 4.2</a> (Java EE)</li>
+            <li>La <a href="http://code.google.com/p/objectify-appengine/downloads/list">librairie objectify (3.x)</a> à télécharger (ajoutée au projet plus tard)</li>
             <li><code>Google Plugin for Eclipse</code> <br/> et <br/>
             <code>Google App Engine Java SDK</code><br/>
             <span>disponibles dans</span> Eclipse: Help › Install New Software › Add... <code>http://dl.google.com/eclipse/plugin/4.2</code></li>
@@ -478,14 +483,17 @@
          
          <translation lang="en">
            You should now have a "g" icon in the Eclipse toolbar.
+           Java 7 is in preview as of Version 1.7.3 (October 2012)
+           This lab has been tested with Objectify version 3.x. Version 4.x is available from Maven Central.
+           There is no code to start from, we're starting to code from scratch!
            --self--
            Prerequisites and downloads
            --self--
-           - not JRE and not JDK 7
+           (not JRE & not JDK 7)
            Eclipse 3.7 or 4.2
            --self--
            The
-           Objectify library.
+           Objectify library (3.x).
            Download it now. We will add it to your project later.
            --self--
            and
@@ -527,9 +535,9 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
         <li><form>Décocher <input type="checkbox" style="vertical-align: middle;" disabled="disabled"/><span class="pop">GWT</span> (pour aujourd'hui), Cocher <input type="checkbox" checked style="vertical-align: middle;" disabled="disabled"/><span class="pop">App Engine</span></form>
         puis "Finish" pour générer le projet.</li>
         <li>Personnaliser la servlet: par exemple <span class="pop">"Hello App Engine"</span><br/>(dans src/com/moi/lepresident/LePresidentServlet.java)</li>
-        <li>Lancer en local: Run › Run As... › <img style="height:30px; vertical-align:bottom;" src="images/webapp.png" /><br/>
+        <li>Lancer en local avec le SDK: Run As... › <img style="height:30px; vertical-align:bottom;" src="images/webapp.png" /><br/>
         <span class="small" style="color: red; font-family: monospace;">INFO: The server is running at <a style="color: red;" href="http://localhost:8888/">http://localhost:8888/</a></span></li>
-        <li class="small">Puis rajouter la <a href="http://code.google.com/p/objectify-appengine/downloads/list?q=label:Featured"">librairie objectify</a>: (1) glisser-déplacer objectifyxxx.jar sur war/WEB-INF/lib. (2) La référencer dans les propriétés du projet, "Java Build Path", onglet "Libraries", bouton "Add JARs..."</li>
+        <li class="small">Puis rajouter la <a href="http://code.google.com/p/objectify-appengine/downloads/list">librairie objectify</a>: (1) glisser-déplacer objectify-xxx.jar dans war/WEB-INF/lib. (2) La référencer dans les propriétés du projet, "Java Build Path", onglet "Libraries", bouton "Add JARs..."</li>
         </ul>
 
 		<translation lang="en">
@@ -563,12 +571,12 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
 		Customize your servlet: for example
 		"Hello App Engine"
 		(in src/com/me/thepresident/ThePresidentServlet.java)
-		Run locally: Run › Run As... › 
+		Run locally using SDK: Run As... › 
 		--self--
 		--self--
 		Then add the 
 		objectify library
-		: (1) drag and drop the objectifyxxx.jar file in war/WEB-INF/lib. (2) Reference it in Project Properties, "Java Build Path", "Libraries" tab.
+		: (1) drag-n-drop or move the objectify-xxx.jar file to war/WEB-INF/lib. (2) Reference it in Project Properties, "Java Build Path", "Libraries" tab.
 		</translation>
       </article>
 
@@ -581,16 +589,16 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
           Passons en JSP.<br/>JSP c'est comme du HTML, mais on peut:
         </h3>
         <ul style="margin-top:100px">
-          <li>exécuter du code java entre <span class="pop" style="font-family: monospace;"><span style="color:red">&lt;%</span> ...code java... <span style="color:red">%&gt;</span></span>
+          <li>exécuter du code java : <span class="pop" style="font-family: monospace;"><span style="color:red">&lt;%</span> ...code java... <span style="color:red">%&gt;</span></span>
           <li>afficher une valeur via <span class="pop" style="font-family: monospace;"><span style="color:red">&lt;%=</span> truc.getMachin() <span style="color:red">%&gt;</span></span>
-          <li>avoir accès aux objets JSP suivants: <span style="font-family: monospace;" >HttpServletRequest <span class="pop">request</span>, HttpServletResponse <span class="pop">response</span>, JspWriter <span class="pop">out</span></span>
+          <li>avoir accès aux objets JSP suivants: <span style="font-family: monospace;" ><br/>HttpServletRequest <span class="pop">request</span>, <br/>HttpServletResponse <span class="pop">response</span>, <br/>JspWriter <span class="pop">out</span></span>
         </ul>
-        <p class="small" style="margin-top: 110px;">(Dans le futur, pour écrire du code propre, préférez GWT.)</p>
+        <p class="small" style="margin-top: 60px;">(Dans le futur, pour écrire du code propre, préférez GWT.)</p>
       
       <translation lang="en">
       Let us switch to JSP
       JSP is like HTML, but you can:
-      run java code between 
+      run java code :  
       --self--
       ...java code...
       --self--
@@ -605,7 +613,9 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
       --self--
       --self--
       --self--
-      (Next time, to write proper code, prefer GWT)
+      --self--
+      --self--
+      (Next time, to write cleaner code, prefer GWT)
       </translation>
       </article>
      
@@ -665,7 +675,8 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
   &lt;/body&gt;
 &lt;/html&gt;
 </pre>
-<p>On peut configurer cette page comme page par défaut dans war/WEB-INF/web.xml</p>
+<p>Cette JSP est accessible sur http://localhost:8888/comment.jsp
+<br/>et peut-être configurée comme page par défaut dans war/WEB-INF/web.xml</p>
 <p>Vous trouverez les photos des candidats derrière la première diapositive.</p>
       </div>
         <div class="chapter-number g-yellow">2</div>
@@ -682,15 +693,17 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
         <p>&nbsp;<br/>&nbsp;<br/>On n'a pas encore le nom de l'élu alors faute de mieux on affiche le protocole en utilisant:</p>
         <pre>request.getProtocol()</pre>
         </div>
+        <p></p>
         
        <translation lang="en">
         file: war/comments.jsp
         --self--
 The president is...
 The president is...
-obama.jpg
+obama.png
 		--self--
-		This page can be set as the default landing  page in war/WEB-INF/web.xml
+        The JSP page is available from http://localhost:8888/comment.jsp
+		... and it can be set as the default landing page in war/WEB-INF/web.xml
 		You fill find pictures of the candidates behind the first slide.
         --self--
         Add a JSP page
@@ -719,7 +732,7 @@ obama.jpg
         if (comment != null)
             comment = comment.replace("&amp;", "&amp;amp;").replace("&lt;", "&amp;lt;").replace("&gt;", "&amp;gt;");
     %&gt;
-    &lt;p&gt;Vous: &lt;%= comment %&gt;&lt;/p&gt;
+    &lt;p&gt;You: &lt;%= comment %&gt;&lt;/p&gt;
     &lt;form action="" method="post"&gt;
          &lt;textarea name="user-comment" &gt;&lt;/textarea&gt;&lt;br/&gt;
          &lt;input type="submit" value="OK" /&gt;
@@ -763,7 +776,7 @@ The president is...
 romney.png
         XSS vulnerability WARNING! DO NOT insert user-generated text into an HTML page without escaping.
         --self--
-        Add a comments field - without persistency for now
+        Add a comments field - without persistence for now
         The president is...
         You:
         not my first choice...
@@ -814,7 +827,7 @@ romney.png
       
         <div class="chapter-number g-green">4</div>
         <h3 class="num">
-          Identifier l'utilisateur par son compte Google
+          Identifier l'utilisateur avec l'API Google Users
         </h3>
         
         <div style="margin-top:30px;">
@@ -848,7 +861,7 @@ userService.createLogoutURL("myTargetURL");
         file: war/comments.jsp
         --self--
 The president is...
-obama.jpg
+obama.png
 		--self--
 		--self--
 		--self--
@@ -861,7 +874,7 @@ logout link
 		--self--
 logout
         --self--
-        Identify the user with a Google login
+        Identify the user with the Google Users API
         The president is...
         You:
         not my first choice...
@@ -922,9 +935,9 @@ public class StoredComments {
     static public List&lt;Entity&gt; retrieveAll() {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-        Query query = new Query("Comment");
-        query.addSort("date", Query.SortDirection.DESCENDING);
-        return datastore.prepare(query).asList(FetchOptions.Builder.withLimit(100));
+        Query q = new Query("Comment");
+        q.addSort("date", Query.SortDirection.DESCENDING);
+        return datastore.prepare(q).asList(FetchOptions.Builder.withLimit(100));
     }
 }
 </pre>
@@ -955,7 +968,7 @@ for (Entity commentEntity: comments) { ... commentEntity.getProperty("text") ...
 	        </div>
         </div>
         
-        <p>Accès bas niveau au datastore:</p>
+        <p>Accès bas niveau au Datastore:</p>
 <pre class="smallcode lesspace">
 DatastoreService datastore =
  DatastoreServiceFactory.getDatastoreService();
@@ -969,10 +982,10 @@ datastore.put(commentEntity);
 </pre>
         <p>Lecture: <span class="small">100 résultats triés par date</span></p>
 <pre class="x-smallcode lesspace">
-Query query = new Query("Comment");
-query.addSort("date", Query.SortDirection.DESCENDING);
+Query q = new Query("Comment");
+q.addSort("date", Query.SortDirection.DESCENDING);
 List&lt;Entity&gt; results =
-   datastore.prepare(query)
+   datastore.prepare(q)
       .asList(FetchOptions.Builder.withLimit(100));
 </pre>
         </div>
@@ -991,7 +1004,7 @@ Usage:
         Bar:
         so unfair!
         logout
-        Low level datastore access:
+        Low-level Datastore access:
         Write:
         Read:
         100 results sorted by date
@@ -1008,7 +1021,7 @@ Usage:
 <span>package com.moi.lepresident;</span>
 import com.googlecode.objectify.ObjectifyService;     import com.googlecode.objectify.util.DAOBase;
 
-public class ObjectifyDAO extends DAOBase
+public class ObjectifyDAO extends DAOBase 
 { static { ObjectifyService.register(Comment.class); } }
 </pre>
 <p>fichier: src/com/moi/lepresident/Comment.java</p>
@@ -1243,7 +1256,7 @@ cache.delete("myKey");
           Optimize comments with Memcache
           The interface:
           Memcache makes sure all your instances see the same value.
-          Just keep the result of the last request in Memcache (serialized) until a new comment is added.
+          Simply keep the result of the last request in Memcache (serialized) until a new comment is added.
           </translation>
       </article>
       
@@ -1855,9 +1868,10 @@ Thank you for your opinion.
         </p>
         <p style="margin-left: 3em; margin-top: 1.5em; text-indent: -2em;">Cette présentation est en ligne :<br/>
         <a href="http://cloudpresident.appspot.com">http://<b><span class="big">cloudpresident</span></b>.appspot.com</a><br/>
-        <p style="margin-left: 3em; margin-top: 1.5em; text-indent: -2em;">Code source :<br/>
+        <!--p style="margin-left: 3em; margin-top: 1.5em; text-indent: -2em;">Code source :<br/>
         <small><a href="http://code.google.com/p/devoxx-france-appengine/">http://code.google.com/p/<b><span class="big">devoxx-france-appengine</span></b>/</a></small><br/>
-        <p style="margin-left: 3em; margin-top: 1.5em; text-indent: -2em;">Plus d'infos :<br/>
+        </p-->
+        <p style="margin-left: 3em; margin-top: 1.5em; text-indent: -2em;">Plus d'infos sur Google AppEngine :<br/>
         <a href="http://developers.google.com/appengine/">http://developers.google.com/<b><span class="big">appengine</span></b></a>
         </p>
         
@@ -1873,11 +1887,11 @@ Thank you for your opinion.
         --self--
         --self--
         --self--
-        Source code :
+<!--        Source code :
         --self--
         --self--
-        --self--
-        More info :
+        --self---->
+        More info on Google AppEngine :
         --self--
         --self--
         </translation>

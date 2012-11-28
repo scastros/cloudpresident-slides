@@ -399,7 +399,7 @@
 	 </p>
 	 
 	 <translation lang="en">
-	 Watch this site for results.
+	 Watch this site for results!
 	 --self--
 	 --self--
 	 --self--
@@ -464,9 +464,13 @@
       <div class="backslide3d" style="padding:40px">
          <div class="screenshot-left" style="padding: 0px; text-align: center;margin-top: 80px;"><img src="images/googlemenu.png"/></div>
          <p style="margin-top: 120px">Si tout s'est bien déroulé, vous devriez avoir une icône "g" comme "Google" dans Eclipse.</p>
-         <p style="margin-top: 120px">Java 7 est en mode "preview" depuis la version 1.7.3 (October 2012)</p>
+         <p style="margin-top: 60px">Java 7 est en mode "preview" depuis la version 1.7.3 (October 2012)</p>
          <p>Ce lab a été testé avec la version 3.x d'Objectify. La version 4.x est disponible depuis Maven Central.</p>
          <p>Il n'y a pas de code de départ pour ce lab, nous partons d'une feuille blanche!</p>
+         <p><a style="smaller" href="https://developers.google.com/appengine/docs/java/javadoc/overview-summary">JavaDoc pour AppEngine</a>
+        </p>
+
+</p>
       </div>
       
       <img src="images/install.png" class="screenshot-right" style="clear:right; padding:0px; margin-top: 00px; margin-right:0px; margin-left:10px" />
@@ -486,6 +490,7 @@
            Java 7 is in preview as of Version 1.7.3 (October 2012)
            This lab has been tested with Objectify version 3.x. Version 4.x is available from Maven Central.
            There is no code to start from, we're starting to code from scratch!
+           AppEngine JavaDoc
            --self--
            Prerequisites and downloads
            --self--
@@ -675,7 +680,7 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
   &lt;/body&gt;
 &lt;/html&gt;
 </pre>
-<p>Cette JSP est accessible sur http://localhost:8888/comment.jsp
+<p>Cette JSP est accessible sur <a href="http://localhost:8888/comment.jsp">http://localhost:8888/comment.jsp</a>
 <br/>et peut-être configurée comme page par défaut dans war/WEB-INF/web.xml</p>
 <p>Vous trouverez les photos des candidats derrière la première diapositive.</p>
       </div>
@@ -702,8 +707,9 @@ The president is...
 The president is...
 obama.png
 		--self--
-        The JSP page is available from http://localhost:8888/comment.jsp
-		... and it can be set as the default landing page in war/WEB-INF/web.xml
+        The JSP page is available from 
+        --self--
+		 ... and it can be set as the default landing page in war/WEB-INF/web.xml
 		You fill find pictures of the candidates behind the first slide.
         --self--
         Add a JSP page
@@ -943,12 +949,11 @@ public class StoredComments {
 </pre>
 Utilisation:
 <pre class="x-smallcode lesspace" style="display:inline-block; margin-top:0px; vertical-align: top;">
-// store:
-StoredComments.store("Hello", "Nicolas");
-// retrieve:
-List&lt;Entity&gt; comments = StoredComments.retrieveAll();
-for (Entity commentEntity: comments) { ... commentEntity.getProperty("text") ... }
+StoredComments.store("Hello", "Nicolas");             // store
+List&lt;Entity&gt; comments = StoredComments.retrieveAll(); // retrieve
+for (Entity comment: comments) { ... comment.getProperty("text") ... }  
 </pre>
+<div class="small">Utilisez la console d'administration du SDK <a href="http://localhost:8888/_ah/admin">http://localhost:8888/_ah/admin</a> pour visualiser les entités stockées.</div>
       </div>
       
         <div class="chapter-number g-red">5</div>
@@ -994,6 +999,9 @@ List&lt;Entity&gt; results =
         file: src/com/me/thepresident/StoredComments.java
 com.me.thepresident
 Usage: 
+Use the SDK admin console from 
+        --self--
+ to view stored entities.
         --self--
         Store comments on the server
         The president is...

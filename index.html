@@ -940,7 +940,6 @@ public class StoredComments {
 	
     static public List&lt;Entity&gt; retrieveAll() {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
         Query q = new Query("Comment");
         q.addSort("date", Query.SortDirection.DESCENDING);
         return datastore.prepare(q).asList(FetchOptions.Builder.withLimit(100));
@@ -1035,23 +1034,22 @@ public class ObjectifyDAO extends DAOBase
 <p>fichier: src/com/moi/lepresident/Comment.java</p>
 <pre class="x-smallcode lesspace">
 <span>package com.moi.lepresident;</span>
-import java.util.Date;     java.util.List;     import javax.persistence.Id;
+import java.util.*;    import javax.persistence.Id;
 
-public class Comment
-{
-    @Id Long id;     Date date;     public String user;     public String text;
+public class Comment {
+    @Id Long id;     Date date;     public String user, text;
 
     public Comment() {}
-    public Comment(String text, String user) { this.user = user; this.text = text; this.date = new Date(); }
+    public Comment(String text, String user) {
+        this.user = user; this.text = text; this.date = new Date();
+    }
 
-    public static void store(String text, String user)
-    {
+    public static void store(String text, String user) {
         ObjectifyDAO dao = new ObjectifyDAO();
         dao.ofy().put(new Comment(text, user));
     }
     
-    public static List&lt;Comment&gt; retrieveAll()
-    {
+    public static List&lt;Comment&gt; retrieveAll() {
         ObjectifyDAO dao = new ObjectifyDAO();
         return dao.ofy().query(Comment.class).order("-date").limit(100).list();
     }
@@ -1066,7 +1064,7 @@ public class Comment
         
         <div style="margin-top:20px;">
         <div class="screenshot-left" style="margin-right: 45px; width:258px">
-        Utiliser un POJO:
+        Utiliser un POJO*:
 <pre class="smallcode lesspace">
 public class Comment
 {
@@ -1080,6 +1078,7 @@ public class Comment
 }
 </pre>
 <p class="small">L'écriture en base auto-génère l'id si il est de type Long.</p>
+<p class="small">*: Plain Old Java Object</p>
         </div>
         <p>Enregistrement des classes et Data Access Object:</p>
 <pre class="x-smallcode lesspace">
@@ -1109,8 +1108,9 @@ package com.me.thepresident;
 package com.me.thepresident;
 	 	--self--
 	 	The same thing with Objectify
-	 	Use a POJO:
+	 	Use a POJO*:
 	 	If the Id is of type Long, it will be generated automatically on write.
+        *: Plain Old Java Object
 	 	Registering data classes in a Data Access Object:
 // then use:
 		Write:
@@ -1206,28 +1206,25 @@ package com.me.thepresident;
 <pre class="lesspace smallcode">
 public class Comment <span class="u">implements Serializable</span>
 </pre>
-<p class="small" style="margin:0">On crée une nouvelle fonction pour la lecture des commentaires (avec cache):</p>
+<p class="small" style="margin:0">On crée une nouvelle méthode pour la lecture des commentaires (avec cache):</p>
 <pre class="lesspace smallcode">
-public static List&lt;Comment&gt; retrieveAllCached()
-{
+public static List&lt;Comment&gt; retrieveAllCached() {
     MemcacheService cache = MemcacheServiceFactory.getMemcacheService();
     List&lt;Comment&gt; comments = (List&lt;Comment&gt;)cache.get("100Comments");
-    if (comments == null)
-    {
-        comments = retrieveAll(); // read from datastore
+    if (comments == null) {
+        comments = retrieveAll(); // read from Datastore
         if (comments != null)
-            cache.put("100Comments", comments); // store in memcache
+            cache.put("100Comments", comments); // store in Memcache
     }
     return comments;
 }
 </pre>
 <p class="small" style="margin:0">Enfin, on invalide le cache à chaque nouveau commentaire:</p>
 <pre class="lesspace smallcode">
-public static void store(String text, String user)
-{
+public static void store(String text, String user) {
 	ObjectifyDAO dao = new ObjectifyDAO();
 	dao.ofy().put(new Comment(text, user));
-	<span class="u">MemcacheServiceFactory.getMemcacheService().delete("100Comments")</span>; //kill cache
+	<span class="u">MemcacheServiceFactory.getMemcacheService().delete("100Comments")</span>; // flush cache
 }
 </pre>
       </div>
@@ -1248,7 +1245,8 @@ cache.delete("myKey");
 </pre>
 				<p class="small">Memcache s'assure que toutes vos instances voient la même valeur.</p>
 		        </div>
-			    <p style="padding-top:100px; text-align: justify;">Il suffit de garder le résultat de la dernière requête en Memcache (sérialisée) tant qu'un nouveau commentaire n'a pas été écrit.</p>
+                <p style="padding-top:20px; font-style:italic" class="small">"Writes to memcache never touch the disk and are approximately 10 times faster in comparison to writes to the datastore"</p>
+			    <p style="padding-top:50px; text-align: justify;">Il suffit de garder le résultat de la dernière requête en Memcache (sérialisée) tant qu'un nouveau commentaire n'a pas été écrit.</p>
 
 		
           </div>
@@ -1257,13 +1255,14 @@ cache.delete("myKey");
           file: src/com/me/thepresident/Comment.java
           The Comment class must become serializable:
           --self--
-          Create a new function for retrieving comments with caching:
+          Create a new method for retrieving comments with caching:
           Finally, invalidate the cache on each new comment:
           --self--
           --self--
           Optimize comments with Memcache
           The interface:
           Memcache makes sure all your instances see the same value.
+          "Writes to memcache never touch the disk and are approximately 10 times faster in comparison to writes to the datastore"
           Simply keep the result of the last request in Memcache (serialized) until a new comment is added.
           </translation>
       </article>

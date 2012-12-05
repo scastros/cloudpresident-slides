@@ -463,9 +463,9 @@
 	  <article class="slide3d" > 
       <div class="backslide3d" style="padding:40px">
          <div class="screenshot-left" style="padding: 0px; text-align: center;margin-top: 80px;"><img src="images/googlemenu.png"/></div>
-         <p style="margin-top: 120px">Si tout s'est bien déroulé, vous devriez avoir une icône "g" comme "Google" dans Eclipse.</p>
-         <p style="margin-top: 60px">Java 7 est en mode "preview" depuis la version 1.7.3 (October 2012)</p>
-         <p>Ce lab a été testé avec la version 3.x d'Objectify. La version 4.x est disponible depuis Maven Central.</p>
+         <p style="margin-top: 80px">Si tout s'est bien déroulé, vous devriez avoir une icône "g" comme "Google" dans Eclipse.</p>
+         <p style="margin-top: 40px">Java 7 est en mode "preview" depuis la version 1.7.3 (October 2012)</p>
+         <p>Ce lab a été testé avec la version 3.x d'Objectify. La nouvelle version 4.x est <a href="http://code.google.com/p/objectify-appengine/wiki/UpgradeVersion3ToVersion4">incompatible</a> mais disponible dans Maven Central.</p>
          <p>Il n'y a pas de code de départ pour ce lab, nous partons d'une feuille blanche!</p>
          <p><a style="smaller" href="https://developers.google.com/appengine/docs/java/javadoc/overview-summary">JavaDoc pour AppEngine</a>
         </p>
@@ -488,7 +488,9 @@
          <translation lang="en">
            You should now have a "g" icon in the Eclipse toolbar.
            Java 7 is in preview as of Version 1.7.3 (October 2012)
-           This lab has been tested with Objectify version 3.x. Version 4.x is available from Maven Central.
+           This lab has been tested with Objectify version 3.x. The more recent version 4.x is 
+           --self--
+           but available from Maven Central.
            There is no code to start from, we're starting to code from scratch!
            AppEngine JavaDoc
            --self--
@@ -542,7 +544,7 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
         <li>Personnaliser la servlet: par exemple <span class="pop">"Hello App Engine"</span><br/>(dans src/com/moi/lepresident/LePresidentServlet.java)</li>
         <li>Lancer en local avec le SDK: Run As... › <img style="height:30px; vertical-align:bottom;" src="images/webapp.png" /><br/>
         <span class="small" style="color: red; font-family: monospace;">INFO: The server is running at <a style="color: red;" href="http://localhost:8888/">http://localhost:8888/</a></span></li>
-        <li class="small">Puis rajouter la <a href="http://code.google.com/p/objectify-appengine/downloads/list">librairie objectify</a>: (1) glisser-déplacer objectify-xxx.jar dans war/WEB-INF/lib. (2) La référencer dans les propriétés du projet, "Java Build Path", onglet "Libraries", bouton "Add JARs..."</li>
+        <li class="small">Puis rajouter la <a href="http://code.google.com/p/objectify-appengine/downloads/list">librairie objectify</a>: (1) glisser-déplacer objectify-3.x.jar dans war/WEB-INF/lib. (2) La référencer dans les propriétés du projet, "Java Build Path", onglet "Libraries", bouton "Add JARs..."</li>
         </ul>
 
 		<translation lang="en">
@@ -581,7 +583,7 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
 		--self--
 		Then add the 
 		objectify library
-		: (1) drag-n-drop or move the objectify-xxx.jar file to war/WEB-INF/lib. (2) Reference it in Project Properties, "Java Build Path", "Libraries" tab.
+		: (1) drag-n-drop or move the objectify-3.x.jar file to war/WEB-INF/lib. (2) Reference it in Project Properties, "Java Build Path", "Libraries" tab.
 		</translation>
       </article>
 
@@ -1055,6 +1057,7 @@ public class Comment {
     }
 }
 </pre>
+
       </div>
       
         <div class="chapter-number g-blue">6</div>
@@ -1272,30 +1275,31 @@ cache.delete("myKey");
 
       <article class="slide3d">
       <div class="backslide3d">
-      <p class="small">La servlet: elle écrit le nom du président élu dans le datastore<br/>fichier src/com/moi/lepresident/CronServlet.java</p>
+      <p class="x-small">La servlet: elle écrit le nom du président élu dans le datastore<br/>fichier src/com/moi/lepresident/CronServlet.java</p>
       <pre class="x-smallcode lesspace">
-public class CronServlet extends HttpServlet
-{   @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
-    {
+public class CronServlet extends HttpServlet{
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Entity Elected = new Entity("Elected");
-        Elected.setProperty("name", "<span>François Hollande</span>"); //<span>ou un autre</span>
+        Elected.setProperty("name", "<span>François Hollande</span>"); //<span>ou un autre!</span>
         DatastoreServiceFactory.getDatastoreService().put(Elected);
     }
 }</pre>
-      <p class="small">Son mapping dans WEB-INF/web.xml, avec restriction d'accès:</p>
+      <p class="x-small">Son mapping dans WEB-INF/web.xml, avec restriction d'accès:</p>
       <pre class="x-smallcode lesspace">
 &lt;servlet&gt;
-   &lt;servlet-name&gt;CronServlet&lt;/servlet-name&gt; &lt;servlet-class&gt;com.moi.lepresident.CronServlet&lt;/servlet-class&gt;
+   &lt;servlet-name&gt;CronServlet&lt;/servlet-name&gt; 
+   &lt;servlet-class&gt;com.moi.lepresident.CronServlet&lt;/servlet-class&gt;
 &lt;/servlet&gt;
 &lt;servlet-mapping&gt;
-   &lt;servlet-name&gt;CronServlet&lt;/servlet-name&gt; &lt;url-pattern&gt;/cronAllowPresidentDisplay&lt;/url-pattern&gt;
+   &lt;servlet-name&gt;CronServlet&lt;/servlet-name&gt; 
+   &lt;url-pattern&gt;/cronAllowPresidentDisplay&lt;/url-pattern&gt;
 &lt;/servlet-mapping&gt
 &lt;security-constraint&gt;
   &lt;web-resource-collection&gt;   &lt;url-pattern&gt;/cron*&lt;/url-pattern&gt;   &lt;/web-resource-collection&gt;
   &lt;auth-constraint&gt;           &lt;role-name&gt;admin&lt;/role-name&gt;        &lt;/auth-constraint&gt;
 &lt;/security-constraint&gt;</pre>
-      <p class="small">Affichage conditionnel (fichier war/comments.jsp):</p>
+      <p class="x-small">Affichage conditionnel (fichier war/comments.jsp):</p>
       <pre class="x-smallcode lesspace" style="margin-bottom: 0px">
 Entity e = DatastoreServiceFactory.getDatastoreService().prepare(new Query("Elected")).asSingleEntity();
 if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</span>*/ e.getProperty("name");</pre>
@@ -1312,9 +1316,9 @@ if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</spa
 	        <div style="text-align: center"><small>François Hollande</small></div>
 	        </div>
 	        
-	        <p>Les Cron lancent des servlets dont l'URL est définie dans web.xml.</p>
+	        <p>Les Cron invoquent des servlets dont l'URL est définie dans web.xml</p>
 	        <p style="margin-bottom: 20px;">
-	        Périodicité à configurer dans WEB-INF/cron.xml (<a href="https://developers.google.com/appengine/docs/java/config/cron">syntaxe complète</a>):</p>
+	        Périodicité à configurer dans WEB-INF/cron.xml (<a href="https://developers.google.com/appengine/docs/java/config/cron">syntaxe</a>):</p>
 	        
 	        <pre class="smallcode">
 &lt;?xml version="1.0" ?&gt;
@@ -1331,11 +1335,11 @@ if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</spa
         The cron servlet writes the name of the elected president into the datastore.
         file: src/com/me/thepresident/CronServlet.java
 Barack obama
-or Mitt Romney
+or Mitt Romney, or ...
 		Servlet mapping in WEB-INF/web.xml, with access restrictions:
 		Conditional display (file war/comments.jsp)
 wait message
-display president
+display president using
 		(If you want to show the picture of the president, you can get it on the backside of the 
 		first slide
 		--self--
@@ -1343,7 +1347,7 @@ display president
 		Display the name of the president at 08:00PM sharp using a Cron job
 		The president is:
 		Barack Obama
-		Cron jobs are servlets. Their URL is defined in web.xml.
+		Cron jobs invoke servlets. The target URL is defined in web.xml.
 		Their periodicity can be set in WEB-INF/cron.xml ( 
 		full syntax
 		):
@@ -1356,14 +1360,14 @@ display president
       <article class="slide3d info">
       <div class="empty backslide3d"></div> 
       		<h3 class="info">Qu'est-ce qu'un compteur éclaté ?</h3>
-      		<p class="small" style="font-size: 80%; margin-top: -10px">Les écritures sur la même entité du datastore sont limitées<br/>à quelques-unes par seconde: comment faire un compteur ?
+      		<p class="small" style="font-size: 80%; margin-top: -10px">Les écritures sur la même entité du datastore sont limitées à quelques-unes par seconde: <br/>comment faire un compteur qui tienne en charge?
       		<br/>⇒Incrément atomique dans Memcache et compteur éclaté dans Datastore.</p>
       		<p style="text-align: center;"><img src="images/shardedcounter.svg" width="100%"/></p>
       		
       	<translation lang="en">
       	What is a sharded counter ?
-      	Writes to the same datastore entity are limited to a few
-      	writes per second: so how can I implement a counter ?
+      	Writes to the same datastore entity are limited to a few writes per second: 
+        so how can I implement a scalable counter ?
       	⇒Atomic increment in Memcache and a sharded counter in Datastore.
       	</translation>
       </article>
@@ -1402,68 +1406,66 @@ display president
       <article id="shardedcounterslide" class="slide3d">
       <div class="backslide3d">
       <pre class="lesspace smallcode" style="float:left; width:400px; height:610px; margin-right: 20px; font-size: 0.5em">
-public class Counter
-{
+public class Counter {
   @Id String key;
   String name;
   Long value;
 
-  Counter() {}
-  Counter(String name, Integer shard_N, Long val)
-  {
+  Counter() {}  // Empty constructor
+  Counter(String name, Integer shard_N, Long val) {
     this.name = name;
     this.value = val;
     key = name + "_shard" + shard_N.toString();
   }
 
-public static void increment(String name)
-{
-  MemcacheService cache =
-    MemcacheServiceFactory.getMemcacheService();
-  Long val = cache.increment(name, 1);
-  if (val == null)
-  {
-     val = Counter.read(name);
-     if (val == null)
-       val = cache.increment(name, 1, 0L); //0=init val
-     else
-       val++;
+  public static void increment(String name) {
+    MemcacheService cache =
+      MemcacheServiceFactory.getMemcacheService();
+    Long val = cache.increment(name, 1);
+    if (val == null) {
+       val = Counter.read(name);
+       if (val == null) {
+         // 0 as initial value
+         val = cache.increment(name, 1, 0L);
+       }
+       else {
+         val++;
+       }
+    }
+    Counter.write(name, val);
   }
-  Counter.write(name, val);
-}
       </pre>
       <pre class="lesspace smallcode" style="width:400px; height:610px; font-size: 0.5em">
-public static Long value(String name)
-{
-  MemcacheService cache = MemcacheServiceFactory.getMemcacheService();
-  Long val = (Long)cache.get(name);
-  if (val == null)
-  {
-    val = Counter.read(name);
-    if (val != null)
-      cache.put(name, val);
+  // Counter.java continued
+  public static Long value(String name) {
+    MemcacheService cache = 
+      MemcacheServiceFactory.getMemcacheService();
+    Long val = (Long)cache.get(name);
+    if (val == null) {
+      val = Counter.read(name);
+      if (val != null) {
+        cache.put(name, val);
+      }
+    }
+    return val;
   }
-  return val;
-}
 
-static Long read(String name)
-{
-  ObjectifyDAO dao = new ObjectifyDAO();
-  Counter c = dao.ofy().query(Counter.class)
-    .filter("name", name).order("-value").get();
-  return (c == null ? null : c.value);
-}
+  static Long read(String name) {
+    ObjectifyDAO dao = new ObjectifyDAO();
+    Counter c = dao.ofy().query(Counter.class)
+      .filter("name", name).order("-value").get();
+    return (c == null ? null : c.value);
+  }
 
-static void write(String name, Long value)
-{
-  Random r = new Random();
-  Integer shard_N = r.nextInt(10);
-  ObjectifyDAO dao = new ObjectifyDAO();
-  dao.ofy().put(new Counter(name, shard_N, value));
-} 
+  static void write(String name, Long value) {
+    Random r = new Random();
+    Integer shard_N = r.nextInt(10);
+    ObjectifyDAO dao = new ObjectifyDAO();
+    dao.ofy().put(new Counter(name, shard_N, value));
+  } 
 }
       </pre>
-      <div class="small">usage: &nbsp;&nbsp;<span style="color: black;">Counter.increment("pluscounter"); &nbsp;&nbsp;Counter.value("minuscounter");</span></div>
+      <div class="x-small" style="margin-top:10px">usage: &nbsp;&nbsp;<span style="color: black;">Counter.increment("pluscounter"); &nbsp;&nbsp;Counter.value("minuscounter");</span></div>
       </div> 
       
        <div class="chapter-number g-blue">9</div>
@@ -1493,7 +1495,7 @@ ObjectifyDAO dao = new ObjectifyDAO();
 dao.ofy().put(new Counter(name, shard_N, newVal));</pre>
          <p>Lecture: si échec du Memcache, MAX des compteurs du datastore.</p>
 		 <pre class="lesspace smallcode">dao.ofy().query(Counter.class)
-.filter("name", name).order("-value").get();</pre>
+   .filter("name", name).order("-value").get();</pre>
 
 		<translation lang="en">
 		usage: 
@@ -1528,6 +1530,8 @@ dao.ofy().put(new Counter(name, shard_N, newVal));</pre>
 &lt;/datastore-indexes&gt;
 </pre>
 <p>Le SDK autogénère ce fichier dans le le répertoire <code>war/WEB-INF/appengine-generated/datastore-indexes-auto.xml</code> à copier dans <code>war/WEB-INF/appengine/datastore-indexes.xml</code></p>
+
+<p>Attention, avec Objectify 4.x les propriétés sont non-indéxées par défaut.</p>
 </div>
 		<div class="chapter-number g-green">10</div>
         <h3 class="num2">
@@ -1536,7 +1540,7 @@ dao.ofy().put(new Counter(name, shard_N, newVal));</pre>
         <ul>
         <li>Le datastore exécute uniquement des requêtes indexées.</li>
         <li>Le datastore crée un index simple pour chaque propriété. Pour l'éviter, ajouter l'annotation objectify <code>@Unindexed</code>.</li>
-        <li>Si l'on fait une recherche sur plus d'une propriété, colonne de tri comprise, il faut créer un index pour chaque combinaison manuellement.</li>
+        <li>Si l'on fait une requête sur plus d'une propriété, colonne de tri comprise, il faut créer un index pour chaque combinaison manuellement.</li>
         <li style="margin-top: 60px;">Pour notre compteur, il nous faut un index combiné avec "name" et "value" DESC</li>
         </ul>
         
@@ -1546,13 +1550,14 @@ dao.ofy().put(new Counter(name, shard_N, newVal));</pre>
         --self--
         copy it to 
         --self--
+        Be careful, with the latest Objectify 4.x version, all fields default to not indexed.
         --self--
         Add a composite index on an entity
         The datastore can execute indexed request only.
         The datastore creates an index for each property automatically, unless you use the objectify annotation 
         --self--
         --self--
-        If you want to request on multiple properties, you have to create an index for each combination manually.
+        If you want to query over multiple properties, you have to create an index for each combination manually.
         For our counter, we need a composite index on "name" and "value" DESC.
         </translation>
 </article>
@@ -1586,9 +1591,9 @@ dao.ofy().put(new Counter(name, shard_N, newVal));</pre>
           Déployer sur App Engine: Yakakliker...
         </h3>
         <ul>
-         <li>Aller sur <a href="http://appengine.google.com"">http://appengine.google.com/</a> et créer un identifiant pour votre application. Elle serta accessible à l'adresse <code>http://monidentifiant.appspot.com</code></li>
-         <li style="margin-top:80px"><img class="screenshot-right" style="padding:0px; margin-left:40px; margin-top:-30px" src="images/deployer.png"/>Le spécifier dans <code>appengine-web.xml</code></li>
-         <li style="margin-top:80px">Cliquer sur déployer... </li>
+         <li>Aller sur <a href="http://appengine.google.com">http://appengine.google.com/</a> et créer un identifiant pour votre application. Elle serta accessible à l'adresse <code>http://monidentifiant.appspot.com</code></li>
+         <li style="margin-top:60px"><img class="screenshot-right" style="padding:0px; margin-left:40px; margin-top:-30px" src="images/deployer.png"/>Le spécifier dans <code>appengine-web.xml</code> (ou dans le propriétés du projet Eclipse)</li>
+         <li style="margin-top:60px">Cliquer sur déployer... </li>
         </ul>
         
         <translation lang="en">
@@ -1608,6 +1613,7 @@ The version of your application, it can be a string (alpha, beta, ...)
         http://myappid.appspot.com
         Add the app id to 
         --self--
+        (or set the proper Eclipse project property)
         Hit the deploy button...
         </translation>
       </article>
@@ -1699,8 +1705,7 @@ fichier: UploadServlet.java (servlet à mapper sur /upload)
 <pre class="smallcode lesspace">
 package <span>com.moi.lepresident</span>;
 
-public class UploadServlet extends HttpServlet
-{
+public class UploadServlet extends HttpServlet {
   @Override protected void doPost(HttpServletRequest req, HttpServletResponse resp)
                         throws ServletException, IOException {
     BlobstoreService bs = BlobstoreServiceFactory.getBlobstoreService();
@@ -1724,16 +1729,17 @@ public class UploadServlet extends HttpServlet
         	<img  src="images/scrshot_formulaire_envoie.png" width="300px"/>
         </div>
          -->
-        <p>Créer un formulaire d'upload vers une URL donnée par le Blobstore:</p>
+        <p>Le Blobstore est utile pour servir des données de taille importante. 
+            Créer un formulaire d'upload vers une URL donnée par le Blobstore:</p>
         <pre class="smallcode lesspace">
 &lt;% url = BlobstoreServiceFactory.getBlobstoreService().createUploadUrl("/upload"); %&gt;
 &lt;form action="&lt;%= url %&gt;" method="post" enctype="multipart/form-data"&gt;
 &lt;input type="file" name="president-pic"/&gt; ...</pre>
         <p>Récupérer la clé de l'image dans la servlet <code> /upload</code>:</p>
-        <pre class="lesspace">
+        <pre class="smallcode lesspace">
 void doPost(HttpServletRequest req, HttpServletResponse resp) {
-BlobstoreService bs = BlobstoreServiceFactory.getBlobstoreService();
-BlobKey key = bs.getUploads(req).get("president-pic").get(0); ...</pre>
+  BlobstoreService bs = BlobstoreServiceFactory.getBlobstoreService();
+  BlobKey key = bs.getUploads(req).get("president-pic").get(0); ...</pre>
         <p>La servir au client grâce à ImageService:</p>
         <pre class="lesspace">ImagesServiceFactory.getImagesService().getServingUrl(key);</pre>
 
@@ -1741,14 +1747,14 @@ BlobKey key = bs.getUploads(req).get("president-pic").get(0); ...</pre>
         file: admin.jsp
 President's name
 President's picture
-        file: UploadServlet.java (map it on /upload)
+        file: UploadServlet.java (map it to /upload)
 com.me.thepresident
 just for debug
 TODO: keep the name and the pic URL of the president in the datastore (using an
 Objectify class) and use these values to display the elected president.
 		--self--
 		Upload the photo of the president using Blobstore and ImageService.
-		Create a form that POSTs a photo to a URL given by the Blobstore:
+		The BlobStore is useful for serving large data objects. Create a form that POSTs a photo to a URL given by the Blobstore:
 		Get the Blobstore key of the picture in the servlet
  /upload
 :
@@ -1784,7 +1790,8 @@ Objectify class) and use these values to display the elected president.
         <li>Il suffit d'ajouter une contrainte de sécurité dans le fichier web.xml</li>
         <li>Indiquez le role : <strong>admin</strong></li>
         <li>La vérification est faite automatiquement</li>
-        <li>Les tâches planifiées sont lancées par Google App Engine en mode administrateur</li>
+        <li>Les tâches planifiées (CRON) sont lancées par Google App Engine en mode administrateur</li>
+        <li>Ce mécanisme peut aussi être utilisé pour sécuriser l'accès à l'outil AppStat ou à toute autre ressource administrative</li>
         </ul>
         
         <translation lang="en">
@@ -1796,6 +1803,7 @@ Objectify class) and use these values to display the elected president.
         admin
         User authentication is performed automatically.
         CRON jobs are launched in admin mode.
+        Can also be used to secure access to the AppStat tool or other admin resources.
         </translation>
         
       </article>
@@ -1853,11 +1861,11 @@ com.me.thepresident
 Thank you for your opinion.
         --self--
         Post comments by email
-        Enable email reception on address 
+        Enable email reception for address 
         name
         --self--
-        Create a servlet mapped on &nbsp;&nbsp; /_ah/mail/*
-        To read the contents of an email:
+        Create a servlet mapped to &nbsp;&nbsp; /_ah/mail/*
+        To read the content of an email:
         </translation>
         
       </article>

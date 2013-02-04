@@ -9,19 +9,12 @@
            Dominic Mazzoni (browser compatibility)
            Charles Chen (ChromeVox support)
 
-		   Martin Gorner (returnable slides,
-		                  graphical intro slide,
-		                  next/prev/turn controls,
-		                  mobile touch support,
-		                  trackpad support,
-		                  localization script)
-		                  
   URL: http://code.google.com/p/html5slides/
 -->
 
 <html>
   <head>
-    <title>Cloud President...</title>
+    <title>Le président est...</title>
 
     <meta charset='utf-8'>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -165,143 +158,22 @@
     	text-decoration: underline;
     }
     .bigserif {font-family: serif; letter-spacing: normal; font-size: 120%;}
-    .togglebutton {position: absolute; -webkit-transition: 0.3s; cursor: pointer;}
-    .togglebutton img {opacity:0.04; -webkit-transition: 0.3s; -moz-transition: 0.3s; -o-transition: 0.3s;}
+    .togglebutton {position: absolute;}
+    .togglebutton img {opacity:0.1; -webkit-transition: 0.3s; -moz-transition: 0.3s; -o-transition: 0.3s;}
     .togglebutton img:hover {opacity:1;}
-    
-    .hidden
-    {
-    	opacity:0 !important;
-    }
-    .rotate-container
-    {
-    	position: absolute;
-    	width: 80px;
-    	height: 776px;
-    	margin-left: -40px;
-    	margin-top: -388px;
-    	top: 50%;
-    	left: 50%;
-    	-o-transition: 0.3s;
-    	-moz-transition: 0.3s;
-    	-webkit-transition: 0.3s;
-    	-o-transform-style: preserve-3d;
-    	-moz-transform-style: preserve-3d;
-    	-webkit-transform-style: preserve-3d;
-    	cursor: pointer;
-    }
-    .rotate-button
-    {
-    	position: absolute;
-    	width: 100%;
-    	height: 80px;
-    	opacity: 0.04;
-    	-o-transition: 0.3s;
-    	-moz-transition: 0.3s;
-    	-webkit-transition: 0.3s;
-    	-o-transform-style: preserve-3d;
-    	-moz-transform-style: preserve-3d;
-    	-webkit-transform-style: preserve-3d;
-    }
-    .rotate-axis
-    {
-    	position: absolute;
-    	width:100%;
-    	height: 80px;
-    	top: 0px;
-    	left: 0px;
-    	opacity: 0;
-    	-webkit-transition: 0.4s;
-    	-webkit-transition-delay: 0.2s;
-    	-moz-transition: 0.4s;
-    	-moz-transition-delay: 0.2s;
-    	-o-transition: 0.4s;
-    	-o-transition-delay: 0.2s;
-    }
-    .rotate-img:hover > .rotate-axis
-    {
-    	opacity:1;
-    }
-    .rotate-img
-    {
-    	position: absolute;
-    	top:0px;
-    	left:0px;
-    	width: 100%;
-    	height: 100%;
-    	-o-transform: rotateX(0deg) rotateZ(0deg);
-    	-moz-transform: rotateX(0deg) rotateZ(0deg);
-    	-webkit-transform: rotateX(0deg) rotateZ(0deg);
-    	-o-transition: 0.3s;
-    	-moz-transition: 0.3s;
-    	-webkit-transition: 0.3s;
-    	-o-transform-style: preserve-3d;
-    	-moz-transform-style: preserve-3d;
-    	-webkit-transform-style: preserve-3d;
-    }
-    .rotate-button:hover
-    {
-    	opacity: 1;
-    }
-    .rotate-button:hover > .rotate-img
-    {
-    	-o-animation: rotate-360 1s linear infinite;
-    	-moz-animation: rotate-360 1s linear infinite;
-    	-webkit-animation: rotate-360 1s linear infinite;
-    	-o-animation-delay: 0.3s;
-    	-moz-animation-delay: 0.3s;
-    	-webkit-animation-delay: 0.3s;
-    	-o-transform: translateY(-10px) rotateX(-90deg) rotateZ(0deg);
-    	-moz-transform: translateY(-10px) rotateX(-90deg) rotateZ(0deg);
-    	-webkit-transform: translateY(-10px) rotateX(-90deg) rotateZ(0deg);
-    }
-    @-webkit-keyframes rotate-360
-    {
-    	from {-webkit-transform: translateY(-10px) rotateX(-90deg) rotateZ(0deg);}
-    	to {-webkit-transform: translateY(-10px) rotateX(-90deg) rotateZ(360deg);}
-    }
-    @-moz-keyframes rotate-360
-    {
-    	from {-moz-transform: translateY(-10px) rotateX(-90deg) rotateZ(0deg);}
-    	to {-moz-transform: translateY(-10px) rotateX(-90deg) rotateZ(360deg);}
-    }
-    @-o-keyframes rotate-360
-    {
-    	from {-o-transform: translateY(-10px) rotateX(-90deg) rotateZ(0deg);}
-    	to {-o-transform: translateY(-10px) rotateX(-90deg) rotateZ(360deg);}
-    }
   </style>
 
-  <body style='display: none;'>
+  <body style='display: none; '>
 
     <section class="slides layout-regular template-default" style="-webkit-perspective: 1000px; -moz-perspective: 1000px; -o-perspective: 1000px;" lang="fr">
 
 <!-- 3D toggle button --> 
- <div class="togglebutton" id="toggle3d-button">
+ <div class="togglebutton">
 <img title="3d on/off" src="images/cube2.png" id="togglebutton1" onclick="toggle3D('togglebutton1')"/>
-</div>
-
-<!-- 3D turn the slide button -->
-
-<div class="rotate-container" id="rotate-slide-button" onclick="turn3dcurrent()">
-	<div class="rotate-button" title="click to turn the slide">
-		<div class="rotate-img">
-		<img src="images/arrows.svg" style="width:100%; height:100%"/>
-		<svg class="rotate-axis" style="-webkit-transform: rotateY(90deg);-moz-transform: rotateY(90deg);-o-transform: rotateY(90deg);">
-			<line x1="0" y1="40" x2="80" y2="40" stroke="#a1a1a1" stroke-width="2" stroke-dasharray="12 6 4 6" >
-		</svg>
-		<svg class="rotate-axis" style="-webkit-transform: rotateY(90deg) rotateX(90deg);-moz-transform: rotateY(90deg) rotateX(90deg);-o-transform: rotateY(90deg) rotateX(90deg);" >
-			<line x1="0" y1="40" x2="80" y2="40" stroke="#a1a1a1" stroke-width="2" stroke-dasharray="12 6 4 6" >
-		</svg>
-		</div>
-	</div>
-</div>
-
-<!-- next slide button -->
-
-<div class="slide-area" id="next-slide-area" onclick="nextSlide()"></div>
-<div class="slide-area" id="prev-slide-area" onclick="prevSlide()"></div>
-<!-- prev slide button -->
+</div> 
+   
+      <!-- Your slides (<article>s) go here. Delete or comment out the
+           slides below. -->
 
 <!-- ------------------------------------------------------------------------------- -->
 <!-- Introduction, usage -->
@@ -313,19 +185,16 @@
         	box-shadow: none;
         }
         </style>
-        
-		<article id="usage-explanations" class="biglogo" onslideenter="hidecontrols()" onslideleave="showcontrols()"> 
-		<div style="margin-top: 50px; width: 100%; text-align: center">précédent<img style="vertical-align: -160px" src="images/keyboard.svg" width="350"/>suivant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+		<article id="usage-explanations" class="biglogo">
+		<div style="margin-top: 100px; width: 100%; text-align: center">précédent<img style="vertical-align: -160px" src="images/keyboard.svg" width="350"/>suivant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
 		action
-		<br/><br/>action = voir au dos <br/>(explications complémentaires, solutions, ...)</div>
-		<p style="text-align: center">use index.html?lang=en#1 to read this in English</p>
+		<br/><br/><br/><br/>action = voir au dos (explications complémentaires, solutions, ...)</div>
+		
 			<translation lang="en">
 			previous
 			next&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			action
-			action = see the backside of the slide 
-            (solutions, additional information, ...)
-            utilisez index.html?lang=fr#1 pour lire ceci en français
+			action = see the backside of the slide (solutions, additional information, ...)
 			</translation>
 		</article>
 
@@ -379,7 +248,7 @@
 		  <img src="images/candidate4_fr.png" />
 		  <img src="images/candidate5_fr.png" />
 		  <img src="images/candidate6_fr.png" />
-		  <div class="bigserif announcement">Résultats annoncés sur ce site.</div>
+		  <div class="bigserif announcement">Résultats officiels sur ce site.</div>
 		</div>
 		<div class="qmark" id="q1">?</div>
 		<div class="qmark" id="q2">?</div>
@@ -394,12 +263,12 @@
 	 <h3>
 	   Un exercice de style et de montée en charge <br/>sur App Engine
 	 </h3>
-	 <p style="font-size: 0.72em; margin-top: 140px;">
-	   Martin Görner, Didier Girard, Patrice de Saint Stéban, Alexis Moussine-Pouchkine<br/>
+	 <p style="font-size: 0.75em; margin-top: 140px;">
+	   Ludovic Champenois, Alexis Moussine-Pouchkine, Matt Stephenson<br/>
 	 </p>
 	 
 	 <translation lang="en">
-	 Watch this site for results!
+	 Watch this site for official results.
 	 --self--
 	 --self--
 	 --self--
@@ -460,12 +329,12 @@
 <!-- ------------------------------------------------------------------------------- -->
 <!-- 0. Prérequis et téléchargements -->
 
-	  <article class="slide3d" > 
+    <article class="slide3d" > 
       <div class="backslide3d" style="padding:40px">
          <div class="screenshot-left" style="padding: 0px; text-align: center;margin-top: 80px;"><img src="images/googlemenu.png"/></div>
          <p style="margin-top: 80px">Si tout s'est bien déroulé, vous devriez avoir une icône "g" comme "Google" dans Eclipse.</p>
-         <p style="margin-top: 40px">Java 7 est en mode "preview" depuis la version 1.7.3 (October 2012)</p>
-         <p>Ce lab a été testé avec la version 3.x d'Objectify. La nouvelle version 4.x est <a href="http://code.google.com/p/objectify-appengine/wiki/UpgradeVersion3ToVersion4">incompatible</a> mais disponible dans Maven Central.</p>
+         <p style="margin-top: 40px">Java 7 est en mode "Trusted Tester" depuis la version 1.7.4 (Décembre 2012)</p>
+         <p>Une version précédente de ce lab a été utilisait la version 3.x d'Objectify. La nouvelle version 4.x est <a href="http://code.google.com/p/objectify-appengine/wiki/UpgradeVersion3ToVersion4">incompatible</a> mais disponible dans Maven Central.</p>
          <p>Il n'y a pas de code de départ pour ce lab, nous partons d'une feuille blanche!</p>
          <p><a style="smaller" href="https://developers.google.com/appengine/docs/java/javadoc/overview-summary">JavaDoc pour AppEngine</a>
         </p>
@@ -473,13 +342,13 @@
 </p>
       </div>
       
-      <img src="images/install.png" class="screenshot-right" style="clear:right; padding:0px; margin-top: 00px; margin-right:0px; margin-left:10px" />
+      <img src="images/install-gplugin.png" class="screenshot-right" style="clear:right; padding:0px; margin-top: 00px; margin-right:0px; margin-left:10px" />
       <div class="chapter-number g-blue">0</div>
-      <h3 class="num">Prérequis et téléchargements</h3>
+      <h3 class="num">Prérequis et téléchargements (1ère option)</h3>
          <ul style="margin-top:30px">
-            <li> <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK 6</a> (pas JRE et pas JDK 7)</li>
-            <li> <a href="http://www.eclipse.org/downloads/packages/">Eclipse 3.7 ou 4.2</a> (Java EE)</li>
-            <li>La <a href="http://code.google.com/p/objectify-appengine/downloads/list">librairie objectify (3.x)</a> à télécharger (ajoutée au projet plus tard)</li>
+            <li> <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK 6 or JDK 7</a></li>
+            <li> <a href="http://eclipse.org/downloads/">Eclipse for Java EE Developers</a></li>
+<!--             <li>La <a href="http://code.google.com/p/objectify-appengine/downloads/list">librairie objectify (3.x)</a> à télécharger (ajoutée au projet plus tard)</li> -->
             <li><code>Google Plugin for Eclipse</code> <br/> et <br/>
             <code>Google App Engine Java SDK</code><br/>
             <span>disponibles dans</span> Eclipse: Help › Install New Software › Add... <code>http://dl.google.com/eclipse/plugin/4.2</code></li>
@@ -487,104 +356,146 @@
          
          <translation lang="en">
            You should now have a "g" icon in the Eclipse toolbar.
-           Java 7 is in preview as of Version 1.7.3 (October 2012)
-           This lab has been tested with Objectify version 3.x. The more recent version 4.x is 
+           Java 7 is in Trusted Tester mode as of Version 1.7.4 (December 2012)
+           An earlier version of this lab used Objectify version 3.x. The more recent version 4.x is 
            --self--
            but available from Maven Central.
            There is no code to start from, we're starting to code from scratch!
            AppEngine JavaDoc
            --self--
-           Prerequisites and downloads
+           Prerequisites and downloads (Eclipse plugin option)
            --self--
-           (not JRE & not JDK 7)
-           Eclipse 3.7 or 4.2
-           --self--
-           The
-           Objectify library (3.x).
-           Download it now. We will add it to your project later.
+           Eclipse for Java EE Developers
            --self--
            and
            --self--
-           available in
+           available in 
            --self--
            --self-- 
          </translation>
       </article>
+
+<!-- ------------------------------------------------------------------------------- -->
+<!-- 0. Prérequis et téléchargements -->
+
+	  <article class="slide3d" > 
+      <div class="backslide3d" style="padding:40px">
+        <p>
+            <p>L'objectif principal dans cette utilisation de Maven est de pouvoir partager le project entre différents IDE (y compris ceux dans le nuage) et de le rendre facilement intégrable dans un outil d'intégration continue (Jenkins, ...).</p>
+            <p>Donc si vous n'êtes pas un grand fan d'Eclipse vous pouvez utiliser NetBeans, IntelliJ ou bien la ligne de commande pour créer un projet à partir d'un archetype, sélectionner la version du SDK AppEngine comme une dépendance Maven et déployer dans l'environnement local ou en production.</p>
+            <p>Il n'y a pas de code de départ pour ce lab, nous partons d'une feuille blanche!</p>
+            <p>Si vous rencontrez des problèms à l'installation des plugins, essayez de rajouter ce site :
+            <code>http://download.eclipse.org/technology/m2e/releases</code></p>
+        </p>
+      </div>
       
+      <img src="images/install.png" class="screenshot-right" style="clear:right; padding:0px; margin-top: 00px; margin-right:0px; margin-left:30px" />
+      <div class="chapter-number g-blue">0</div>
+      <h3 class="num">Prérequis et téléchargements</h3>
+         <ul style="margin-top:30px">
+            <li> <a href="http://www.oracle.com/javase">JDK 6 or 7</a> (pas JRE)</li>
+            <li> <a href="http://eclipse.org/downloads/">Eclipse for Java EE Developers</a></li>
+            <li>The <code>m2e Maven Integration for Eclipse</code><br/>
+            disponibles dans Eclipse: Help › Install New Software</li>
+            <li>The <code>Maven Integration for Eclipse WTP (Incubation)</code> plugin from the Eclipse Marketplace (also in the Help menu).</li>
+         </ul>
+         
+         <translation lang="en">
+           The key goal of a Maven setup is to be able to share the project across IDEs (including web-based ones) and make it continuous-integration friendly (Jenkins, ...).
+           So if you're not a big Eclipse fan, you can use NetBeans, IntelliJ or event the command-line to create the project from an archetype, select the proper AppEngine SDK version as a Maven dependency, and deploy to the local or production runtime.
+           There is no code to start from, we're starting to code from scratch!
+           If you are having trouble installing the plugins, try adding this site: 
+           --self--
+           --self--
+           Prerequisites and downloads (Maven option)
+           --self--
+           (not JRE)
+           --self--
+           --self--
+           --self--
+           plugin available in Eclipse: Help › Install New Software
+           --self--
+           --self--
+           --self--
+         </translation>
+      </article>
+      
+
 <!-- ------------------------------------------------------------------------------- -->
 <!-- 1. Ma première servlet "Hello App Engine" -->
 
-	  <article class="slide3d" > 
+    <article class="slide3d" > 
       <div class="backslide3d" style="padding:40px">
 <img  class="screenshot-left" src="images/project_structure.png" align="left"/>
 Structure du projet Web :
 <p>En utilisant l'assistant pour créer la servlet, le fichier standard <code>web.xml</code> est mis à jour pour effectuer le mapping de celle-ci.</p> 
 
 <p>
-Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et sera utilisé plus tard pour spécifier l'id et la version de l'application et d'autres <a href="https://developers.google.com/appengine/docs/java/config/appconfig">paramètres optionels propres à AppEngine</a>.
+Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et sera utilisé plus tard pour spécifier un nom et une version d'application et d'autres <a href="https://developers.google.com/appengine/docs/java/config/appconfig">paramètres optionels propres à AppEngine</a>.
 </p>
 
 <p>
 <h3>
-	Problème?
+  Problème?
 </h3>
 
- 	Si en relançant vore application vous avez une erreur <code>"port occupied"</code>, utiliser le bouton rouge "Terminate" dans le haut de la fenêtre <code>"Console"</code> (Window &gt; Show View &gt; Console).
+  Si en relançant vore application vous avez une erreur <code>"port occupied"</code>, utiliser le bouton rouge "Terminate" dans le haut de la fenêtre <code>"Console"</code> (Window &gt; Show View &gt; Console).
 <img style="vertical-align: top" src="images/stop_server.png"/>
       </div>
 
-		<div class="chapter-number g-red">1</div>
+    <div class="chapter-number g-red">1</div>
         <h3 class="num">Ma première servlet "Hello App Engine"
         </h3>
         <ul style="margin-top:40px">
-        <li>File › New ... › <img style="height:30px; vertical-align:bottom;" src="images/webappproj.png" /></li>
-        <li>Nom: <span class="pop">LePresident</span>, package: <span class="pop">com.moi.lepresident</span></li>
-        <li><form>Décocher <input type="checkbox" style="vertical-align: middle;" disabled="disabled"/><span class="pop">GWT</span> (pour aujourd'hui), Cocher <input type="checkbox" checked style="vertical-align: middle;" disabled="disabled"/><span class="pop">App Engine</span></form>
-        puis "Finish" pour générer le projet.</li>
-        <li>Personnaliser la servlet: par exemple <span class="pop">"Hello App Engine"</span><br/>(dans src/com/moi/lepresident/LePresidentServlet.java)</li>
-        <li>Lancer en local avec le SDK: Run As... › <img style="height:30px; vertical-align:bottom;" src="images/webapp.png" /><br/>
-        <span class="small" style="color: red; font-family: monospace;">INFO: The server is running at <a style="color: red;" href="http://localhost:8888/">http://localhost:8888/</a></span></li>
-        <li class="small">Puis rajouter la <a href="http://code.google.com/p/objectify-appengine/downloads/list">librairie objectify</a>: (1) glisser-déplacer objectify-3.x.jar dans war/WEB-INF/lib. (2) La référencer dans les propriétés du projet, "Java Build Path", onglet "Libraries", bouton "Add JARs..."</li>
+        <li>File › New › Other › Maven › <span class="pop">Maven Project</span></li>
+        <li>Filter: <code>com.google.appengine.archetypes</code></li>
+        <li>Sélectionner: <code>skeleton-archetype (1.7.4)</code> (<a href="https://oss.sonatype.org/content/repositories/google-releases/archetype-catalog.xml">repo temporaire</a>)
+        <li>GroupId: <span class="pop">com.moi.lepresident</span> Nom: <span class="pop">LePresident</span>, package: <span class="pop">com.moi.lepresident</span></li>
+        <li>Créer une servlet <code>LePresidentServlet.java</code></li>
+        <li>Lancer en local: Run › Run As... › <br/>
+        <span class="small" style="color: red; font-family: monospace;">INFO: The server is running at <a style="color: red;" href="http://localhost:8080/">http://localhost:8080/</a></span><br/> (le port par défaut avec le plugin Eclipse est 8888)</li>
         </ul>
 
-		<translation lang="en">
-		Structure of the Web project:
-		When you use the wizard to create the servlet, the standard file
-		web.xml
-		is updated to map the servlet.
-		The file
-		appengine-web.xml
-		contains default values and will be used later to specify the application id as well as other 
-		App Engine specific parameters
-		.
-		Having trouble ?
-		If you see the error
-		"port occupied"
-		when launching your app, use the red "Terminate" button in the 
-		--self--
-		--self--
-		--self--
-		My first servlet "Hello App Engine"
-		--self--
-		Name: 
-		ThePresident
+    <translation lang="en">
+    Structure of the Web project (Eclipse plugin approach):
+    When you use the assistant to create the servlet, the standard file
+    web.xml
+    is updated to map the servlet.
+    The file
+    appengine-web.xml
+    contains default values and will be used later to specify the deploy name of the application and other 
+    App Engine specific parameters
+    .
+    Having trouble ?
+    If you see the error
+    "port occupied"
+    when launching your app, use the red "Terminate" button in the 
+    --self--
+    --self--
+    --self--
+    My first servlet "Hello App Engine" (Maven)
+    --self--
+            --self--
+            --self--
+            --self--
+            select: 
+            --self--
+            (
+            temp repo
+            )
+            --self--
+            com.me.thepresident
+            ArtifactId:
+        ThePresident
 , package: 
-		com.me.thepresident
-		Uncheck
-		GWT
-		(for now), Check
-		App Engine
-		then "Finish" to generate the project.
-		Customize your servlet: for example
-		"Hello App Engine"
-		(in src/com/me/thepresident/ThePresidentServlet.java)
-		Run locally using SDK: Run As... › 
-		--self--
-		--self--
-		Then add the 
-		objectify library
-		: (1) drag-n-drop or move the objectify-3.x.jar file to war/WEB-INF/lib. (2) Reference it in Project Properties, "Java Build Path", "Libraries" tab.
-		</translation>
+    com.me.thepresident
+    create a servlet
+    ThePresidentServlet.java
+    Run locally: eclipse-launch-profiles › DevAppServer.launch › Run As › DevAppServer
+    --self--
+    --self--
+    (the default port with the Eclipse plugin is 8888)
+    </translation>
       </article>
 
 <!-- ------------------------------------------------------------------------------- -->
@@ -596,16 +507,16 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
           Passons en JSP.<br/>JSP c'est comme du HTML, mais on peut:
         </h3>
         <ul style="margin-top:100px">
-          <li>exécuter du code java : <span class="pop" style="font-family: monospace;"><span style="color:red">&lt;%</span> ...code java... <span style="color:red">%&gt;</span></span>
+          <li>exécuter du code java entre <span class="pop" style="font-family: monospace;"><span style="color:red">&lt;%</span> ...code java... <span style="color:red">%&gt;</span></span>
           <li>afficher une valeur via <span class="pop" style="font-family: monospace;"><span style="color:red">&lt;%=</span> truc.getMachin() <span style="color:red">%&gt;</span></span>
-          <li>avoir accès aux objets JSP suivants: <span style="font-family: monospace;" ><br/>HttpServletRequest <span class="pop">request</span>, <br/>HttpServletResponse <span class="pop">response</span>, <br/>JspWriter <span class="pop">out</span></span>
+          <li>avoir accès aux objets JSP suivants: <span style="font-family: monospace;" >HttpServletRequest <span class="pop">request</span>, HttpServletResponse <span class="pop">response</span>, JspWriter <span class="pop">out</span></span>
         </ul>
-        <p class="small" style="margin-top: 60px;">(Dans le futur, pour écrire du code propre, préférez GWT.)</p>
+        <p class="small" style="margin-top: 70px;">(Dans le futur, pour écrire du code propre, préférez GWT.)</p>
       
       <translation lang="en">
       Let us switch to JSP
       JSP is like HTML, but you can:
-      run java code :  
+      run java code between 
       --self--
       ...java code...
       --self--
@@ -620,9 +531,7 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
       --self--
       --self--
       --self--
-      --self--
-      --self--
-      (Next time, to write cleaner code, prefer GWT)
+      (Next time, to write proper code, prefer GWT)
       </translation>
       </article>
      
@@ -682,8 +591,7 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
   &lt;/body&gt;
 &lt;/html&gt;
 </pre>
-<p>Cette JSP est accessible sur <a href="http://localhost:8888/comment.jsp">http://localhost:8888/comment.jsp</a>
-<br/>et peut-être configurée comme page par défaut dans war/WEB-INF/web.xml</p>
+<p>On peut configurer cette page comme page par défaut dans war/WEB-INF/web.xml</p>
 <p>Vous trouverez les photos des candidats derrière la première diapositive.</p>
       </div>
         <div class="chapter-number g-yellow">2</div>
@@ -700,18 +608,15 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
         <p>&nbsp;<br/>&nbsp;<br/>On n'a pas encore le nom de l'élu alors faute de mieux on affiche le protocole en utilisant:</p>
         <pre>request.getProtocol()</pre>
         </div>
-        <p></p>
         
        <translation lang="en">
-        file: war/comments.jsp
+        file: src/main/webapp/comments.jsp
         --self--
 The president is...
 The president is...
-obama.png
+obama.jpg
 		--self--
-        The JSP page is available from 
-        --self--
-		 ... and it can be set as the default landing page in war/WEB-INF/web.xml
+		This page can be set as the default landing  page in war/WEB-INF/web.xml
 		You fill find pictures of the candidates behind the first slide.
         --self--
         Add a JSP page
@@ -784,7 +689,7 @@ The president is...
 romney.png
         XSS vulnerability WARNING! DO NOT insert user-generated text into an HTML page without escaping.
         --self--
-        Add a comments field - without persistence for now
+        Add a comments field - without persistency for now
         The president is...
         You:
         not my first choice...
@@ -824,10 +729,10 @@ romney.png
     
         &lt;form action="" method="post"&gt;
             &lt;textarea name="user-comment"&gt;&lt;/textarea&gt;&lt;br/&gt;
-            &lt;input type="submit" value="OK" /&gt;    
+            &lt;input type="submit" value="OK" /&gt;
+            &lt;!-- <span>lien de déconnexion</span> --&gt;
+            &lt;a href="&lt;%= <span class="u">userService.createLogoutURL(request.getRequestURI())</span> %&gt;"&gt;<span>déconnexion</span>&lt;/a&gt;
         &lt;/form&gt;
-        &lt;!-- <span>lien de déconnexion</span> --&gt;
-        &lt;a href="&lt;%= <span class="u">userService.createLogoutURL(request.getRequestURI())</span> %&gt;"&gt;<span>déconnexion</span>&lt;/a&gt;
 &lt;% } %&gt;
 &lt;/body&gt;&lt;/html&gt;
 </pre>
@@ -835,7 +740,7 @@ romney.png
       
         <div class="chapter-number g-green">4</div>
         <h3 class="num">
-          Identifier l'utilisateur avec l'API Google Users
+          Identifier l'utilisateur par son compte Google
         </h3>
         
         <div style="margin-top:30px;">
@@ -869,7 +774,7 @@ userService.createLogoutURL("myTargetURL");
         file: war/comments.jsp
         --self--
 The president is...
-obama.png
+obama.jpg
 		--self--
 		--self--
 		--self--
@@ -882,7 +787,7 @@ logout link
 		--self--
 logout
         --self--
-        Identify the user with the Google Users API
+        Identify the user with a Google login
         The president is...
         You:
         not my first choice...
@@ -904,13 +809,13 @@ logout
         <p style="margin-top: 50px;">Organisation des données: penser "XML" plutôt que tables.</p>
         <p>Requêtes indexées uniquement.</p>
         <p>Cohérence à terme des lectures et écritures.</p>
-        <p class="poplow">Entity = kind + <br/>(multivalued) properties + id</p>
+        <p class="poplow">Entity = kind + <br/>(multivalued) properties + key</p>
         
         <translation lang="en">
         High Replication Datastore
         concurrent access, replication, scale
         Data layout: think "XML" rather than "database table"
-        Indexed queries only
+        Indexed requests only
         Eventually consistent reads and writes
         --self--
         --self--
@@ -922,14 +827,14 @@ logout
 
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: src/com/moi/lepresident/StoredComments.java</p>
+<p>fichier: src/com/moi/lepresident/Comments.java</p>
 <pre class="x-smallcode lesspace" style="margin-bottom: 15px;">
 package <span>com.moi.lepresident</span>;
 import java.util.*;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.datastore.Entity;
 
-public class StoredComments {	
+public class Comments {
     static public void store(String text, String user) {
         Entity commentEntity = new Entity("Comment");
         commentEntity.setProperty("user", user);
@@ -942,19 +847,21 @@ public class StoredComments {
 	
     static public List&lt;Entity&gt; retrieveAll() {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        Query q = new Query("Comment");
-        q.addSort("date", Query.SortDirection.DESCENDING);
-        return datastore.prepare(q).asList(FetchOptions.Builder.withLimit(100));
+
+        Query query = new Query("Comment");
+        query.addSort("date", Query.SortDirection.DESCENDING);
+        return datastore.prepare(query).asList(FetchOptions.Builder.withLimit(100));
     }
 }
 </pre>
 Utilisation:
 <pre class="x-smallcode lesspace" style="display:inline-block; margin-top:0px; vertical-align: top;">
-StoredComments.store("Hello", "Nicolas");             // store
-List&lt;Entity&gt; comments = StoredComments.retrieveAll(); // retrieve
-for (Entity comment: comments) { ... comment.getProperty("text") ... }  
+// store:
+Comments.store("Hello", "Nicolas");
+// retrieve:
+List&lt;Entity&gt; comments = Comments.retrieveAll();
+for (Entity commentEntity: comments) { ... commentEntity.getProperty("text") ... }
 </pre>
-<div class="small">Utilisez la console d'administration du SDK <a href="http://localhost:8888/_ah/admin">http://localhost:8888/_ah/admin</a> pour visualiser les entités stockées.</div>
       </div>
       
         <div class="chapter-number g-red">5</div>
@@ -974,7 +881,7 @@ for (Entity comment: comments) { ... comment.getProperty("text") ... }
 	        </div>
         </div>
         
-        <p>Accès bas niveau au Datastore:</p>
+        <p>Accès bas niveau au datastore:</p>
 <pre class="smallcode lesspace">
 DatastoreService datastore =
  DatastoreServiceFactory.getDatastoreService();
@@ -988,21 +895,18 @@ datastore.put(commentEntity);
 </pre>
         <p>Lecture: <span class="small">100 résultats triés par date</span></p>
 <pre class="x-smallcode lesspace">
-Query q = new Query("Comment");
-q.addSort("date", Query.SortDirection.DESCENDING);
+Query query = new Query("Comment");
+query.addSort("date", Query.SortDirection.DESCENDING);
 List&lt;Entity&gt; results =
-   datastore.prepare(q)
+   datastore.prepare(query)
       .asList(FetchOptions.Builder.withLimit(100));
 </pre>
         </div>
         
         <translation lang="en">
-        file: src/com/me/thepresident/StoredComments.java
+        file: src/com/me/thepresident/Comments.java
 com.me.thepresident
 Usage: 
-Use the SDK admin console from 
-        --self--
- to view stored entities.
         --self--
         Store comments on the server
         The president is...
@@ -1013,115 +917,13 @@ Use the SDK admin console from
         Bar:
         so unfair!
         logout
-        Low-level Datastore access:
+        Low level datastore access:
         Write:
         Read:
         100 results sorted by date
         </translation>
       </article>
 
-<!-- ------------------------------------------------------------------------------- -->
-<!-- 6. Conserver les commentaires sur le serveur avec Objectify -->
-
-	  <article class="slide3d" > 
-      <div class="backslide3d">
-<p>fichier: src/com/moi/lepresident/ObjectifyDAO.java</p>
-<pre class="x-smallcode lesspace">
-<span>package com.moi.lepresident;</span>
-import com.googlecode.objectify.ObjectifyService;     import com.googlecode.objectify.util.DAOBase;
-
-public class ObjectifyDAO extends DAOBase 
-{ static { ObjectifyService.register(Comment.class); } }
-</pre>
-<p>fichier: src/com/moi/lepresident/Comment.java</p>
-<pre class="x-smallcode lesspace">
-<span>package com.moi.lepresident;</span>
-import java.util.*;    import javax.persistence.Id;
-
-public class Comment {
-    @Id Long id;     Date date;     public String user, text;
-
-    public Comment() {}
-    public Comment(String text, String user) {
-        this.user = user; this.text = text; this.date = new Date();
-    }
-
-    public static void store(String text, String user) {
-        ObjectifyDAO dao = new ObjectifyDAO();
-        dao.ofy().put(new Comment(text, user));
-    }
-    
-    public static List&lt;Comment&gt; retrieveAll() {
-        ObjectifyDAO dao = new ObjectifyDAO();
-        return dao.ofy().query(Comment.class).order("-date").limit(100).list();
-    }
-}
-</pre>
-
-      </div>
-      
-        <div class="chapter-number g-blue">6</div>
-        <h3 class="num">
-          La même chose avec Objectify. 
-        </h3>
-        
-        <div style="margin-top:20px;">
-        <div class="screenshot-left" style="margin-right: 45px; width:258px">
-        Utiliser un POJO*:
-<pre class="smallcode lesspace">
-public class Comment
-{
-    @Id Long id;
-    Date date;
-    String user;
-    String text;
-
-    public Comment() {}
-    ...
-}
-</pre>
-<p class="small">L'écriture en base auto-génère l'id si il est de type Long.</p>
-<p class="small">*: Plain Old Java Object</p>
-        </div>
-        <p>Enregistrement des classes et Data Access Object:</p>
-<pre class="x-smallcode lesspace">
-public class ObjectifyDAO extends DAOBase
-{
- static { ObjectifyService.register(Comment.class); }
-}
-<span>// puis utiliser:</span>
-ObjectifyDAO dao = new ObjectifyDAO();
-</pre>
-        <p>&Eacute;criture:</p>
-<pre class="smallcode lesspace">
-dao.ofy().put(new Comment(text, user));
-</pre>
-        <p>Lecture: <span class="small">100 résultats triés par date</span></p>
-<pre class="x-smallcode lesspace">
-List&lt;Comment&gt; query = dao.ofy().query(Comment.class)
-                    .order("-date").limit(100).list();
-for (Comment c: query) { ... }
-</pre>
-        </div>
-        
-        <translation lang="en">
-        file: src/com/me/thepresident/ObjectifyDAO.java
-package com.me.thepresident;
-		file: src/com/me/thepresident/Comment.java
-package com.me.thepresident;
-	 	--self--
-	 	The same thing with Objectify
-	 	Use a POJO*:
-	 	If the Id is of type Long, it will be generated automatically on write.
-        *: Plain Old Java Object
-	 	Registering data classes in a Data Access Object:
-// then use:
-		Write:
-		Read:
-		100 results sorted by date
-        </translation>
-      </article>
-      
 <!-- ------------------------------------------------------------------------------- -->
 <!-- architecture explanation -->
 <style>
@@ -1200,7 +1002,7 @@ package com.me.thepresident;
       </article>
       
 <!-- ------------------------------------------------------------------------------- -->  
-<!-- 7. Garder les commentaires en memcache -->
+<!-- 6. Garder les commentaires en memcache -->
       
       <article class="slide3d">
       <div class="backslide3d">
@@ -1209,30 +1011,33 @@ package com.me.thepresident;
 <pre class="lesspace smallcode">
 public class Comment <span class="u">implements Serializable</span>
 </pre>
-<p class="small" style="margin:0">On crée une nouvelle méthode pour la lecture des commentaires (avec cache):</p>
+<p class="small" style="margin:0">On crée une nouvelle fonction pour la lecture des commentaires (avec cache):</p>
 <pre class="lesspace smallcode">
-public static List&lt;Comment&gt; retrieveAllCached() {
+public static List&lt;Comment&gt; retrieveAllCached()
+{
     MemcacheService cache = MemcacheServiceFactory.getMemcacheService();
     List&lt;Comment&gt; comments = (List&lt;Comment&gt;)cache.get("100Comments");
-    if (comments == null) {
-        comments = retrieveAll(); // read from Datastore
+    if (comments == null)
+    {
+        comments = retrieveAll(); // read from datastore
         if (comments != null)
-            cache.put("100Comments", comments); // store in Memcache
+            cache.put("100Comments", comments); // store in memcache
     }
     return comments;
 }
 </pre>
 <p class="small" style="margin:0">Enfin, on invalide le cache à chaque nouveau commentaire:</p>
 <pre class="lesspace smallcode">
-public static void store(String text, String user) {
-	ObjectifyDAO dao = new ObjectifyDAO();
-	dao.ofy().put(new Comment(text, user));
-	<span class="u">MemcacheServiceFactory.getMemcacheService().delete("100Comments")</span>; // flush cache
+public static void store(String text, String user)
+{
+    ...
+    datastore.put(commentEntity);
+    <span class="u">MemcacheServiceFactory.getMemcacheService().delete("100Comments")</span>; //kill cache
 }
 </pre>
       </div>
       
-            <div class="chapter-number g-red">7</div>
+            <div class="chapter-number g-red">6</div>
       		<h3 class="num">Optimiser les commentaires avec Memcache</h3>
       		<div style="margin-top:70px;">
 				<div class="screenshot-left" style="margin-right: 45px; width:258px">
@@ -1248,8 +1053,7 @@ cache.delete("myKey");
 </pre>
 				<p class="small">Memcache s'assure que toutes vos instances voient la même valeur.</p>
 		        </div>
-                <p style="padding-top:20px; font-style:italic" class="small">"Writes to memcache never touch the disk and are approximately 10 times faster in comparison to writes to the datastore"</p>
-			    <p style="padding-top:50px; text-align: justify;">Il suffit de garder le résultat de la dernière requête en Memcache (sérialisée) tant qu'un nouveau commentaire n'a pas été écrit.</p>
+			    <p style="padding-top:100px; text-align: justify;">Il suffit de garder le résultat de la dernière requête en Memcache (sérialisée) tant qu'un nouveau commentaire n'a pas été écrit.</p>
 
 		
           </div>
@@ -1258,55 +1062,53 @@ cache.delete("myKey");
           file: src/com/me/thepresident/Comment.java
           The Comment class must become serializable:
           --self--
-          Create a new method for retrieving comments with caching:
+          Create a new function for retrieving comments with caching:
           Finally, invalidate the cache on each new comment:
           --self--
           --self--
           Optimize comments with Memcache
           The interface:
           Memcache makes sure all your instances see the same value.
-          "Writes to memcache never touch the disk and are approximately 10 times faster in comparison to writes to the datastore"
-          Simply keep the result of the last request in Memcache (serialized) until a new comment is added.
+          Just keep the result of the last request in Memcache (serialized) until a new comment is added.
           </translation>
       </article>
       
 <!-- ------------------------------------------------------------------------------- -->  
-<!-- 8. Cron pour afficher le président élu -->
+<!-- 7. Cron pour afficher le président élu -->
 
       <article class="slide3d">
       <div class="backslide3d">
-      <p class="x-small">La servlet: elle écrit le nom du président élu dans le datastore<br/>fichier src/com/moi/lepresident/CronServlet.java</p>
+      <p class="small">La servlet: elle écrit le nom du président élu dans le datastore<br/>fichier src/com/moi/lepresident/CronServlet.java</p>
       <pre class="x-smallcode lesspace">
-public class CronServlet extends HttpServlet{
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+public class CronServlet extends HttpServlet
+{   @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
+    {
         Entity Elected = new Entity("Elected");
-        Elected.setProperty("name", "<span>François Hollande</span>"); //<span>ou un autre!</span>
+        Elected.setProperty("name", "<span>François Hollande</span>"); //<span>ou un autre</span>
         DatastoreServiceFactory.getDatastoreService().put(Elected);
     }
 }</pre>
-      <p class="x-small">Son mapping dans WEB-INF/web.xml, avec restriction d'accès:</p>
+      <p class="small">Son mapping dans WEB-INF/web.xml, avec restriction d'accès:</p>
       <pre class="x-smallcode lesspace">
 &lt;servlet&gt;
-   &lt;servlet-name&gt;CronServlet&lt;/servlet-name&gt; 
-   &lt;servlet-class&gt;com.moi.lepresident.CronServlet&lt;/servlet-class&gt;
+   &lt;servlet-name&gt;CronServlet&lt;/servlet-name&gt; &lt;servlet-class&gt;com.moi.lepresident.CronServlet&lt;/servlet-class&gt;
 &lt;/servlet&gt;
 &lt;servlet-mapping&gt;
-   &lt;servlet-name&gt;CronServlet&lt;/servlet-name&gt; 
-   &lt;url-pattern&gt;/cronAllowPresidentDisplay&lt;/url-pattern&gt;
+   &lt;servlet-name&gt;CronServlet&lt;/servlet-name&gt; &lt;url-pattern&gt;/cronAllowPresidentDisplay&lt;/url-pattern&gt;
 &lt;/servlet-mapping&gt
 &lt;security-constraint&gt;
   &lt;web-resource-collection&gt;   &lt;url-pattern&gt;/cron*&lt;/url-pattern&gt;   &lt;/web-resource-collection&gt;
   &lt;auth-constraint&gt;           &lt;role-name&gt;admin&lt;/role-name&gt;        &lt;/auth-constraint&gt;
 &lt;/security-constraint&gt;</pre>
-      <p class="x-small">Affichage conditionnel (fichier war/comments.jsp):</p>
+      <p class="small">Affichage conditionnel (fichier war/comments.jsp):</p>
       <pre class="x-smallcode lesspace" style="margin-bottom: 0px">
 Entity e = DatastoreServiceFactory.getDatastoreService().prepare(new Query("Elected")).asSingleEntity();
 if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</span>*/ e.getProperty("name");</pre>
 <p class="x-small poplow" style="margin-top: 10px">(Pour afficher également la photo du président, récupérez les images au dos da la <a href="#2">première slide</a>.)</p>
       </div> 
       
-            <div class="chapter-number g-yellow">8</div>
+            <div class="chapter-number g-yellow">7</div>
       		<h3 class="num">Afficher le nom du président à 20h00 précises avec une tâche planifiée Cron</h3>
       		
 	        <div style="margin-top:20px;">
@@ -1316,9 +1118,9 @@ if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</spa
 	        <div style="text-align: center"><small>François Hollande</small></div>
 	        </div>
 	        
-	        <p>Les Cron invoquent des servlets dont l'URL est définie dans web.xml</p>
+	        <p>Les Cron lancent des servlets dont l'URL est définie dans web.xml.</p>
 	        <p style="margin-bottom: 20px;">
-	        Périodicité à configurer dans WEB-INF/cron.xml (<a href="https://developers.google.com/appengine/docs/java/config/cron">syntaxe</a>):</p>
+	        Périodicité à configurer dans WEB-INF/cron.xml (<a href="https://developers.google.com/appengine/docs/java/config/cron">syntaxe complète</a>):</p>
 	        
 	        <pre class="smallcode">
 &lt;?xml version="1.0" ?&gt;
@@ -1335,22 +1137,22 @@ if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</spa
         The cron servlet writes the name of the elected president into the datastore.
         file: src/com/me/thepresident/CronServlet.java
 Barack obama
-or Mitt Romney, or ...
+or Mitt Romney
 		Servlet mapping in WEB-INF/web.xml, with access restrictions:
 		Conditional display (file war/comments.jsp)
 wait message
-display president using
+display president
 		(If you want to show the picture of the president, you can get it on the backside of the 
-		first slide
+		first slide of this presentation.
 		--self--
 		--self--
 		Display the name of the president at 08:00PM sharp using a Cron job
 		The president is:
 		Barack Obama
-		Cron jobs invoke servlets. The target URL is defined in web.xml.
+		Cron jobs are servlets. Their URL is defined in web.xml.
 		Their periodicity can be set in WEB-INF/cron.xml ( 
 		full syntax
-		):
+		) :
         </translation>
       </article>
 
@@ -1360,20 +1162,20 @@ display president using
       <article class="slide3d info">
       <div class="empty backslide3d"></div> 
       		<h3 class="info">Qu'est-ce qu'un compteur éclaté ?</h3>
-      		<p class="small" style="font-size: 80%; margin-top: -10px">Les écritures sur la même entité du datastore sont limitées à quelques-unes par seconde: <br/>comment faire un compteur qui tienne en charge?
+      		<p class="small" style="font-size: 80%; margin-top: -10px">Les écritures sur la même entité du datastore sont limitées<br/>à quelques-unes par seconde: comment faire un compteur ?
       		<br/>⇒Incrément atomique dans Memcache et compteur éclaté dans Datastore.</p>
       		<p style="text-align: center;"><img src="images/shardedcounter.svg" width="100%"/></p>
       		
       	<translation lang="en">
       	What is a sharded counter ?
-      	Writes to the same datastore entity are limited to a few writes per second: 
-        so how can I implement a scalable counter ?
+      	Writes to the same datastore entity are limited to a few
+      	writes per second: so how can I implement a counter ?
       	⇒Atomic increment in Memcache and a sharded counter in Datastore.
       	</translation>
       </article>
 
 <!-- ------------------------------------------------------------------------------- -->
-<!-- 9. Implémenter un compteur éclaté -->
+<!-- 8. Implémenter un compteur éclaté -->
 
 	  <style>
         .counter
@@ -1406,69 +1208,71 @@ display president using
       <article id="shardedcounterslide" class="slide3d">
       <div class="backslide3d">
       <pre class="lesspace smallcode" style="float:left; width:400px; height:610px; margin-right: 20px; font-size: 0.5em">
-public class Counter {
+public class Counter
+{
   @Id String key;
   String name;
   Long value;
 
-  Counter() {}  // Empty constructor
-  Counter(String name, Integer shard_N, Long val) {
+  Counter() {}
+  Counter(String name, Integer shard_N, Long val)
+  {
     this.name = name;
     this.value = val;
     key = name + "_shard" + shard_N.toString();
   }
 
-  public static void increment(String name) {
-    MemcacheService cache =
-      MemcacheServiceFactory.getMemcacheService();
-    Long val = cache.increment(name, 1);
-    if (val == null) {
-       val = Counter.read(name);
-       if (val == null) {
-         // 0 as initial value
-         val = cache.increment(name, 1, 0L);
-       }
-       else {
-         val++;
-       }
-    }
-    Counter.write(name, val);
+public static void increment(String name)
+{
+  MemcacheService cache =
+    MemcacheServiceFactory.getMemcacheService();
+  Long val = cache.increment(name, 1);
+  if (val == null)
+  {
+     val = Counter.read(name);
+     if (val == null)
+       val = cache.increment(name, 1, 0L); //0=init val
+     else
+       val++;
   }
-      </pre>
-      <pre class="lesspace smallcode" style="width:400px; height:610px; font-size: 0.5em">
-  // Counter.java continued
-  public static Long value(String name) {
-    MemcacheService cache = 
-      MemcacheServiceFactory.getMemcacheService();
-    Long val = (Long)cache.get(name);
-    if (val == null) {
-      val = Counter.read(name);
-      if (val != null) {
-        cache.put(name, val);
-      }
-    }
-    return val;
-  }
-
-  static Long read(String name) {
-    ObjectifyDAO dao = new ObjectifyDAO();
-    Counter c = dao.ofy().query(Counter.class)
-      .filter("name", name).order("-value").get();
-    return (c == null ? null : c.value);
-  }
-
-  static void write(String name, Long value) {
-    Random r = new Random();
-    Integer shard_N = r.nextInt(10);
-    ObjectifyDAO dao = new ObjectifyDAO();
-    dao.ofy().put(new Counter(name, shard_N, value));
-  } 
+  Counter.write(name, val);
 }
       </pre>
-      <div class="x-small" style="margin-top:10px">usage: &nbsp;&nbsp;<span style="color: black;">Counter.increment("pluscounter"); &nbsp;&nbsp;Counter.value("minuscounter");</span></div>
+      <pre class="lesspace smallcode" style="width:400px; height:610px; font-size: 0.5em">
+public static Long value(String name)
+{
+  MemcacheService cache = MemcacheServiceFactory.getMemcacheService();
+  Long val = (Long)cache.get(name);
+  if (val == null)
+  {
+    val = Counter.read(name);
+    if (val != null)
+      cache.put(name, val);
+  }
+  return val;
+}
+
+static Long read(String name)
+{
+  ObjectifyDAO dao = new ObjectifyDAO();
+  Counter c = dao.ofy().query(Counter.class)
+    .filter("name", name).order("-value").get();
+  return (c == null ? null : c.value);
+}
+
+static void write(String name, Long value)
+{
+  Random r = new Random();
+  Integer shard_N = r.nextInt(10);
+  ObjectifyDAO dao = new ObjectifyDAO();
+  dao.ofy().put(new Counter(name, shard_N, value));
+} 
+}
+      </pre>
+      <div class="small">usage: &nbsp;&nbsp;<span style="color: black;">Counter.increment("pluscounter"); &nbsp;&nbsp;Counter.value("minuscounter");</span></div>
       </div> 
       
-       <div class="chapter-number g-blue">9</div>
+       <div class="chapter-number g-blue">8</div>
         <h3 class="num">
           Implémenter un compteur qui tient la charge
         </h3>
@@ -1495,7 +1299,7 @@ ObjectifyDAO dao = new ObjectifyDAO();
 dao.ofy().put(new Counter(name, shard_N, newVal));</pre>
          <p>Lecture: si échec du Memcache, MAX des compteurs du datastore.</p>
 		 <pre class="lesspace smallcode">dao.ofy().query(Counter.class)
-   .filter("name", name).order("-value").get();</pre>
+.filter("name", name).order("-value").get();</pre>
 
 		<translation lang="en">
 		usage: 
@@ -1515,7 +1319,7 @@ dao.ofy().put(new Counter(name, shard_N, newVal));</pre>
       </article>
  
 <!-- ------------------------------------------------------------------------------- -->
-<!-- 10. Ajouter un index composite sur une entité -->
+<!-- 9. Ajouter un index composite sur une entité -->
 
             <article class="slide3d">
       <div class="backslide3d" style="padding:40px">
@@ -1530,17 +1334,15 @@ dao.ofy().put(new Counter(name, shard_N, newVal));</pre>
 &lt;/datastore-indexes&gt;
 </pre>
 <p>Le SDK autogénère ce fichier dans le le répertoire <code>war/WEB-INF/appengine-generated/datastore-indexes-auto.xml</code> à copier dans <code>war/WEB-INF/appengine/datastore-indexes.xml</code></p>
-
-<p>Attention, avec Objectify 4.x les propriétés sont non-indéxées par défaut.</p>
 </div>
-		<div class="chapter-number g-green">10</div>
+		<div class="chapter-number g-green">9</div>
         <h3 class="num2">
           Ajouter un index multiple sur une entité
         </h3>
         <ul>
         <li>Le datastore exécute uniquement des requêtes indexées.</li>
         <li>Le datastore crée un index simple pour chaque propriété. Pour l'éviter, ajouter l'annotation objectify <code>@Unindexed</code>.</li>
-        <li>Si l'on fait une requête sur plus d'une propriété, colonne de tri comprise, il faut créer un index pour chaque combinaison manuellement.</li>
+        <li>Si l'on fait une recherche sur plus d'une propriété, colonne de tri comprise, il faut créer un index pour chaque combinaison manuellement.</li>
         <li style="margin-top: 60px;">Pour notre compteur, il nous faut un index combiné avec "name" et "value" DESC</li>
         </ul>
         
@@ -1550,20 +1352,19 @@ dao.ofy().put(new Counter(name, shard_N, newVal));</pre>
         --self--
         copy it to 
         --self--
-        Be careful, with the latest Objectify 4.x version, all fields default to not indexed.
         --self--
         Add a composite index on an entity
         The datastore can execute indexed request only.
         The datastore creates an index for each property automatically, unless you use the objectify annotation 
         --self--
         --self--
-        If you want to query over multiple properties, you have to create an index for each combination manually.
+        If you want to request on multiple properties, you have to create an index for each combination manually.
         For our counter, we need a composite index on "name" and "value" DESC.
         </translation>
 </article>
 
 <!-- ------------------------------------------------------------------------------- -->      
-<!-- 11. deploy to App Engine -->
+<!-- 10. deploy to App Engine -->
 
       <article class="slide3d" > 
       <div class="backslide3d">
@@ -1586,14 +1387,15 @@ dao.ofy().put(new Counter(name, shard_N, newVal));</pre>
 </p>
 
       </div>
-        <div class="chapter-number g-red">11</div>
+        <div class="chapter-number g-red">10</div>
         <h3 class="num2">
           Déployer sur App Engine: Yakakliker...
         </h3>
         <ul>
          <li>Aller sur <a href="http://appengine.google.com">http://appengine.google.com/</a> et créer un identifiant pour votre application. Elle serta accessible à l'adresse <code>http://monidentifiant.appspot.com</code></li>
-         <li style="margin-top:60px"><img class="screenshot-right" style="padding:0px; margin-left:40px; margin-top:-30px" src="images/deployer.png"/>Le spécifier dans <code>appengine-web.xml</code> (ou dans le propriétés du projet Eclipse)</li>
-         <li style="margin-top:60px">Cliquer sur déployer... </li>
+         <li style="margin-top:40px">Le spécifier dans <code>appengine-web.xml</code></li>
+         <li style="margin-top:40px">Cliquer sur déployer... </li>
+         <li style="margin-top:40px"><i>(avec le plugin Eclipse, choisir "Deploy to App Engine..." dans le menu "g")</i></li>
         </ul>
         
         <translation lang="en">
@@ -1606,15 +1408,15 @@ The version of your application, it can be a string (alpha, beta, ...)
         .
         This configuration can alse be done in project properties:
         --self--
-        Deploy to App Engine: just hit the button
+        Deploy to App Engine
         Go to 
         --self--
         and create an application id. Your app will be accessible at the URL
         http://myappid.appspot.com
         Add the app id to 
         --self--
-        (or set the proper Eclipse project property)
-        Hit the deploy button...
+        eclipse-launch-profiles > UpdateApplication.launch > Run As > UpdateApplication
+        (if using the Eclipse plugin, use "Deploy to App Engine..." from the toolbar "g" menu)
         </translation>
       </article>
       
@@ -1684,7 +1486,7 @@ The version of your application, it can be a string (alpha, beta, ...)
 	</article>
 
 <!-- ------------------------------------------------------------------------------- -->
-<!-- 12. Blobstore and user uploads -->
+<!-- 11. Blobstore and user uploads -->
      
       <article class="slide3d" > 
       <div class="backslide3d">
@@ -1705,7 +1507,8 @@ fichier: UploadServlet.java (servlet à mapper sur /upload)
 <pre class="smallcode lesspace">
 package <span>com.moi.lepresident</span>;
 
-public class UploadServlet extends HttpServlet {
+public class UploadServlet extends HttpServlet
+{
   @Override protected void doPost(HttpServletRequest req, HttpServletResponse resp)
                         throws ServletException, IOException {
     BlobstoreService bs = BlobstoreServiceFactory.getBlobstoreService();
@@ -1720,7 +1523,7 @@ public class UploadServlet extends HttpServlet {
 </pre>
 
       </div>
-        <div class="chapter-number g-blue">12</div>
+        <div class="chapter-number g-blue">11</div>
         <h3 class="num2">
           Uploader la photo du président grâce à Blobstore et ImageService
         </h3>
@@ -1729,17 +1532,16 @@ public class UploadServlet extends HttpServlet {
         	<img  src="images/scrshot_formulaire_envoie.png" width="300px"/>
         </div>
          -->
-        <p>Le Blobstore est utile pour servir des données de taille importante. 
-            Créer un formulaire d'upload vers une URL donnée par le Blobstore:</p>
+        <p>Créer un formulaire d'upload vers une URL donnée par le Blobstore:</p>
         <pre class="smallcode lesspace">
 &lt;% url = BlobstoreServiceFactory.getBlobstoreService().createUploadUrl("/upload"); %&gt;
 &lt;form action="&lt;%= url %&gt;" method="post" enctype="multipart/form-data"&gt;
 &lt;input type="file" name="president-pic"/&gt; ...</pre>
-        <p>Récupérer la clé de l'image dans la servlet <code> /upload</code>:</p>
-        <pre class="smallcode lesspace">
+        <p>Récupérer la clé de l'image dans la servlet <code>/upload</code>:</p>
+        <pre class="lesspace">
 void doPost(HttpServletRequest req, HttpServletResponse resp) {
-  BlobstoreService bs = BlobstoreServiceFactory.getBlobstoreService();
-  BlobKey key = bs.getUploads(req).get("president-pic").get(0); ...</pre>
+BlobstoreService bs = BlobstoreServiceFactory.getBlobstoreService();
+BlobKey key = bs.getUploads(req).get("president-pic").get(0); ...</pre>
         <p>La servir au client grâce à ImageService:</p>
         <pre class="lesspace">ImagesServiceFactory.getImagesService().getServingUrl(key);</pre>
 
@@ -1747,23 +1549,23 @@ void doPost(HttpServletRequest req, HttpServletResponse resp) {
         file: admin.jsp
 President's name
 President's picture
-        file: UploadServlet.java (map it to /upload)
+        file: UploadServlet.java (map it on /upload)
 com.me.thepresident
 just for debug
 TODO: keep the name and the pic URL of the president in the datastore (using an
 Objectify class) and use these values to display the elected president.
 		--self--
 		Upload the photo of the president using Blobstore and ImageService.
-		The BlobStore is useful for serving large data objects. Create a form that POSTs a photo to a URL given by the Blobstore:
+		Create a form for uploading a photo to a URL given by the Blobstore:
 		Get the Blobstore key of the picture in the servlet
- /upload
+/upload
 :
 		Serve it to the client using the ImageService:		
         </translation>
       </article>
 
 <!-- ------------------------------------------------------------------------------- -->
-<!-- 13. Security Constraint Administration -->
+<!-- 12. Security Constraint Administration -->
 
       	  <article class="slide3d" > 
       <div class="backslide3d">
@@ -1781,7 +1583,7 @@ Objectify class) and use these values to display the elected president.
 &lt;/security-constraint&gt;
 </pre>
       </div>
-        <div class="chapter-number g-red">13</div>
+        <div class="chapter-number g-red">12</div>
         <h3 class="num2">
           Protéger les URLs accessibles par les administrateurs
         </h3>
@@ -1790,8 +1592,7 @@ Objectify class) and use these values to display the elected president.
         <li>Il suffit d'ajouter une contrainte de sécurité dans le fichier web.xml</li>
         <li>Indiquez le role : <strong>admin</strong></li>
         <li>La vérification est faite automatiquement</li>
-        <li>Les tâches planifiées (CRON) sont lancées par Google App Engine en mode administrateur</li>
-        <li>Ce mécanisme peut aussi être utilisé pour sécuriser l'accès à l'outil AppStat ou à toute autre ressource administrative</li>
+        <li>Les tâches planifiées sont lancées par Google App Engine en mode administrateur</li>
         </ul>
         
         <translation lang="en">
@@ -1803,13 +1604,12 @@ Objectify class) and use these values to display the elected president.
         admin
         User authentication is performed automatically.
         CRON jobs are launched in admin mode.
-        Can also be used to secure access to the AppStat tool or other admin resources.
         </translation>
         
       </article>
       
 <!-- ------------------------------------------------------------------------------- -->
-<!-- 14. Receiving emails -->
+<!-- 13. Receiving emails -->
 
       	  <article class="slide3d" > 
       <div class="backslide3d">
@@ -1838,7 +1638,7 @@ public class MailHandlerServlet extends HttpServlet {
 }
 </pre>
       </div>
-        <div class="chapter-number g-yellow">14</div>
+        <div class="chapter-number g-yellow">13</div>
         <h3 class="num2">
           Recevoir un mail
         </h3>
@@ -1861,11 +1661,11 @@ com.me.thepresident
 Thank you for your opinion.
         --self--
         Post comments by email
-        Enable email reception for address 
+        Enable email reception on address 
         name
         --self--
-        Create a servlet mapped to &nbsp;&nbsp; /_ah/mail/*
-        To read the content of an email:
+        Create a servlet mapped on &nbsp;&nbsp; /_ah/mail/*
+        To read the contents of an email:
         </translation>
         
       </article>
@@ -1877,16 +1677,15 @@ Thank you for your opinion.
         
         <p style="margin-left: 3em; margin-top: 1em; text-indent: -2em; background-image: url('images/appengine_small.png'); background-repeat: no-repeat; background-position: 100% 0%">
         Contact : <br/>
-          <b>+Martin Gorner</b>, Google<br/>
+          <b>+Ludo Champenois</b>, Google<br/>
           <b>+Alexis Moussine-Pouchkine</b>, Google<br/>
-          <b>+Didier Girard</b>, Sfeir
+          <b>+Matt Stephenson</b>, Google<br/>
         </p>
         <p style="margin-left: 3em; margin-top: 1.5em; text-indent: -2em;">Cette présentation est en ligne :<br/>
         <a href="http://cloudpresident.appspot.com">http://<b><span class="big">cloudpresident</span></b>.appspot.com</a><br/>
-        <!--p style="margin-left: 3em; margin-top: 1.5em; text-indent: -2em;">Code source :<br/>
+        <p style="margin-left: 3em; margin-top: 1.5em; text-indent: -2em;">Code source :<br/>
         <small><a href="http://code.google.com/p/devoxx-france-appengine/">http://code.google.com/p/<b><span class="big">devoxx-france-appengine</span></b>/</a></small><br/>
-        </p-->
-        <p style="margin-left: 3em; margin-top: 1.5em; text-indent: -2em;">Plus d'infos sur Google AppEngine :<br/>
+        <p style="margin-left: 3em; margin-top: 1.5em; text-indent: -2em;">Plus d'infos :<br/>
         <a href="http://developers.google.com/appengine/">http://developers.google.com/<b><span class="big">appengine</span></b></a>
         </p>
         
@@ -1902,11 +1701,11 @@ Thank you for your opinion.
         --self--
         --self--
         --self--
-<!--        Source code :
+        Source code :
         --self--
         --self--
-        --self---->
-        More info on Google AppEngine :
+        --self--
+        More info :
         --self--
         --self--
         </translation>

@@ -1006,17 +1006,13 @@ Usage:
       
       <article class="slide3d">
       <div class="backslide3d">
-      	<p>fichier: src/com/moi/lepresident/Comment.java</p>
-      	<p class="small" >La classe Comment doit devenir sérialisable:</p>
-<pre class="lesspace smallcode">
-public class Comment <span class="u">implements Serializable</span>
-</pre>
+      	<p>fichier: src/com/moi/lepresident/Comments.java</p>
 <p class="small" style="margin:0">On crée une nouvelle fonction pour la lecture des commentaires (avec cache):</p>
 <pre class="lesspace smallcode">
-public static List&lt;Comment&gt; retrieveAllCached()
+public static List&lt;Entity&gt; retrieveAllCached()
 {
     MemcacheService cache = MemcacheServiceFactory.getMemcacheService();
-    List&lt;Comment&gt; comments = (List&lt;Comment&gt;)cache.get("100Comments");
+    List&lt;Entity&gt; comments = (List&lt;Entity&gt;)cache.get("100Comments");
     if (comments == null)
     {
         comments = retrieveAll(); // read from datastore
@@ -1059,9 +1055,7 @@ cache.delete("myKey");
           </div>
           
           <translation lang="en">
-          file: src/com/me/thepresident/Comment.java
-          The Comment class must become serializable:
-          --self--
+          file: src/com/me/thepresident/Comments.java
           Create a new function for retrieving comments with caching:
           Finally, invalidate the cache on each new comment:
           --self--

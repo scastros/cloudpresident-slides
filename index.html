@@ -1201,79 +1201,23 @@ display president
         </style>
       <article id="shardedcounterslide" class="slide3d">
       <div class="backslide3d">
-      <pre class="lesspace smallcode" style="float:left; width:400px; height:610px; margin-right: 20px; font-size: 0.5em">
-public class Counter
-{
-  @Id String key;
-  String name;
-  Long value;
-
-  Counter() {}
-  Counter(String name, Integer shard_N, Long val)
-  {
-    this.name = name;
-    this.value = val;
-    key = name + "_shard" + shard_N.toString();
-  }
-
-public static void increment(String name)
-{
-  MemcacheService cache =
-    MemcacheServiceFactory.getMemcacheService();
-  Long val = cache.increment(name, 1);
-  if (val == null)
-  {
-     val = Counter.read(name);
-     if (val == null)
-       val = cache.increment(name, 1, 0L); //0=init val
-     else
-       val++;
-  }
-  Counter.write(name, val);
-}
+      <pre class="lesspace smallcode" >
+Checkout https://github.com/mattstep/appengine-election-tracking-sample for full solution.
       </pre>
-      <pre class="lesspace smallcode" style="width:400px; height:610px; font-size: 0.5em">
-public static Long value(String name)
-{
-  MemcacheService cache = MemcacheServiceFactory.getMemcacheService();
-  Long val = (Long)cache.get(name);
-  if (val == null)
-  {
-    val = Counter.read(name);
-    if (val != null)
-      cache.put(name, val);
-  }
-  return val;
-}
+<!--       <pre class="lesspace smallcode" style="width:400px; height:610px; font-size: 0.5em">
 
-static Long read(String name)
-{
-  ObjectifyDAO dao = new ObjectifyDAO();
-  Counter c = dao.ofy().query(Counter.class)
-    .filter("name", name).order("-value").get();
-  return (c == null ? null : c.value);
-}
-
-static void write(String name, Long value)
-{
-  Random r = new Random();
-  Integer shard_N = r.nextInt(10);
-  ObjectifyDAO dao = new ObjectifyDAO();
-  dao.ofy().put(new Counter(name, shard_N, value));
-} 
-}
-      </pre>
-      <div class="small">usage: &nbsp;&nbsp;<span style="color: black;">Counter.increment("pluscounter"); &nbsp;&nbsp;Counter.value("minuscounter");</span></div>
+      </pre> -->
+<!--       <div class="small">
+        usage: &nbsp;&nbsp;
+        <span style="color: black;">Counter.increment("pluscounter"); &nbsp;&nbsp;Counter.value("minuscounter");</span>
+      </div> -->
       </div> 
       
        <div class="chapter-number g-blue">8</div>
         <h3 class="num">
-          Implémenter un compteur qui tient la charge
+          Implémenter un compteur qui tient la charge (Counter.java)
         </h3>
 
-        <pre class="lesspace smallcode">public class Counter {@Id String key; String name; Long value;} //key = name+shard_N</pre>
-        
-        
         <div style="margin-top:20px;">
 	        <div class="screenshot-left bigserif scrshottext" style="margin-right: 30px;">
 	        <p style="margin-top: 0px">Le président est...</p>
@@ -1289,17 +1233,26 @@ static void write(String name, Long value)
          <p>Sauver la nouvelle valeur dans un parmi 10 compteurs du Datastore.</p>
          <pre class="lesspace smallcode">
 Integer shard_N = new Random().nextInt(10);
-ObjectifyDAO dao = new ObjectifyDAO();
-dao.ofy().put(new Counter(name, shard_N, newVal));</pre>
+Key key = KeyFactory.createKey("Counter", 
+   name + "_shard" + shardN.toString());
+Entity counter = new Entity(key);
+counter.setProperty("name", name);
+counter.setProperty("value", value);
+DatastoreServiceFactory.getDatastoreService()
+   .put(counter);
+</pre>
          <p>Lecture: si échec du Memcache, MAX des compteurs du datastore.</p>
-		 <pre class="lesspace smallcode">dao.ofy().query(Counter.class)
-.filter("name", name).order("-value").get();</pre>
+		 <pre class="lesspace smallcode">Query query = new Query("Counter")
+        .addFilter("name", Query.FilterOperator.EQUAL, name)
+        .addSort("value", Query.SortDirection.DESCENDING);
+Iterable<Entity> entities = datastore.prepare(query).asIterable();
+if(!entities.iterator().hasNext()) return null;
+return e == entities.iterator().next() ? null : (Long) e.getProperty("value");
+</pre>
 
 		<translation lang="en">
-		usage: 
 		--self--
-		--self--
-		Implement a counter that scales under load
+		A counter that scales under load (Counter.java)
 		The president is:
 		Mitt Romney
 		--self--
@@ -1307,8 +1260,9 @@ dao.ofy().put(new Counter(name, shard_N, newVal));</pre>
 		--self--
 		--self--
 		Atomic increment in Memcache:
-		Save the new value in one of 10 counters in the datastore:
-		Read: if Memcache fails, MAX of the counters in the datastore:
+		Save new value (10 counters):
+		Read: 
+    --self--
 		</translation>
       </article>
  

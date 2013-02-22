@@ -456,7 +456,7 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
           </ul>
         </ul>
         <span class="small" style="color: red; font-family: monospace;">INFO: The server is running at <a style="color: red;" href="http://localhost:8080/">http://localhost:8080/</a></span><br/>
-        <div style="font-size: 50%">*: sous NetBeans, avec la version 1.7.4 de l'archetype placez ce fichier <a href="stuff/nbactions.xml"><code>nbactions.xml</code></a> à la racine de votre projet avec le <code>pom.xml</code>.</div>
+        <div style="font-size: 50%">*: sous NetBeans, avec la version 1.7.4 de l'archetype placez ce fichier <a href="stuff/nbactions.xml"><code>nbactions.xml</code></a> à la racine de votre projet avec le <code>pom.xml</code></div>
             
 
     <translation lang="en">
@@ -499,7 +499,7 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
     --self--
     *: On NetBeans, with version 1.7.4 of the archetype drop this 
     --self--
-    next to the project 
+    file next to the project 
     --self--
     </translation>
       </article>
@@ -1343,12 +1343,16 @@ return e == entities.iterator().next() ? null : (Long) e.getProperty("value");
       </div>
         <div class="chapter-number g-red">10</div>
         <h3 class="num2">
-          Déployer sur App Engine: Yakakliker...
+          Déployer sur App Engine!
         </h3>
         <ul>
-         <li>Aller sur <a href="http://appengine.google.com">http://appengine.google.com/</a> et créer un identifiant pour votre application. Elle serta accessible à l'adresse <code>http://monidentifiant.appspot.com</code></li>
-         <li style="margin-top:40px">Le spécifier dans <code>appengine-web.xml</code></li>
-         <li style="margin-top:40px">Cliquer sur déployer... </li>
+         <li>Aller sur <a href="http://appengine.google.com">http://appengine.google.com/</a> et créer un identifiant pour votre application. Elle sera accessible à l'adresse <code>http://monidentifiant.appspot.com</code></li>
+         <li>Spécifier cet identifiant dans <code>appengine-web.xml</code></li>
+         <li style="margin-top:40px">Déployer dans AppEngine !
+          <ul style="font-size: 80%">
+            <li>Eclipse (Maven): <code>eclipse-launch-profiles > UpdateApplication.launch > Run As > UpdateApplication</code>
+            <li>NetBeans: (click-droit projet) <code>> Custom > appengine:update</code>
+          </ul>
          <li style="margin-top:40px"><i>(avec le plugin Eclipse, choisir "Deploy to App Engine..." dans le menu "g")</i></li>
         </ul>
         
@@ -1360,7 +1364,7 @@ The version of your application, it can be a string (alpha, beta, ...)
         More information on the 
         contents of appengine-web.xml
         .
-        This configuration also possible via the Eclipse plugin:
+        This configuration is also possible via the Eclipse plugin:
         --self--
         Deploy to App Engine
         Go to 
@@ -1369,7 +1373,11 @@ The version of your application, it can be a string (alpha, beta, ...)
         http://myappid.appspot.com
         Add the app id to 
         --self--
+        Deploy to AppEngine!
+        --self--
         eclipse-launch-profiles > UpdateApplication.launch > Run As > UpdateApplication
+        NetBeans (project right-click) 
+        > Custom > appengine:update
         (if using the Eclipse plugin, use "Deploy to App Engine..." from the toolbar "g" menu)
         </translation>
       </article>

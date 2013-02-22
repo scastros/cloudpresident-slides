@@ -300,10 +300,10 @@
 	</div>
 
 		<p class="bookparagraph">
-		Vous venez de gagner un contrat. Il s'agit de développer le site web qui va annoncer au soir du <strong>6 mai 2012</strong> le nouveau président de la République Française.
+		Vous venez de gagner un contrat. Il s'agit de développer le site web qui va annoncer au soir des élections le nouveau président de la République Française.
 		</p>
 		<p class="bookparagraph">
-		Le site devra pouvoir accueillir un traffic potentiel maximum de <strong>50 millions d'utilisateurs</strong> le 6 mai. Ce jour là, un pic à <strong>2 millions d'utilisateurs</strong> simultanés est attendu a 20h. Ensuite, le 7 mai 1 million d'utilisateurs viendront et les jours suivants quelques milliers d'utilisateurs au grand maximum. Le site devra proposer des fonctions de type social : vote de satisfaction, commentaires, publications d'images, ...
+		Le site devra pouvoir accueillir un traffic potentiel maximum de <strong>50 millions d'utilisateurs</strong> le jour J. Ce jour là, un pic à <strong>2 millions d'utilisateurs</strong> simultanés est attendu a 20h. Ensuite, le lendemain, 1 million d'utilisateurs viendront et les jours suivants quelques milliers d'utilisateurs au grand maximum. Le site devra proposer des fonctions de type social : vote de satisfaction, commentaires, publications d'images, ...
 		</p>
 		<p class="pop big" style="margin-top: 20px; text-align: center">
 		   Il ne doit pas faire défaut, il n'est pas <br/>concevable qu'il tombe a l'heure H.
@@ -313,9 +313,7 @@
 		  To help you in this challenge, you can use a powerful tool: App Engine. Our cloud experts will guide you along the way.
 		  One more thing, you have only 3 hours.
 		  Ready to scale ?
-		  You won the contract of your life. Your job is to build the web site announcing, on
-		  November 6, 2012,
-		  the results of the presidential election.
+		  You won the contract of your life. Your job is to build the web site announcing, on D-day, the results of the presidential election.
 		  The site will have to withstand a peak of potentially
 		  300 million users
 		  on election day. Traffic can peak at above
@@ -333,7 +331,7 @@
       <div class="backslide3d" style="padding:40px">
          <div class="screenshot-left" style="padding: 0px; text-align: center;margin-top: 80px;"><img src="images/googlemenu.png"/></div>
          <p style="margin-top: 80px">Si tout s'est bien déroulé, vous devriez avoir une icône "g" comme "Google" dans Eclipse.</p>
-         <p style="margin-top: 40px">Java 7 est en mode "Trusted Tester" depuis la version 1.7.4 (Décembre 2012)</p>
+         <p style="margin-top: 40px">Java 7 est en mode Experimental depuis la version 1.7.5 (Février 2013)</p>
          <p>Une version précédente de ce lab a été utilisait la version 3.x d'Objectify. La nouvelle version 4.x est <a href="http://code.google.com/p/objectify-appengine/wiki/UpgradeVersion3ToVersion4">incompatible</a> mais disponible dans Maven Central.</p>
          <p>Il n'y a pas de code de départ pour ce lab, nous partons d'une feuille blanche!</p>
          <p><a style="smaller" href="https://developers.google.com/appengine/docs/java/javadoc/overview-summary">JavaDoc pour AppEngine</a>
@@ -344,7 +342,7 @@
       
       <img src="images/install-gplugin.png" class="screenshot-right" style="clear:right; padding:0px; margin-top: 00px; margin-right:0px; margin-left:10px" />
       <div class="chapter-number g-blue">0</div>
-      <h3 class="num">Prérequis et téléchargements (1ère option)</h3>
+      <h3 class="num">Prérequis et téléchargements (option Eclipse)</h3>
          <ul style="margin-top:30px">
             <li> <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK 6 or JDK 7</a></li>
             <li> <a href="http://eclipse.org/downloads/">Eclipse for Java EE Developers</a></li>
@@ -356,14 +354,14 @@
          
          <translation lang="en">
            You should now have a "g" icon in the Eclipse toolbar.
-           Java 7 is in Trusted Tester mode as of Version 1.7.4 (December 2012)
+           Java 7 is in Experimental status as of Version 1.7.5 (February 2013)
            An earlier version of this lab used Objectify version 3.x. The more recent version 4.x is 
            --self--
            but available from Maven Central.
            There is no code to start from, we're starting to code from scratch!
            AppEngine JavaDoc
            --self--
-           Prerequisites and downloads (Eclipse plugin option)
+           Setup (Eclipse)
            --self--
            Eclipse for Java EE Developers
            --self--
@@ -391,7 +389,7 @@
       
       <img src="images/install.png" class="screenshot-right" style="clear:right; padding:0px; margin-top: 00px; margin-right:0px; margin-left:30px" />
       <div class="chapter-number g-blue">0</div>
-      <h3 class="num">Prérequis et téléchargements</h3>
+      <h3 class="num">Prérequis et téléchargements (option Maven)</h3>
          <ul style="margin-top:30px">
             <li> <a href="http://www.oracle.com/javase">JDK 6 or 7</a> (pas JRE)</li>
             <li> <a href="http://eclipse.org/downloads/">Eclipse for Java EE Developers</a></li>
@@ -402,12 +400,12 @@
          
          <translation lang="en">
            The key goal of a Maven setup is to be able to share the project across IDEs (including web-based ones) and make it continuous-integration friendly (Jenkins, ...).
-           So if you're not a big Eclipse fan, you can use NetBeans, IntelliJ or event the command-line to create the project from an archetype, select the proper AppEngine SDK version as a Maven dependency, and deploy to the local or production runtime.
+           So if you're not a big Eclipse fan, you can use NetBeans, IntelliJ or even the command-line to create the project from an archetype, select the proper AppEngine SDK version as a Maven dependency, and deploy to the local or production runtime.
            There is no code to start from, we're starting to code from scratch!
-           If you are having trouble installing the plugins, try adding this site: 
+           If you are having trouble installing the Maven Eclipse plugins (Maven is baked into NetBeans), try adding this site: 
            --self--
            --self--
-           Prerequisites and downloads (Maven option)
+           Setup (Maven)
            --self--
            (not JRE)
            --self--
@@ -447,14 +445,19 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
         <h3 class="num">Ma première servlet "Hello App Engine"
         </h3>
         <ul style="margin-top:40px">
-        <li>File › New › Other › Maven › <span class="pop">Maven Project</span></li>
-        <li>Filter: <code>com.google.appengine.archetypes</code></li>
-        <li>Sélectionner: <code>skeleton-archetype (1.7.4)</code> (<a href="https://oss.sonatype.org/content/repositories/google-releases/archetype-catalog.xml">repo temporaire</a>)
+        <li>Créer un nouveau <span class="pop">Projet Maven</span> d'après un archetype</li>
+        <li>Filtrer: <code>com.google.appengine.archetypes</code> et sélectionner <code>skeleton-archetype (1.7.4*)</code>
         <li>GroupId: <span class="pop">com.moi.lepresident</span> Nom: <span class="pop">LePresident</span>, package: <span class="pop">com.moi.lepresident</span></li>
         <li>Créer une servlet <code>LePresidentServlet.java</code></li>
-        <li>Lancer en local: Run › Run As... › <br/>
-        <span class="small" style="color: red; font-family: monospace;">INFO: The server is running at <a style="color: red;" href="http://localhost:8080/">http://localhost:8080/</a></span><br/> (le port par défaut avec le plugin Eclipse est 8888)</li>
+        <li>Lancer en local avec le SDK :
+          <ul style="font-size: 80%">
+            <li>Eclipse: eclipse-launch-profiles › DevAppServer.launch › Run As › DevAppServer</li>
+            <li>NetBeans: (click droit project) > Custom > appengine:devserver</li>
+          </ul>
         </ul>
+        <span class="small" style="color: red; font-family: monospace;">INFO: The server is running at <a style="color: red;" href="http://localhost:8080/">http://localhost:8080/</a></span><br/>
+        <div style="font-size: 50%">*: sous NetBeans, avec la version 1.7.4 de l'archetype placez ce fichier <a href="stuff/nbactions.xml"><code>nbactions.xml</code></a> à la racine de votre projet avec le <code>pom.xml</code>.</div>
+            
 
     <translation lang="en">
     Structure of the Web project (Eclipse plugin approach):
@@ -467,34 +470,37 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
     App Engine specific parameters
     .
     Having trouble ?
+    (the default port for the Eclipse plugin is 8888)
     If you see the error
     "port occupied"
     when launching your app, use the red "Terminate" button in the 
     --self--
     --self--
-    --self--
     My first servlet "Hello App Engine" (Maven)
-    --self--
+    Create a new
+            Maven project
+            from an archetype
+            Filter for 
             --self--
+            and select: 
             --self--
-            --self--
-            select: 
-            --self--
-            (
-            temp repo
-            )
             --self--
             com.me.thepresident
             ArtifactId:
         ThePresident
 , package: 
     com.me.thepresident
-    create a servlet
+    Create a servlet :
     ThePresidentServlet.java
-    Run locally: eclipse-launch-profiles › DevAppServer.launch › Run As › DevAppServer
+    Run locally using the SDK!
+    Eclipse: eclipse-launch-profiles › DevAppServer.launch › Run As › DevAppServer
+    NetBeans: (right-click on project) > Custom > appengine:devserver
     --self--
     --self--
-    (the default port with the Eclipse plugin is 8888)
+    *: On NetBeans, with version 1.7.4 of the archetype drop this 
+    --self--
+    next to the project 
+    --self--
     </translation>
       </article>
 

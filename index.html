@@ -9,7 +9,7 @@
            Dominic Mazzoni (browser compatibility)
            Charles Chen (ChromeVox support)
 
-  URL: http://code.google.com/p/html5slides/
+  URL: http://code.google.src/main/java/com/p/html5slides/
 -->
 
 <html>
@@ -332,9 +332,9 @@
          <div class="screenshot-left" style="padding: 0px; text-align: center;margin-top: 80px;"><img src="images/googlemenu.png"/></div>
          <p style="margin-top: 80px">Si tout s'est bien déroulé, vous devriez avoir une icône "g" comme "Google" dans Eclipse.</p>
          <p style="margin-top: 40px">Java 7 est en mode Experimental depuis la version 1.7.5 (Février 2013)</p>
-         <p>Une version précédente de ce lab a été utilisait la version 3.x d'Objectify. La nouvelle version 4.x est <a href="http://code.google.com/p/objectify-appengine/wiki/UpgradeVersion3ToVersion4">incompatible</a> mais disponible dans Maven Central.</p>
+         <p>Une version précédente de ce lab a été utilisait la version 3.x d'Objectify. La nouvelle version 4.x est <a href="http://code.google.src/main/java/com/p/objectify-appengine/wiki/UpgradeVersion3ToVersion4">incompatible</a> mais disponible dans Maven Central.</p>
          <p>Il n'y a pas de code de départ pour ce lab, nous partons d'une feuille blanche!</p>
-         <p><a style="smaller" href="https://developers.google.com/appengine/docs/java/javadoc/overview-summary">JavaDoc pour AppEngine</a>
+         <p><a style="smaller" href="https://developers.google.src/main/java/com/appengine/docs/java/javadoc/overview-summary">JavaDoc pour AppEngine</a>
         </p>
 
 </p>
@@ -344,17 +344,17 @@
       <div class="chapter-number g-blue">0</div>
       <h3 class="num">Prérequis et téléchargements (option Eclipse)</h3>
          <ul style="margin-top:30px">
-            <li> <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK 6 or JDK 7</a></li>
+            <li> <a href="http://www.oracle.src/main/java/com/technetwork/java/javase/downloads/index.html">JDK 6 or JDK 7</a></li>
             <li> <a href="http://eclipse.org/downloads/">Eclipse for Java EE Developers</a></li>
-<!--             <li>La <a href="http://code.google.com/p/objectify-appengine/downloads/list">librairie objectify (3.x)</a> à télécharger (ajoutée au projet plus tard)</li> -->
+<!--             <li>La <a href="http://code.google.src/main/java/com/p/objectify-appengine/downloads/list">librairie objectify (3.x)</a> à télécharger (ajoutée au projet plus tard)</li> -->
             <li><code>Google Plugin for Eclipse</code> <br/> et <br/>
             <code>Google App Engine Java SDK</code><br/>
-            <span>disponibles dans</span> Eclipse: Help › Install New Software › Add... <code>http://dl.google.com/eclipse/plugin/4.2</code></li>
+            <span>disponibles dans</span> Eclipse: Help › Install New Software › Add ... <code>http://dl.google.src/main/java/com/eclipse/plugin/4.2</code></li>
          </ul>
          
          <translation lang="en">
            You should now have a "g" icon in the Eclipse toolbar.
-           Java 7 is in Experimental status as of Version 1.7.5 (February 2013)
+           Java 7 is in Experimental status as of Version 1.7.5 (Feb. 2013)
            An earlier version of this lab used Objectify version 3.x. The more recent version 4.x is 
            --self--
            but available from Maven Central.
@@ -391,7 +391,7 @@
       <div class="chapter-number g-blue">0</div>
       <h3 class="num">Prérequis et téléchargements (option Maven)</h3>
          <ul style="margin-top:30px">
-            <li> <a href="http://www.oracle.com/javase">JDK 6 or 7</a> (pas JRE)</li>
+            <li> <a href="http://www.oracle.src/main/java/com/javase">JDK 6 or 7</a> (pas JRE)</li>
             <li> <a href="http://eclipse.org/downloads/">Eclipse for Java EE Developers</a></li>
             <li>The <code>m2e Maven Integration for Eclipse</code><br/>
             disponibles dans Eclipse: Help › Install New Software</li>
@@ -425,19 +425,15 @@
     <article class="slide3d" > 
       <div class="backslide3d" style="padding:40px">
 <img  class="screenshot-left" src="images/project_structure.png" align="left"/>
-Structure du projet Web :
-<p>En utilisant l'assistant pour créer la servlet, le fichier standard <code>web.xml</code> est mis à jour pour effectuer le mapping de celle-ci.</p> 
+<= structure du projet Web (plugin Eclipse)
+<p>Lors de la toute première exécution il vous faudra attendre que Maven télécharge le SDK AppEngine (environ 50MB).</p> 
 
 <p>
-Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et sera utilisé plus tard pour spécifier un nom et une version d'application et d'autres <a href="https://developers.google.com/appengine/docs/java/config/appconfig">paramètres optionels propres à AppEngine</a>.
+Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et sera utilisé plus tard pour spécifier un nom et une version d'application et d'autres <a href="https://developers.google.src/main/java/com/appengine/docs/java/config/appconfig">paramètres optionels propres à AppEngine</a>.
 </p>
 
 <p>
-<h3>
-  Problème?
-</h3>
-
-  Si en relançant vore application vous avez une erreur <code>"port occupied"</code>, utiliser le bouton rouge "Terminate" dans le haut de la fenêtre <code>"Console"</code> (Window &gt; Show View &gt; Console).
+  Si en relançant vore application vous avez une erreur <code>"port occupied"</code>, pensez à terminer le build précédent ou à utiliser le bouton rouge "Terminate" de <code>"Console"</code> (Window &gt; Show View &gt; Console).
 <img style="vertical-align: top" src="images/stop_server.png"/>
       </div>
 
@@ -446,7 +442,7 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
         </h3>
         <ul style="margin-top:40px">
         <li>Créer un nouveau <span class="pop">Projet Maven</span> d'après un archetype</li>
-        <li>Filtrer: <code>com.google.appengine.archetypes</code> et sélectionner <code>skeleton-archetype (1.7.4*)</code>
+        <li>Filtrer: <code>com.google.appengine.archetypes</code> et sélectionner <code>skeleton-archetype (1.7.5)</code>
         <li>GroupId: <span class="pop">com.moi.lepresident</span> Nom: <span class="pop">LePresident</span>, package: <span class="pop">com.moi.lepresident</span></li>
         <li>Créer une servlet <code>LePresidentServlet.java</code></li>
         <li>Lancer en local avec le SDK :
@@ -456,24 +452,20 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
           </ul>
         </ul>
         <span class="small" style="color: red; font-family: monospace;">INFO: The server is running at <a style="color: red;" href="http://localhost:8080/">http://localhost:8080/</a></span><br/>
-        <div style="font-size: 50%">*: sous NetBeans, avec la version 1.7.4 de l'archetype placez ce fichier <a href="stuff/nbactions.xml"><code>nbactions.xml</code></a> à la racine de votre projet avec le <code>pom.xml</code></div>
             
 
     <translation lang="en">
-    Structure of the Web project (Eclipse plugin approach):
-    When you use the assistant to create the servlet, the standard file
-    web.xml
-    is updated to map the servlet.
+    <= structure of the Web project (Eclipse plugin approach)
+    Upon first build only you'll need to wait for the download of the AppEngine SDK itself, about 50MB.
     The file
     appengine-web.xml
     contains default values and will be used later to specify the deploy name of the application and other 
-    App Engine specific parameters
-    .
-    Having trouble ?
+    App Engine specific parameters.
     (the default port for the Eclipse plugin is 8888)
     If you see the error
     "port occupied"
-    when launching your app, use the red "Terminate" button in the 
+    when launching your app, terminate the previous run or use the red "Terminate" button in the 
+    --self--
     --self--
     --self--
     My first servlet "Hello App Engine" (Maven)
@@ -497,10 +489,6 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
     NetBeans: (right-click on project) > Custom > appengine:devserver
     --self--
     --self--
-    *: On NetBeans, with version 1.7.4 of the archetype drop this 
-    --self--
-    file next to the project 
-    --self--
     </translation>
       </article>
 
@@ -517,7 +505,7 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
           <li>afficher une valeur via <span class="pop" style="font-family: monospace;"><span style="color:red">&lt;%=</span> truc.getMachin() <span style="color:red">%&gt;</span></span>
           <li>avoir accès aux objets JSP suivants: <span style="font-family: monospace;" >HttpServletRequest <span class="pop">request</span>, HttpServletResponse <span class="pop">response</span>, JspWriter <span class="pop">out</span></span>
         </ul>
-        <p class="small" style="margin-top: 70px;">(Dans le futur, pour écrire du code propre, préférez GWT.)</p>
+        <p class="small" style="margin-top: 70px;">(Dans le futur, pour écrire du code propre, préférez GWT ou un framework comme AngularJS)</p>
       
       <translation lang="en">
       Let us switch to JSP
@@ -537,7 +525,7 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
       --self--
       --self--
       --self--
-      (Next time, to write proper code, prefer GWT)
+      (Next time, to write cleaner code, prefer GWT or a JavaScript framework like AngularJS)
       </translation>
       </article>
      
@@ -584,7 +572,7 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
       </style>
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: war/comments.jsp</p>
+<p>fichier: src/main/webapp/comments.jsp</p>
 <pre>
 &lt;! DOCTYPE html&gt;
 &lt;%@ page contentType="text/html;charset=UTF-8" language="java" <span style="color:grey">%&gt;</span>
@@ -597,7 +585,7 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
   &lt;/body&gt;
 &lt;/html&gt;
 </pre>
-<p>On peut configurer cette page comme page par défaut dans war/WEB-INF/web.xml</p>
+<p>On peut configurer cette page comme page par défaut dans WEB-INF/web.xml</p>
 <p>Vous trouverez les photos des candidats derrière la première diapositive.</p>
       </div>
         <div class="chapter-number g-yellow">2</div>
@@ -622,7 +610,7 @@ The president is...
 The president is...
 obama.jpg
 		--self--
-		This page can be set as the default landing  page in war/WEB-INF/web.xml
+		This page can be set as the default landing  page in WEB-INF/web.xml
 		You fill find pictures of the candidates behind the first slide.
         --self--
         Add a JSP page
@@ -638,7 +626,7 @@ obama.jpg
 
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: war/comments.jsp</p>
+<p>fichier: src/main/webapp/comments.jsp</p>
 <pre style="margin-bottom:10px" class="smallcode">
 &lt;! DOCTYPE html&gt;
 &lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
@@ -690,7 +678,7 @@ request.getParameter("user-comment")
         </div>
         
         <translation lang="en">
-        file: war/comments.jsp
+        file: src/main/webapp/comments.jsp
 The president is...
 romney.png
         XSS vulnerability WARNING! DO NOT insert user-generated text into an HTML page without escaping.
@@ -709,7 +697,7 @@ romney.png
 
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: war/comments.jsp</p>
+<p>fichier: src/main/webapp/comments.jsp</p>
 <pre class="x-smallcode">
 &lt;! DOCTYPE html&gt;
 &lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
@@ -777,7 +765,7 @@ userService.createLogoutURL("myTargetURL");
         </div>
         
         <translation lang="en">
-        file: war/comments.jsp
+        file: src/main/webapp/comments.jsp
         --self--
 The president is...
 obama.jpg
@@ -833,7 +821,7 @@ logout
 
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: src/com/moi/lepresident/Comments.java</p>
+<p>fichier: src/main/java/src/main/java/com/me/thepresident/Comments.java</p>
 <pre class="x-smallcode lesspace" style="margin-bottom: 15px;">
 package <span>com.moi.lepresident</span>;
 import java.util.*;
@@ -910,7 +898,7 @@ List&lt;Entity&gt; results =
         </div>
         
         <translation lang="en">
-        file: src/com/me/thepresident/Comments.java
+        file: src/main/java/src/main/java/com/me/thepresident/Comments.java
 com.me.thepresident
 Usage: 
         --self--
@@ -1012,7 +1000,7 @@ Usage:
       
       <article class="slide3d">
       <div class="backslide3d">
-      	<p>fichier: src/com/moi/lepresident/Comments.java</p>
+      	<p>fichier: src/main/java/src/main/java/com/me/thepresident/Comments.java</p>
 <p class="small" style="margin:0">On crée une nouvelle fonction pour la lecture des commentaires (avec cache):</p>
 <pre class="lesspace smallcode">
 public static List&lt;Entity&gt; retrieveAllCached()
@@ -1055,14 +1043,18 @@ cache.delete("myKey");
 </pre>
 				<p class="small">Memcache s'assure que toutes vos instances voient la même valeur.</p>
 		        </div>
-			    <p style="padding-top:100px; text-align: justify;">Il suffit de garder le résultat de la dernière requête en Memcache (sérialisée) tant qu'un nouveau commentaire n'a pas été écrit.</p>
+			    <p style="text-align: justify;">Il suffit de garder le résultat de la dernière requête en Memcache (sérialisée) tant qu'un nouveau commentaire n'a pas été écrit.</p>
+
+          <p>
+            L'utilisation de Memcache permet un accès rapide, avec moins de risques de contention, à des données issues principalement du datastore.
+          </p>
 
 		
           </div>
           
           <translation lang="en">
-          file: src/com/me/thepresident/Comments.java
-          Create a new function for retrieving comments with caching:
+          file: src/main/java/src/main/java/com/me/thepresident/Comments.java
+          Create a new method for retrieving comments with caching:
           Finally, invalidate the cache on each new comment:
           --self--
           --self--
@@ -1070,6 +1062,7 @@ cache.delete("myKey");
           The interface:
           Memcache makes sure all your instances see the same value.
           Just keep the result of the last request in Memcache (serialized) until a new comment is added.
+          Memcache offers fast access and less contention for data primarily fetched from the datastore.
           </translation>
       </article>
       
@@ -1078,7 +1071,7 @@ cache.delete("myKey");
 
       <article class="slide3d">
       <div class="backslide3d">
-      <p class="small">La servlet: elle écrit le nom du président élu dans le datastore<br/>fichier src/com/moi/lepresident/CronServlet.java</p>
+      <p class="small">La servlet: elle écrit le nom du président élu dans le datastore<br/>fichier src/main/java/src/main/java/com/me/thepresident/CronServlet.java</p>
       <pre class="x-smallcode lesspace">
 public class CronServlet extends HttpServlet
 {   @Override
@@ -1101,7 +1094,7 @@ public class CronServlet extends HttpServlet
   &lt;web-resource-collection&gt;   &lt;url-pattern&gt;/cron*&lt;/url-pattern&gt;   &lt;/web-resource-collection&gt;
   &lt;auth-constraint&gt;           &lt;role-name&gt;admin&lt;/role-name&gt;        &lt;/auth-constraint&gt;
 &lt;/security-constraint&gt;</pre>
-      <p class="small">Affichage conditionnel (fichier war/comments.jsp):</p>
+      <p class="small">Affichage conditionnel (fichier src/main/webapp/comments.jsp):</p>
       <pre class="x-smallcode lesspace" style="margin-bottom: 0px">
 Entity e = DatastoreServiceFactory.getDatastoreService().prepare(new Query("Elected")).asSingleEntity();
 if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</span>*/ e.getProperty("name");</pre>
@@ -1120,7 +1113,7 @@ if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</spa
 	        
 	        <p>Les Cron lancent des servlets dont l'URL est définie dans web.xml.</p>
 	        <p style="margin-bottom: 20px;">
-	        Périodicité à configurer dans WEB-INF/cron.xml (<a href="https://developers.google.com/appengine/docs/java/config/cron">syntaxe complète</a>):</p>
+	        Périodicité à configurer dans WEB-INF/cron.xml (<a href="https://developers.google.src/main/java/com/appengine/docs/java/config/cron">syntaxe complète</a>):</p>
 	        
 	        <pre class="smallcode">
 &lt;?xml version="1.0" ?&gt;
@@ -1135,11 +1128,11 @@ if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</spa
         
         <translation lang="en">
         The cron servlet writes the name of the elected president into the datastore.
-        file: src/com/me/thepresident/CronServlet.java
+        file: src/main/java/src/main/java/com/me/thepresident/CronServlet.java
 Barack obama
 or Mitt Romney
 		Servlet mapping in WEB-INF/web.xml, with access restrictions:
-		Conditional display (file war/comments.jsp)
+		Conditional display (file src/main/webapp/comments.jsp)
 wait message
 display president
 		(If you want to show the picture of the president, you can get it on the backside of the 
@@ -1208,7 +1201,8 @@ display president
       <article id="shardedcounterslide" class="slide3d">
       <div class="backslide3d">
       <pre class="lesspace smallcode" >
-Checkout https://github.com/mattstep/appengine-election-tracking-sample for full solution.
+Checkout https://github.src/main/java/com/mattstep/appengine-election-tracking-sample
+for full solution.
       </pre>
 <!--       <pre class="lesspace smallcode" style="width:400px; height:610px; font-size: 0.5em">
 
@@ -1277,7 +1271,7 @@ return e == entities.iterator().next() ? null : (Long) e.getProperty("value");
 
             <article class="slide3d">
       <div class="backslide3d" style="padding:40px">
-<p>fichier: war/WEB-INF/appengine/datastore-indexes.xml</p>
+<p>fichier: WEB-INF/appengine/datastore-indexes.xml</p>
 <pre>
 &lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;datastore-indexes autoGenerate="false"&gt;
@@ -1287,7 +1281,7 @@ return e == entities.iterator().next() ? null : (Long) e.getProperty("value");
     &lt;/datastore-index&gt;
 &lt;/datastore-indexes&gt;
 </pre>
-<p>Le SDK autogénère ce fichier dans le le répertoire <code>war/WEB-INF/appengine-generated/datastore-indexes-auto.xml</code> à copier dans <code>war/WEB-INF/appengine/datastore-indexes.xml</code></p>
+<p>Le SDK autogénère ce fichier dans le le répertoire <code>WEB-INF/appengine-generated/datastore-indexes-auto.xml</code> à copier dans <code>WEB-INF/appengine/datastore-indexes.xml</code></p>
 </div>
 		<div class="chapter-number g-green">9</div>
         <h3 class="num2">
@@ -1301,7 +1295,7 @@ return e == entities.iterator().next() ? null : (Long) e.getProperty("value");
         </ul>
         
         <translation lang="en">
-        file: war/WEB-INF/appengine/datastore-indexes.xml
+        file: WEB-INF/appengine/datastore-indexes.xml
         The SDK generates this file automatically in 
         --self--
         copy it to 
@@ -1323,10 +1317,10 @@ return e == entities.iterator().next() ? null : (Long) e.getProperty("value");
       <article class="slide3d" > 
       <div class="backslide3d">
       
-<p>fichier: war/WEB-INF/appengine-web.xml</p>
+<p>fichier: WEB-INF/appengine-web.xml</p>
 <pre class="smallcode lesspace">
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;appengine-web-app xmlns=&quot;http://appengine.google.com/ns/1.0&quot;&gt;
+&lt;appengine-web-app xmlns=&quot;http://appengine.google.src/main/java/com/ns/1.0&quot;&gt;
     &lt;!-- <span>Le nom de votre ApplicationId sur</span> http://appengine.google.com --&gt;
     &lt;application&gt;<span>lepresident-est</span>&lt;/application&gt;
     &lt;!-- <span>Version de votre application, cela peut etre un texte (alpha, beta, etc...)</span> --&gt;
@@ -1334,7 +1328,7 @@ return e == entities.iterator().next() ? null : (Long) e.getProperty("value");
     ...
 &lt;/appengine-web-app&gt;
 </pre>
-<p>Détails sur le <a href="https://developers.google.com/appengine/docs/java/config/appconfig">contenu de appengine-web.xml</a>.</p>
+<p>Détails sur le <a href="https://developers.google.src/main/java/com/appengine/docs/java/config/appconfig">contenu de appengine-web.xml</a>.</p>
 <p>
     Configuration également possible au travers des propriétés du projet :
     <span style="margin-top: 10px;float: right; overflow: hidden; height:260px; display:inline-block; border: 1px solid rgb(200,200,200); border-bottom: none; vertical-align: top;"><img src="images/appengine-nameapp.png"/></span>
@@ -1346,7 +1340,7 @@ return e == entities.iterator().next() ? null : (Long) e.getProperty("value");
           Déployer sur App Engine!
         </h3>
         <ul>
-         <li>Aller sur <a href="http://appengine.google.com">http://appengine.google.com/</a> et créer un identifiant pour votre application. Elle sera accessible à l'adresse <code>http://monidentifiant.appspot.com</code></li>
+         <li>Aller sur <a href="http://appengine.google.com">http://appengine.google.src/main/java/com/</a> et créer un identifiant pour votre application. Elle sera accessible à l'adresse <code>http://monidentifiant.appspot.com</code></li>
          <li>Spécifier cet identifiant dans <code>appengine-web.xml</code></li>
          <li style="margin-top:40px">Déployer dans AppEngine !
           <ul style="font-size: 80%">
@@ -1357,7 +1351,7 @@ return e == entities.iterator().next() ? null : (Long) e.getProperty("value");
         </ul>
         
         <translation lang="en">
-        file: war/WEB-INF/appengine-web.xml
+        file: WEB-INF/appengine-web.xml
 Your application id as defined on
 thepresident-is
 The version of your application, it can be a string (alpha, beta, ...)
@@ -1397,19 +1391,19 @@ The version of your application, it can be a string (alpha, beta, ...)
 		<table><tr><td style="border:none">
 			<p style="font-weight: 600; color:rgb(51, 51, 51); margin-left:-20px">Pour vous perfectionner:</p>
 			<ul>
-			<li><a href="http://developers.google.com/appengine/docs/java/taskqueue/">Task queues</a>
-			et <a href="http://developers.google.com/appengine/docs/java/backends/">Backends</a>
+			<li><a href="http://developers.google.src/main/java/com/appengine/docs/java/taskqueue/">Task queues</a>
+			et <a href="http://developers.google.src/main/java/com/appengine/docs/java/backends/">Backends</a>
 			</li>
-			<li><a href="http://developers.google.com/appengine/docs/java/search/overview">Full Text Search</a></li>
-			<li><a href="http://developers.google.com/cloud-sql/">Google Cloud SQL</a></li>
-			<li><a href="https://developers.google.com/storage/">Google Cloud Storage</a></li>
+			<li><a href="http://developers.google.src/main/java/com/appengine/docs/java/search/overview">Full Text Search</a></li>
+			<li><a href="http://developers.google.src/main/java/com/cloud-sql/">Google Cloud SQL</a></li>
+			<li><a href="https://developers.google.src/main/java/com/storage/">Google Cloud Storage</a></li>
 			</ul>
 		</td><td style="border:none; padding-left:30px">
 			<p style="font-weight: 600; color:rgb(51, 51, 51); margin-left:-20px">Et au-delà d'AppEngine:</p>
 			<ul>
-			<li><a href="http://developers.google.com/bigquery/">Google BigQuery</a></li>
-			<li><a href="http://developers.google.com/prediction/">Google Prediction API</a></li>
-			<li><a href="http://developers.google.com/compute/">Google Compute Engine</a></li>
+			<li><a href="http://developers.google.src/main/java/com/bigquery/">Google BigQuery</a></li>
+			<li><a href="http://developers.google.src/main/java/com/prediction/">Google Prediction API</a></li>
+			<li><a href="http://developers.google.src/main/java/com/compute/">Google Compute Engine</a></li>
 			</ul>
 		</td></table>
 		
@@ -1469,8 +1463,7 @@ fichier: UploadServlet.java (servlet à mapper sur /upload)
 <pre class="smallcode lesspace">
 package <span>com.moi.lepresident</span>;
 
-public class UploadServlet extends HttpServlet
-{
+public class UploadServlet extends HttpServlet {
   @Override protected void doPost(HttpServletRequest req, HttpServletResponse resp)
                         throws ServletException, IOException {
     BlobstoreService bs = BlobstoreServiceFactory.getBlobstoreService();
@@ -1481,7 +1474,8 @@ public class UploadServlet extends HttpServlet
     resp.sendRedirect(presUrl); // <span>juste pour débugger</span>
     // <span>A FAIRE: conserver le nom et l'URL de l'image du président dans le datastore</span>
     // <span>(une classe Objectify) et utiliser ces valeurs pour afficher le président à l'heure H.</span>
-} }
+  }
+}
 </pre>
 
       </div>
@@ -1531,7 +1525,7 @@ Objectify class) and use these values to display the elected president.
 
       	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: war/WEB-INF/web.xml</p>
+<p>fichier: WEB-INF/web.xml</p>
 <pre class="smallcode lesspace">
 &lt;security-constraint&gt;
     &lt;web-resource-collection&gt;
@@ -1558,7 +1552,7 @@ Objectify class) and use these values to display the elected president.
         </ul>
         
         <translation lang="en">
-        file: war/WEB-INF/web.xml
+        file: WEB-INF/web.xml
         --self--
         Secure admin URLs
         You can set security constraints in the web.xml file.
@@ -1575,7 +1569,7 @@ Objectify class) and use these values to display the elected president.
 
       	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: com/moi/lepresident/MailHandlerServlet.java</p>
+<p>fichier: src/main/java/com/moi/lepresident/MailHandlerServlet.java</p>
 <pre class="smallcode lesspace">
 package <span>com.moi.lepresident</span>;
 import java.util.Properties;
@@ -1618,7 +1612,7 @@ MimeMessage message = new MimeMessage(session, req.getInputStream());</pre>
         </div>
         
         <translation lang="en">
-        file: com/me/thepresident/MailHandler.java
+        file: src/main/java/com/me/thepresident/MailHandler.java
 com.me.thepresident
 Thank you for your opinion.
         --self--
@@ -1645,10 +1639,10 @@ Thank you for your opinion.
         </p>
         <p style="margin-left: 3em; margin-top: 1.0em; text-indent: -2em;">Cette présentation est en ligne :<br/>
         <a href="http://cloudpresident.appspot.com">http://<b><span class="big">cloudpresident</span></b>.appspot.com</a><br/>
-        <p style="margin-left: 3em; margin-top: 1.0em; text-indent: -2em;">Code source :<br/>
-        <small><a href="https://github.com/mattstep/appengine-election-tracking-sample">https://github.com/mattstep/appengine-election-tracking-sample</a></small><br/>
+        <p style="margin-left: 3em; margin-top: 1.0em; text-indent: -2em;">Code source (Solution) :<br/>
+        <small><a href="https://github.src/main/java/com/mattstep/appengine-election-tracking-sample">https://github.src/main/java/com/mattstep/appengine-election-tracking-sample</a></small><br/>
         <p style="margin-left: 3em; margin-top: 1.0em; text-indent: -2em;">More info :<br/>
-        <a href="http://developers.google.com/appengine/">http://developers.google.com/appengine</a>
+        <a href="http://developers.google.src/main/java/com/appengine/">http://developers.google.src/main/java/com/appengine</a>
         </p>
         
         <translation lang="en">

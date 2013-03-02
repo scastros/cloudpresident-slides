@@ -112,13 +112,12 @@ body {
 
 /* Clickable/tappable areas */
 
-.slide-area {
-  z-index: 1000;
-
+.slide-area
+{
   position: absolute;
   left: 0;
   top: 0;
-  width: 150px;
+  width: 50px;
   height: 700px;  
 
   left: 50%;
@@ -131,12 +130,25 @@ body {
   -o-tap-highlight-color: transparent;
   -moz-tap-highlight-color: transparent;
   -webkit-tap-highlight-color: transparent;
+  
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.04;
+  -o-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -webkit-transition: 0.3s;
+}
+.slide-area:hover
+{
+	opacity: 1;
 }
 #prev-slide-area {
-  margin-left: -550px;
+  background-image: url('images/arrowL.svg');
+  margin-left: -500px;
 }
 #next-slide-area {
-  margin-left: 400px;
+  background-image: url('images/arrowR.svg');
+  margin-left: 450px;
 }
 .slides.layout-widescreen #prev-slide-area,
 .slides.layout-faux-widescreen #prev-slide-area {

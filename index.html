@@ -9,7 +9,14 @@
            Dominic Mazzoni (browser compatibility)
            Charles Chen (ChromeVox support)
 
-  URL: http://code.google.src/main/java/com/p/html5slides/
+           Martin Gorner (returnable slides,
+		                  graphical intro slide,
+		                  next/prev/turn controls,
+		                  mobile touch support,
+		                  trackpad support,
+		                  localization script)
+
+  URL: http://code.google.com/p/html5slides/
 -->
 
 <html>
@@ -158,19 +165,143 @@
     	text-decoration: underline;
     }
     .bigserif {font-family: serif; letter-spacing: normal; font-size: 120%;}
-    .togglebutton {position: absolute;}
-    .togglebutton img {opacity:0.1; -webkit-transition: 0.3s; -moz-transition: 0.3s; -o-transition: 0.3s;}
+    .togglebutton {position: absolute; cursor: pointer}
+    .togglebutton img {opacity:0.04; -webkit-transition: 0.3s; -moz-transition: 0.3s; -o-transition: 0.3s;}
     .togglebutton img:hover {opacity:1;}
+
+      .hidden
+      {
+          opacity:0 !important;
+      }
+      .rotate-container
+      {
+          position: absolute;
+          width: 80px;
+          height: 776px;
+          margin-left: -40px;
+          margin-top: -388px;
+          top: 50%;
+          left: 50%;
+          -o-transition: 0.3s;
+          -moz-transition: 0.3s;
+          -webkit-transition: 0.3s;
+          -o-transform-style: preserve-3d;
+          -moz-transform-style: preserve-3d;
+          -webkit-transform-style: preserve-3d;
+          cursor: pointer;
+      }
+      .rotate-button
+      {
+          position: absolute;
+          width: 100%;
+          height: 80px;
+          opacity: 0.04;
+          -o-transition: 0.3s;
+          -moz-transition: 0.3s;
+          -webkit-transition: 0.3s;
+          -o-transform-style: preserve-3d;
+          -moz-transform-style: preserve-3d;
+          -webkit-transform-style: preserve-3d;
+      }
+      .rotate-axis
+      {
+          position: absolute;
+          width:100%;
+          height: 80px;
+          top: 0px;
+          left: 0px;
+          opacity: 0;
+          -webkit-transition: 0.4s;
+          -webkit-transition-delay: 0.2s;
+          -moz-transition: 0.4s;
+          -moz-transition-delay: 0.2s;
+          -o-transition: 0.4s;
+          -o-transition-delay: 0.2s;
+      }
+      .rotate-img:hover > .rotate-axis
+      {
+          opacity:1;
+      }
+      .rotate-img
+      {
+          position: absolute;
+          top:0px;
+          left:0px;
+          width: 100%;
+          height: 100%;
+          -o-transform: rotateX(0deg) rotateZ(0deg);
+          -moz-transform: rotateX(0deg) rotateZ(0deg);
+          -webkit-transform: rotateX(0deg) rotateZ(0deg);
+          -o-transition: 0.3s;
+          -moz-transition: 0.3s;
+          -webkit-transition: 0.3s;
+          -o-transform-style: preserve-3d;
+          -moz-transform-style: preserve-3d;
+          -webkit-transform-style: preserve-3d;
+      }
+      .rotate-button:hover
+      {
+          opacity: 1;
+      }
+      .rotate-button:hover > .rotate-img
+      {
+          -o-animation: rotate-360 1s linear infinite;
+          -moz-animation: rotate-360 1s linear infinite;
+          -webkit-animation: rotate-360 1s linear infinite;
+          -o-animation-delay: 0.3s;
+          -moz-animation-delay: 0.3s;
+          -webkit-animation-delay: 0.3s;
+          -o-transform: translateY(-10px) rotateX(-90deg) rotateZ(0deg);
+          -moz-transform: translateY(-10px) rotateX(-90deg) rotateZ(0deg);
+          -webkit-transform: translateY(-10px) rotateX(-90deg) rotateZ(0deg);
+      }
+      @-webkit-keyframes rotate-360
+      {
+          from {-webkit-transform: translateY(-10px) rotateX(-90deg) rotateZ(0deg);}
+          to {-webkit-transform: translateY(-10px) rotateX(-90deg) rotateZ(360deg);}
+      }
+      @-moz-keyframes rotate-360
+      {
+          from {-moz-transform: translateY(-10px) rotateX(-90deg) rotateZ(0deg);}
+          to {-moz-transform: translateY(-10px) rotateX(-90deg) rotateZ(360deg);}
+      }
+      @-o-keyframes rotate-360
+      {
+          from {-o-transform: translateY(-10px) rotateX(-90deg) rotateZ(0deg);}
+          to {-o-transform: translateY(-10px) rotateX(-90deg) rotateZ(360deg);}
+      }
   </style>
 
   <body style='display: none; '>
 
     <section class="slides layout-regular template-default" style="-webkit-perspective: 1000px; -moz-perspective: 1000px; -o-perspective: 1000px;" lang="fr">
 
-<!-- 3D toggle button --> 
- <div class="togglebutton">
-<img title="3d on/off" src="images/cube2.png" id="togglebutton1" onclick="toggle3D('togglebutton1')"/>
-</div> 
+<!-- 3D toggle button -->
+<div class="togglebutton" id="toggle3d-button">
+    <img title="3d on/off" src="images/cube2.png" id="togglebutton1" onclick="toggle3D('togglebutton1')"/>
+</div>
+
+<!-- 3D turn the slide button -->
+
+<div class="rotate-container" id="rotate-slide-button" onclick="turn3dcurrent()">
+    <div class="rotate-button" title="click to turn the slide">
+        <div class="rotate-img">
+            <img src="images/arrows.svg" style="width:100%; height:100%"/>
+            <svg class="rotate-axis" style="-webkit-transform: rotateY(90deg);-moz-transform: rotateY(90deg);-o-transform: rotateY(90deg);">
+                <line x1="0" y1="40" x2="80" y2="40" stroke="#a1a1a1" stroke-width="2" stroke-dasharray="12 6 4 6" >
+            </svg>
+            <svg class="rotate-axis" style="-webkit-transform: rotateY(90deg) rotateX(90deg);-moz-transform: rotateY(90deg) rotateX(90deg);-o-transform: rotateY(90deg) rotateX(90deg);" >
+                <line x1="0" y1="40" x2="80" y2="40" stroke="#a1a1a1" stroke-width="2" stroke-dasharray="12 6 4 6" >
+            </svg>
+        </div>
+    </div>
+</div>
+
+<!-- next slide button -->
+<!-- prev slide button -->
+<div class="slide-area" id="next-slide-area" onclick="nextSlide()"></div>
+<div class="slide-area" id="prev-slide-area" onclick="prevSlide()"></div>
+
    
       <!-- Your slides (<article>s) go here. Delete or comment out the
            slides below. -->
@@ -184,13 +315,36 @@
         	border: none;
         	box-shadow: none;
         }
+        .summary
+        {
+            position: absolute;
+            font-size: medium;
+            top: 3px;
+            left: 3px;
+            line-height: 1.2em;
+            padding: 3px 10px 3px 10px;
+            border: 1px grey solid;
+            cursor: pointer;
+            color: #333333;
+        }
+        .flag
+        {
+            width: 30px;
+            vertical-align: middle;
+        }
         </style>
-		<article id="usage-explanations" class="biglogo">
+		<article id="usage-explanations" class="biglogo" onslideenter="hidecontrols()" onslideleave="showcontrols()">
+            <div class="summary">
+                Langues disponibles: &nbsp;
+                 <a onclick="document.location.search='?lang=en';"><img src="template-images/flag-us.png" class="flag"/></a> &nbsp;
+                 <a onclick="document.location.search='?lang=fr';"><img src="template-images/flag-fr.png" class="flag"/></a>
+            </div>
 		<div style="margin-top: 100px; width: 100%; text-align: center">précédent<img style="vertical-align: -160px" src="images/keyboard.svg" width="350"/>suivant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
 		action
 		<br/><br/><br/><br/>action = voir au dos (explications complémentaires, solutions, ...)</div>
 		
 			<translation lang="en">
+                Available languages: &nbsp;
 			previous
 			next&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			action
@@ -248,7 +402,7 @@
 		  <img src="images/candidate4_fr.png" />
 		  <img src="images/candidate5_fr.png" />
 		  <img src="images/candidate6_fr.png" />
-		  <div class="bigserif announcement">Résultats officiels sur ce site.</div>
+		  <div class="bigserif announcement">Résultats annoncés sur ce site.</div>
 		</div>
 		<div class="qmark" id="q1">?</div>
 		<div class="qmark" id="q2">?</div>
@@ -264,11 +418,11 @@
 	   Un exercice de style et de montée en charge <br/>sur App Engine
 	 </h3>
 	 <p style="font-size: 0.75em; margin-top: 140px;">
-	   Ludovic Champenois, Alexis Moussine-Pouchkine, Matt Stephenson<br/>
+	   Martin Görner, Alexis Moussine-Pouchkine<br/>
 	 </p>
 	 
 	 <translation lang="en">
-	 Watch this site for official results.
+	 Watch this site for election results.
 	 --self--
 	 --self--
 	 --self--
@@ -330,11 +484,9 @@
     <article class="slide3d" > 
       <div class="backslide3d" style="padding:40px">
          <div class="screenshot-left" style="padding: 0px; text-align: center;margin-top: 80px;"><img src="images/googlemenu.png"/></div>
-         <p style="margin-top: 80px">Si tout s'est bien déroulé, vous devriez avoir une icône "g" comme "Google" dans Eclipse.</p>
-         <p style="margin-top: 40px">Java 7 est en mode Experimental depuis la version 1.7.5 (Février 2013)</p>
-         <p>Une version précédente de ce lab a été utilisait la version 3.x d'Objectify. La nouvelle version 4.x est <a href="http://code.google.src/main/java/com/p/objectify-appengine/wiki/UpgradeVersion3ToVersion4">incompatible</a> mais disponible dans Maven Central.</p>
-         <p>Il n'y a pas de code de départ pour ce lab, nous partons d'une feuille blanche!</p>
-         <p><a style="smaller" href="https://developers.google.src/main/java/com/appengine/docs/java/javadoc/overview-summary">JavaDoc pour AppEngine</a>
+         <p style="margin-top: 80px">Vous devriez maintenant avoir une icône "g" dans Eclipse.</p>
+         <p style="margin-top: 60px">Java 7 est en mode Expérimental depuis la version 1.7.5 du SDK App Engine</p>
+         <p style="margin-top: 260px"><a class="small" href="https://developers.google.com/appengine/docs/java/javadoc/overview-summary">JavaDoc pour AppEngine</a>
         </p>
 
 </p>
@@ -342,28 +494,28 @@
       
       <img src="images/install-gplugin.png" class="screenshot-right" style="clear:right; padding:0px; margin-top: 00px; margin-right:0px; margin-left:10px" />
       <div class="chapter-number g-blue">0</div>
-      <h3 class="num">Prérequis et téléchargements (option Eclipse)</h3>
+      <h3 class="num">Prérequis (option plugin Eclipse)</h3>
          <ul style="margin-top:30px">
-            <li> <a href="http://www.oracle.src/main/java/com/technetwork/java/javase/downloads/index.html">JDK 6 or JDK 7</a></li>
+            <li> <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK 6 or JDK 7</a> (pas JRE)</li>
             <li> <a href="http://eclipse.org/downloads/">Eclipse for Java EE Developers</a></li>
-<!--             <li>La <a href="http://code.google.src/main/java/com/p/objectify-appengine/downloads/list">librairie objectify (3.x)</a> à télécharger (ajoutée au projet plus tard)</li> -->
+            <li>La <a href="http://repo1.maven.org/maven2/com/googlecode/objectify/objectify/">librairie objectify-4.xx.jar</a> à télécharger (explications plus loin)<br/><br/><br/></li>
             <li><code>Google Plugin for Eclipse</code> <br/> et <br/>
             <code>Google App Engine Java SDK</code><br/>
-            <span>disponibles dans</span> Eclipse: Help › Install New Software › Add ... <code>http://dl.google.src/main/java/com/eclipse/plugin/4.2</code></li>
+            <span>à installer via</span> Eclipse: Help › Install New Software › Add ... <code>http://dl.google.com/eclipse/plugin/4.2</code></li>
          </ul>
          
          <translation lang="en">
            You should now have a "g" icon in the Eclipse toolbar.
-           Java 7 is in Experimental status as of Version 1.7.5 (Feb. 2013)
-           An earlier version of this lab used Objectify version 3.x. The more recent version 4.x is 
-           --self--
-           but available from Maven Central.
-           There is no code to start from, we're starting to code from scratch!
+           Java 7 is in Experimental status as of App Engine SDK Version 1.7.5
            AppEngine JavaDoc
            --self--
-           Setup (Eclipse)
+           Setup (Eclipse plugin option)
            --self--
-           Eclipse for Java EE Developers
+           (not JRE)
+           --self--
+           The&nbsp;
+objectify-4.xx.jar library
+           Download it, explanations later.
            --self--
            and
            --self--
@@ -379,39 +531,38 @@
 	  <article class="slide3d" > 
       <div class="backslide3d" style="padding:40px">
         <p>
-            <p>L'objectif principal dans cette utilisation de Maven est de pouvoir partager le project entre différents IDE (y compris ceux dans le nuage) et de le rendre facilement intégrable dans un outil d'intégration continue (Jenkins, ...).</p>
-            <p>Donc si vous n'êtes pas un grand fan d'Eclipse vous pouvez utiliser NetBeans, IntelliJ ou bien la ligne de commande pour créer un projet à partir d'un archetype, sélectionner la version du SDK AppEngine comme une dépendance Maven et déployer dans l'environnement local ou en production.</p>
-            <p>Il n'y a pas de code de départ pour ce lab, nous partons d'une feuille blanche!</p>
-            <p>Si vous rencontrez des problèms à l'installation des plugins, essayez de rajouter ce site :
-            <code>http://download.eclipse.org/technology/m2e/releases</code></p>
+            <p>Maven est un format de projet et un système de build pour Java.</p>
+            <p>Les projets Maven sont portables entre IDEs, outils d'intégration continue etc. (Eclipse, NetBeans, IntelliJ, Jenkins).</p>
+            <p>Ils incluent les dépendances, y compris la dépendance vers le SDK App Engine qui sera téléchargé automatiquement.</p>
+            <p style="text-align: center; margin-top: 140px"><img style="width:60%" src="images/mavenlogo.gif" /></p>
         </p>
       </div>
       
       <img src="images/install.png" class="screenshot-right" style="clear:right; padding:0px; margin-top: 00px; margin-right:0px; margin-left:30px" />
       <div class="chapter-number g-blue">0</div>
-      <h3 class="num">Prérequis et téléchargements (option Maven)</h3>
+      <h3 class="num">Prérequis (option Maven)</h3>
          <ul style="margin-top:30px">
-            <li> <a href="http://www.oracle.src/main/java/com/javase">JDK 6 or 7</a> (pas JRE)</li>
-            <li> <a href="http://eclipse.org/downloads/">Eclipse for Java EE Developers</a></li>
-            <li>The <code>m2e Maven Integration for Eclipse</code><br/>
-            disponibles dans Eclipse: Help › Install New Software</li>
-            <li>The <code>Maven Integration for Eclipse WTP (Incubation)</code> plugin from the Eclipse Marketplace (also in the Help menu).</li>
+            <li> <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK 6 or 7</a> (pas JRE)</li>
+            <li> <a href="http://eclipse.org/downloads/">Eclipse for Java EE Developers</a> (ou un autre éditeur Java)<br/><br/><br/></li>
+            <li>Le plugin Maven<code> m2e-wtp</code> pour Eclipse à installer via <span> Help › Eclipse Marketplace</span></li>
+            <li>Se connecter à <code> Maven Central</code><br/> Preferences > Maven > Archetypes > Add Remote ... <code>http://repo1.maven.org/maven2</code></li>
          </ul>
          
          <translation lang="en">
-           The key goal of a Maven setup is to be able to share the project across IDEs (including web-based ones) and make it continuous-integration friendly (Jenkins, ...).
-           So if you're not a big Eclipse fan, you can use NetBeans, IntelliJ or even the command-line to create the project from an archetype, select the proper AppEngine SDK version as a Maven dependency, and deploy to the local or production runtime.
-           There is no code to start from, we're starting to code from scratch!
-           If you are having trouble installing the Maven Eclipse plugins (Maven is baked into NetBeans), try adding this site: 
+           Maven is a project format and build system for Java.
+           Maven projects are portable between IDEs or continuous integration tools (Eclipse, NetBeans, IntelliJ, Jenkins).
+           They include dependencies, including our dependency on the App Engine SDK which will be downloaded automatically.
            --self--
-           --self--
-           Setup (Maven)
+           Setup (Maven option)
            --self--
            (not JRE)
            --self--
+           (or your favourite Java IDE)
+           The
            --self--
+           Maven plugin for Eclipse to install from
            --self--
-           plugin available in Eclipse: Help › Install New Software
+           Connect to
            --self--
            --self--
            --self--
@@ -424,17 +575,47 @@
 
     <article class="slide3d" > 
       <div class="backslide3d" style="padding:40px">
-<img  class="screenshot-left" src="images/project_structure.png" align="left"/>
-<= structure du projet Web (plugin Eclipse)
-<p>Lors de la toute première exécution il vous faudra attendre que Maven télécharge le SDK AppEngine (environ 50MB).</p> 
+<img  class="screenshot-left" src="images/project_structure_maven.png" align="left" style="margin-right: 10px"/>
+          <p style="text-align: right">Le projet généré</p>
+          <div style="line-height: 17px; margin-top: -53px; font-size: 20px; color: black">
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <span>←&nbsp;</span> votre servlet
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <span>←&nbsp;</span> dépendances sur app engine
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> App ID, version de l'application et<br/>
+              <br/>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> autres <a href="https://developers.google.com/appengine/docs/java/config/appconfig">paramères</a> App Engine dans<br/>
+              <br/>
+              <span>←&nbsp;</span> appengine-web.xml
+              <br/>
+              <br/>
+              <span>←&nbsp;</span> web.xml: servlet mapping
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <span>←&nbsp;</span> pom.xml: fichier projet Maven (dépendances)
+          </div>
 
-<p>
-Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et sera utilisé plus tard pour spécifier un nom et une version d'application et d'autres <a href="https://developers.google.src/main/java/com/appengine/docs/java/config/appconfig">paramètres optionels propres à AppEngine</a>.
-</p>
+<p style="clear: both" class="small"><img align="right" style="vertical-align: top" src="images/stop_server.png"/>
+  Erreur <code>"port occupied"</code> en lançant: tuer le serveur local avec le bouton rouge de la <code>"Console"</code> (Window &gt; Show View &gt; Console).
 
-<p>
-  Si en relançant vore application vous avez une erreur <code>"port occupied"</code>, pensez à terminer le build précédent ou à utiliser le bouton rouge "Terminate" de <code>"Console"</code> (Window &gt; Show View &gt; Console).
-<img style="vertical-align: top" src="images/stop_server.png"/>
       </div>
 
     <div class="chapter-number g-red">1</div>
@@ -442,53 +623,59 @@ Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et se
         </h3>
         <ul style="margin-top:40px">
         <li>Créer un nouveau <span class="pop">Projet Maven</span> d'après un archetype</li>
-        <li>Filtrer: <code>com.google.appengine.archetypes</code> et sélectionner <code>skeleton-archetype (1.7.5)</code>
-        <li>GroupId: <span class="pop">com.moi.lepresident</span> Nom: <span class="pop">LePresident</span>, package: <span class="pop">com.moi.lepresident</span></li>
-        <li>Créer une servlet <code>LePresidentServlet.java</code></li>
-        <li>Lancer en local avec le SDK :
-          <ul style="font-size: 80%">
-            <li>Eclipse: eclipse-launch-profiles › DevAppServer.launch › Run As › DevAppServer</li>
-            <li>NetBeans: (click droit project) > Custom > appengine:devserver</li>
-          </ul>
+        <li>Filtrer par <code> com.google.appengine.archetypes</code> et sélectionner <code> skeleton-archetype (1.7.5)</code>
+        <li>GroupId: <span class="pop">com.myname</span>, ArtefactID: <span class="pop">thepresident</span></li>
+        <li>Créer une servlet <code> PresidentServlet.java</code> avec<br/><code class="small">response.getWriter().write("Hello App Engine");</code></li>
+        <li>Lancer en local avec le SDK (goal appengine:devserver)<br />  Eclipse: Run > Run Configurations... > <span class="pop">DevAppServer</span><br/>
+            Premier run: le SDK App Engine va se télécharger (50MB)
         </ul>
-        <span class="small" style="color: red; font-family: monospace;">INFO: The server is running at <a style="color: red;" href="http://localhost:8080/">http://localhost:8080/</a></span><br/>
+        <span class="small" style="color: red; font-family: monospace;">INFO: The server is running at <a style="color: red;" href="http://localhost:8080/PresidentServlet">http://localhost:8080/PresidentServlet</a></span><br/>
             
 
     <translation lang="en">
-    <= structure of the Web project (Eclipse plugin approach)
-    Upon first build only you'll need to wait for the download of the AppEngine SDK itself, about 50MB.
-    The file
-    appengine-web.xml
-    contains default values and will be used later to specify the deploy name of the application and other 
-    App Engine specific parameters.
-    (the default port for the Eclipse plugin is 8888)
-    If you see the error
-    "port occupied"
-    when launching your app, terminate the previous run or use the red "Terminate" button in the 
-    --self--
-    --self--
-    --self--
-    My first servlet "Hello App Engine" (Maven)
-    Create a new
-            Maven project
-            from an archetype
-            Filter for 
-            --self--
-            and select: 
-            --self--
-            --self--
-            com.me.thepresident
-            ArtifactId:
-        ThePresident
-, package: 
-    com.me.thepresident
-    Create a servlet :
-    ThePresidentServlet.java
-    Run locally using the SDK!
-    Eclipse: eclipse-launch-profiles › DevAppServer.launch › Run As › DevAppServer
-    NetBeans: (right-click on project) > Custom > appengine:devserver
-    --self--
-    --self--
+        The generated project
+        --self--
+        your servlet
+        --self--
+        dependencies on App Engine
+        App ID, application version and
+        other
+        App Engine parameters
+        in
+        --self--
+        --self--
+        --self--
+        --self--
+        --self--
+        pom.xml: Maven project file (dependencies)
+        Troubleshooting:
+        --self--
+        error: kill the local server using the red button in the
+        --self--
+        --self--
+        --self--
+        My first "Hello App Engine" servlet
+        Create a new
+        Maven Project
+        using an archetype
+        Filter by
+        --self--
+        and select
+        --self--
+        --self--
+        --self--
+        --self--
+        --self--
+        Create the servlet
+        --self--
+        with
+        --self--
+        Run local server with the SDK (goal: appengine:devserver)
+        --self--
+        --self--
+        First run: the App Engine SDK will be downloaded (50MB)
+        --self--
+        --self--
     </translation>
       </article>
 
@@ -802,15 +989,15 @@ logout
 		<img style="float: left; padding: 10px; margin-right: 25px; margin-top: 15px; background-color: white; border: 1px solid grey" height="420px" src="images/datastore.svg" />        
         <p style="margin-top: 50px;">Organisation des données: penser "XML" plutôt que tables.</p>
         <p>Requêtes indexées uniquement.</p>
-        <p>Cohérence à terme des lectures et écritures.</p>
-        <p class="poplow">Entity = kind + <br/>(multivalued) properties + key</p>
+        <p>Cohérence à terme des requêtes.</p>
+        <p class="poplow">Entity = kind + id + <br/>(multivalued) properties</p>
         
         <translation lang="en">
         High Replication Datastore
         concurrent access, replication, scale
         Data layout: think "XML" rather than "database table"
-        Indexed requests only
-        Eventually consistent reads and writes
+        Indexed queries only
+        Eventually consistent queries
         --self--
         --self--
         </translation>
@@ -821,7 +1008,7 @@ logout
 
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: src/main/java/src/main/java/com/me/thepresident/Comments.java</p>
+<p>fichier: src/main/java/com/myname/thepresident/Comments.java</p>
 <pre class="x-smallcode lesspace" style="margin-bottom: 15px;">
 package <span>com.moi.lepresident</span>;
 import java.util.*;
@@ -860,7 +1047,7 @@ for (Entity commentEntity: comments) { ... commentEntity.getProperty("text") ...
       
         <div class="chapter-number g-red">5</div>
         <h3 class="num">
-          Conserver les commentaires sur le serveur. 
+          Conserver les commentaires sur le serveur
         </h3>
         
         <div style="margin-top:30px;">
@@ -898,7 +1085,7 @@ List&lt;Entity&gt; results =
         </div>
         
         <translation lang="en">
-        file: src/main/java/src/main/java/com/me/thepresident/Comments.java
+        file: src/main/java/com/myname/thepresident/Comments.java
 com.me.thepresident
 Usage: 
         --self--
@@ -917,6 +1104,113 @@ Usage:
         100 results sorted by date
         </translation>
       </article>
+
+<!-- ------------------------------------------------------------------------------- -->
+<!-- 6. Conserver les commentaires sur le serveur avec Objectify -->
+
+<article class="slide3d" >
+    <div class="backslide3d">
+        <p>fichier: src/com/myname/thepresident/ObjectifyDAO.java</p>
+<pre class="x-smallcode lesspace">
+package com.myname.thepresident;
+import com.googlecode.objectify.Objectify;     import com.googlecode.objectify.ObjectifyService;
+
+public class ObjectifyDAO
+{
+    static { ObjectifyService.register(Comment.class); } <span>// enregistrement des classes @Entity</span>
+    static Objectify ofy() { return ObjectifyService.ofy(); }  <span>// proxy pour Objectify</span>
+}
+</pre>
+        <p>fichier: src/com/myname/thepresident/Comment.java</p>
+<pre class="x-smallcode lesspace">
+package com.myname.thepresident;
+import java.util.Date; import java.util.List;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
+import static com.myname.thepresident.ObjectifyDAO.ofy; <span>// ofy() passe désormais par le DAO</span>
+
+@Entity public class Comment
+{
+   @Id Long id;     @Index Date date;     public String user, text;
+
+   public Comment() {}
+   public Comment(String text, String user) { this.user = user; this.text = text; this.date = new Date(); }
+
+   public static void store(String text, String user) { ofy().save().entity(new Comment(text, user)); }
+
+   public static List&lt;Comment&gt; retrieveAll()
+   { return ofy().load().type(Comment.class).order("-date").limit(100).list(); }
+}
+</pre>
+
+    </div>
+
+    <div class="chapter-number g-blue">6</div>
+    <h3 class="num">
+        La même chose avec Objectify 4
+    </h3>
+
+    <div style="margin-top:20px;">
+        <div class="screenshot-left" style="margin-right: 45px; width:258px">
+            Utiliser un Plain Old Java Object (POJO):
+<pre class="smallcode lesspace">
+@Entity
+public class Comment
+{
+    @Id Long id;
+    @Index Date date;
+    String user;
+    String text;
+
+    public Comment() {}
+    ...
+}
+</pre>
+            <p class="small">L'écriture en base auto-génère l'id si il est de type Long.</p>
+        </div>
+        <p>Enregistrement des classes et Data Access Object:</p>
+<pre class="x-smallcode lesspace">
+public class ObjectifyDAO
+{<span>// enregistrer toutes les classes @Entity</span>
+ static { ObjectifyService.register(Comment.class); }
+<span>// proxy pour Objectify</span>
+ static Objectify ofy() {return ObjectifyService.ofy();}
+}
+<span>// puis utiliser ofy() grâce à la déclaration:</span>
+import static com.myname.thepresident.ObjectifyDAO.ofy;
+</pre>
+        <p>&Eacute;criture:</p>
+<pre class="smallcode lesspace">
+ofy().save().entity(new Comment(text, user));
+</pre>
+        <p>Lecture: <span class="small">100 résultats triés par date</span></p>
+<pre class="x-smallcode lesspace">
+List&lt;Comment&gt; list = ofy().load().type(Comment.class)
+                   .order("-date").limit(100).list();
+for (Comment c: list) { ... }
+</pre>
+    </div>
+
+    <translation lang="en">
+        file: src/com/myname/thepresident/ObjectifyDAO.java
+        // register all @Entity classes
+        // proxy for Objectify
+        file: src/com/myname/thepresident/Comment.java
+ // now ofy() goes through the DAO
+        --self--
+        The same thing with Objectify 4
+        Use a Plain Old Java Object (POJO):
+        If the Id is of type Long, it will be generated automatically on write.
+        Registering data classes in a Data Access Object:
+ // register all @Entity classes
+ // proxy for Objectify
+// then use ofy() thanks to the declaration:
+        Write:
+        Read:
+        100 results sorted by date
+    </translation>
+</article>
 
 <!-- ------------------------------------------------------------------------------- -->
 <!-- architecture explanation -->
@@ -1000,34 +1294,36 @@ Usage:
       
       <article class="slide3d">
       <div class="backslide3d">
-      	<p>fichier: src/main/java/src/main/java/com/me/thepresident/Comments.java</p>
-<p class="small" style="margin:0">On crée une nouvelle fonction pour la lecture des commentaires (avec cache):</p>
+          <p>fichier: src/com/myname/thepresident/Comment.java</p>
+          <p class="small" >La classe Comment doit devenir sérialisable:</p>
 <pre class="lesspace smallcode">
-public static List&lt;Entity&gt; retrieveAllCached()
-{
+public class Comment <span class="u">implements Serializable</span>
+</pre>
+          <p class="small" style="margin:0">On crée une nouvelle méthode pour la lecture des commentaires (avec cache):</p>
+<pre class="lesspace smallcode">
+public static List&lt;Comment&gt; retrieveAllCached() {
     MemcacheService cache = MemcacheServiceFactory.getMemcacheService();
-    List&lt;Entity&gt; comments = (List&lt;Entity&gt;)cache.get("100Comments");
-    if (comments == null)
-    {
-        comments = retrieveAll(); // read from datastore
+    List&lt;Comment&gt; comments = (List&lt;Comment&gt;)cache.get("100Comments");
+    if (comments == null) {
+        comments = retrieveAll(); <span>// lecture à partir du Datastore</span>
         if (comments != null)
-            cache.put("100Comments", comments); // store in memcache
+            cache.put("100Comments", comments); <span>// enregistrement dans Memcache  </span>
     }
     return comments;
 }
 </pre>
-<p class="small" style="margin:0">Enfin, on invalide le cache à chaque nouveau commentaire:</p>
+          <p class="small" style="margin:0">Enfin, on invalide le cache à chaque nouveau commentaire:</p>
 <pre class="lesspace smallcode">
-public static void store(String text, String user)
-{
-    ...
-    datastore.put(commentEntity);
-    <span class="u">MemcacheServiceFactory.getMemcacheService().delete("100Comments")</span>; //kill cache
+import static com.myname.thepresident.ObjectifyDAO.ofy;
+
+public static void store(String text, String user) {
+	ofy().save().entity(new Comment(text, user));
+	<span class="u">MemcacheServiceFactory.getMemcacheService().delete("100Comments")</span>; // flush cache
 }
 </pre>
       </div>
       
-            <div class="chapter-number g-red">6</div>
+            <div class="chapter-number g-red">7</div>
       		<h3 class="num">Optimiser les commentaires avec Memcache</h3>
       		<div style="margin-top:70px;">
 				<div class="screenshot-left" style="margin-right: 45px; width:258px">
@@ -1053,8 +1349,12 @@ cache.delete("myKey");
           </div>
           
           <translation lang="en">
-          file: src/main/java/src/main/java/com/me/thepresident/Comments.java
+          file: /java/com/myname/thepresident/Comment.java
+          The Commen class must become Serializable
+          --self--
           Create a new method for retrieving comments with caching:
+// read from Datastore
+// write to MemCache
           Finally, invalidate the cache on each new comment:
           --self--
           --self--
@@ -1071,7 +1371,7 @@ cache.delete("myKey");
 
       <article class="slide3d">
       <div class="backslide3d">
-      <p class="small">La servlet: elle écrit le nom du président élu dans le datastore<br/>fichier src/main/java/src/main/java/com/me/thepresident/CronServlet.java</p>
+      <p class="small">La servlet: elle écrit le nom du président élu dans le datastore<br/>fichier /src/main/java/com/myname/thepresident/CronServlet.java</p>
       <pre class="x-smallcode lesspace">
 public class CronServlet extends HttpServlet
 {   @Override
@@ -1101,7 +1401,7 @@ if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</spa
 <p class="x-small poplow" style="margin-top: 10px">(Pour afficher également la photo du président, récupérez les images au dos da la <a href="#2">première slide</a>.)</p>
       </div> 
       
-            <div class="chapter-number g-yellow">7</div>
+            <div class="chapter-number g-yellow">8</div>
       		<h3 class="num">Afficher le nom du président à 20h00 précises avec une tâche planifiée Cron</h3>
       		
 	        <div style="margin-top:20px;">
@@ -1113,7 +1413,7 @@ if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</spa
 	        
 	        <p>Les Cron lancent des servlets dont l'URL est définie dans web.xml.</p>
 	        <p style="margin-bottom: 20px;">
-	        Périodicité à configurer dans WEB-INF/cron.xml (<a href="https://developers.google.src/main/java/com/appengine/docs/java/config/cron">syntaxe complète</a>):</p>
+	        Périodicité à configurer dans WEB-INF/cron.xml (<a href="https://developers.google.com/appengine/docs/java/config/cron">syntaxe complète</a>):</p>
 	        
 	        <pre class="smallcode">
 &lt;?xml version="1.0" ?&gt;
@@ -1128,7 +1428,7 @@ if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</spa
         
         <translation lang="en">
         The cron servlet writes the name of the elected president into the datastore.
-        file: src/main/java/src/main/java/com/me/thepresident/CronServlet.java
+        file: /src/main/java/com/me/thepresident/CronServlet.java
 Barack obama
 or Mitt Romney
 		Servlet mapping in WEB-INF/web.xml, with access restrictions:
@@ -1168,103 +1468,147 @@ display president
       </article>
 
 <!-- ------------------------------------------------------------------------------- -->
-<!-- 8. Implémenter un compteur éclaté -->
+<!-- 9. Implémenter un compteur éclaté -->
 
-	  <style>
-        .counter
-        {
-        	display: inline-block;
-        	width: 40px;
-        	height: 40px;
-        	background-color: #0076CC;
-        	border-radius: 4px;
-        	border: 1px solid #4486DD;
-        	color:white;
-        	font-weight: bold;
-        	text-align: center;
-        }
-        td.countercell
-        {
-        	padding:0px;
-        	text-align: center;
-        	border: none;
-        	font-size: large;
-        	font-weight: normal;
-        	line-height: 36px;
-        }
-        #shardedcounterslide pre
-        { margin-bottom: 0px; }
-        #shardedcounterslide p
-        { margin-top: 15px; }
-        
-        </style>
-      <article id="shardedcounterslide" class="slide3d">
-      <div class="backslide3d">
-      <pre class="lesspace smallcode" >
-Checkout https://github.src/main/java/com/mattstep/appengine-election-tracking-sample
-for full solution.
+<style>
+    .counter
+    {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        background-color: #0076CC;
+        border-radius: 4px;
+        border: 1px solid #4486DD;
+        color:white;
+        font-weight: bold;
+        text-align: center;
+    }
+    td.countercell
+    {
+        padding:0px;
+        text-align: center;
+        border: none;
+        font-size: large;
+        font-weight: normal;
+        line-height: 36px;
+    }
+    #shardedcounterslide pre
+    { margin-bottom: 0px; }
+    #shardedcounterslide p
+    { margin-top: 15px; }
+
+</style>
+<article id="shardedcounterslide" class="slide3d">
+    <div class="backslide3d">
+      <pre class="lesspace smallcode" style="float:left; width:400px; height:610px; margin-right: 20px; font-size: 0.5em">
+import static com.myname
+               .thepresident.ObjectifyDAO.ofy;
+
+@Entity
+public class Counter {
+  @Id String key;
+  @Index String name;
+  @Index Long value;
+
+  Counter() {}  // Empty constructor
+  Counter(String name, Integer shard_N, Long val) {
+    this.name = name;
+    this.value = val;
+    key = name + "_shard" + shard_N.toString();
+  }
+
+  public static void increment(String name) {
+    MemcacheService cache =
+      MemcacheServiceFactory.getMemcacheService();
+    Long val = cache.increment(name, 1); // atomic
+    if (val == null) {
+       val = Counter.read(name);
+       Long init = (val == null) ? 0L : val;
+       // atomic increment with initial value
+       val = cache.increment(name, 1, init);
+    }
+    Counter.write(name, val);
+  }
       </pre>
-<!--       <pre class="lesspace smallcode" style="width:400px; height:610px; font-size: 0.5em">
+      <pre class="lesspace smallcode" style="width:400px; height:610px; font-size: 0.5em">
+  // Counter.java continued
 
-      </pre> -->
-<!--       <div class="small">
-        usage: &nbsp;&nbsp;
-        <span style="color: black;">Counter.increment("pluscounter"); &nbsp;&nbsp;Counter.value("minuscounter");</span>
-      </div> -->
-      </div> 
-      
-       <div class="chapter-number g-blue">8</div>
-        <h3 class="num">
-          Implémenter un compteur qui tient la charge (Counter.java)
-        </h3>
+  public static Long value(String name) {
+    MemcacheService cache =
+      MemcacheServiceFactory.getMemcacheService();
+    Long val = (Long)cache.get(name);
+    if (val == null) {
+      val = Counter.read(name);
+      if (val != null) {
+        cache.put(name, val);
+      }
+    }
+    return val;
+  }
 
-        <div style="margin-top:20px;">
-	        <div class="screenshot-left bigserif scrshottext" style="margin-right: 30px;">
-	        <p style="margin-top: 0px">Le président est...</p>
-	        <div class="scrshotimg"><img src="images/candidate2_fr.png"/></div>
-	        <div style="text-align: center;"><small>Nicolas Sarkozy</small></div>
-	        <table style="margin-top:10px"><tr><td class="countercell"><div class="counter">+1</div> (17K)</td><td class="countercell"><div class="counter">-1</div> (10K)</td></tr></table>
-	    </div>
-	        
-         <p>Memcache: incrément atomique </p>
-         <pre class="lesspace smallcode">Long newVal = MemcacheServiceFactory
+  static Long read(String name) {
+    Counter c = ofy().load().type(Counter.class)
+            .filter("name", name).order("-value")
+                                    .first().get();
+    return (c == null ? null : c.value);
+  }
+
+  static void write(String name, Long value) {
+    Random r = new Random();
+    Integer shard_N = r.nextInt(10);
+    ofy().save().entity(
+              new Counter(name, shard_N, value));
+  }
+}
+      </pre>
+        <div class="x-small" style="margin-top:10px">usage: &nbsp;&nbsp;<span style="color: black;">Counter.increment("pluscounter"); &nbsp;&nbsp;Counter.value("minuscounter");</span></div>
+    </div>
+
+    <div class="chapter-number g-blue">9</div>
+    <h3 class="num">
+        Implémenter un compteur qui tient la charge
+    </h3>
+
+    <pre class="lesspace smallcode">//key = name+shard_N
+public class @Entity Counter {@Id String key; @Index String name; @Index Long value;}</pre>
+
+
+    <div style="margin-top:20px;">
+        <div class="screenshot-left bigserif scrshottext" style="margin-right: 30px;">
+            <p style="margin-top: 0px">Le président est...</p>
+            <div class="scrshotimg"><img src="images/candidate2_fr.png"/></div>
+            <div style="text-align: center;"><small>Nicolas Sarkozy</small></div>
+            <table style="margin-top:10px"><tr><td class="countercell"><div class="counter">+1</div> (17K)</td><td class="countercell"><div class="counter">-1</div> (10K)</td></tr></table>
+        </div>
+
+        <p>Memcache: incrément atomique </p>
+         <pre class="lesspace smallcode">Long C = MemcacheServiceFactory
 .getMemcacheService().increment("myCounter", 1);</pre>
-         
-         <p>Sauver la nouvelle valeur dans un parmi 10 compteurs du Datastore.</p>
+
+        <p>Sauver la nouvelle valeur dans un parmi 10 compteurs du Datastore.</p>
          <pre class="lesspace smallcode">
 Integer shard_N = new Random().nextInt(10);
-Key key = KeyFactory.createKey("Counter", 
-   name + "_shard" + shardN.toString());
-Entity counter = new Entity(key);
-counter.setProperty("name", name);
-counter.setProperty("value", value);
-DatastoreServiceFactory.getDatastoreService()
-   .put(counter);
-</pre>
-         <p>Lecture: si échec du Memcache, MAX des compteurs du datastore.</p>
-		 <pre class="lesspace smallcode">Query query = new Query("Counter")
-        .addFilter("name", Query.FilterOperator.EQUAL, name)
-        .addSort("value", Query.SortDirection.DESCENDING);
-Iterable<Entity> entities = datastore.prepare(query).asIterable();
-if(!entities.iterator().hasNext()) return null;
-return e == entities.iterator().next() ? null : (Long) e.getProperty("value");
-</pre>
+ofy().save().entity(new Counter(name,shard_N,C));</pre>
+        <p>Lecture: si échec du Memcache, MAX des compteurs du datastore.</p>
+		 <pre class="lesspace smallcode">ofy().load().type(Counter.class).filter("name",
+             name).order("-value").first().get();</pre>
 
-		<translation lang="en">
-		--self--
-		A counter that scales under load (Counter.java)
-		The president is:
-		Mitt Romney
-		--self--
-		--self--
-		--self--
-		--self--
-		Atomic increment in Memcache:
-		Save new value (10 counters):
-		Read: 
-    --self--
-		</translation>
-      </article>
+        <translation lang="en">
+            usage:
+            --self--
+            --self--
+            Implement a counter that scales under load
+            The president is:
+            Mitt Romney
+            --self--
+            --self--
+            --self--
+            --self--
+            Atomic increment in Memcache:
+            Save the new value in one of 10 counters in the datastore:
+            Read: if Memcache fails, MAX of the counters in the datastore:
+        </translation>
+</article>
  
 <!-- ------------------------------------------------------------------------------- -->
 <!-- 9. Ajouter un index composite sur une entité -->
@@ -1283,14 +1627,14 @@ return e == entities.iterator().next() ? null : (Long) e.getProperty("value");
 </pre>
 <p>Le SDK autogénère ce fichier dans le le répertoire <code>WEB-INF/appengine-generated/datastore-indexes-auto.xml</code> à copier dans <code>WEB-INF/appengine/datastore-indexes.xml</code></p>
 </div>
-		<div class="chapter-number g-green">9</div>
+		<div class="chapter-number g-green">10</div>
         <h3 class="num2">
           Ajouter un index multiple sur une entité
         </h3>
         <ul>
         <li>Le datastore exécute uniquement des requêtes indexées.</li>
-        <li>Le datastore crée un index simple pour chaque propriété. Pour l'éviter, ajouter l'annotation objectify <code>@Unindexed</code>.</li>
-        <li>Si l'on fait une recherche sur plus d'une propriété, colonne de tri comprise, il faut créer un index pour chaque combinaison manuellement.</li>
+        <li>Objectify crée un index simple sur chaque propriété annotée avec <code> @Index</code>.</li>
+        <li>Si l'on fait une requête sur plus d'une propriété, il faut créer un index pour chaque combinaison manuellement.</li>
         <li style="margin-top: 60px;">Pour notre compteur, il nous faut un index combiné avec "name" et "value" DESC</li>
         </ul>
         
@@ -1303,7 +1647,7 @@ return e == entities.iterator().next() ? null : (Long) e.getProperty("value");
         --self--
         Add a composite index on an entity
         The datastore can execute indexed request only.
-        The datastore creates an index for each property automatically, unless you use the objectify annotation 
+        Objectify creates an index for each property annotated with
         --self--
         --self--
         If you want to request on multiple properties, you have to create an index for each combination manually.
@@ -1320,7 +1664,7 @@ return e == entities.iterator().next() ? null : (Long) e.getProperty("value");
 <p>fichier: WEB-INF/appengine-web.xml</p>
 <pre class="smallcode lesspace">
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;appengine-web-app xmlns=&quot;http://appengine.google.src/main/java/com/ns/1.0&quot;&gt;
+&lt;appengine-web-app xmlns=&quot;http://appengine.google.com/ns/1.0&quot;&gt;
     &lt;!-- <span>Le nom de votre ApplicationId sur</span> http://appengine.google.com --&gt;
     &lt;application&gt;<span>lepresident-est</span>&lt;/application&gt;
     &lt;!-- <span>Version de votre application, cela peut etre un texte (alpha, beta, etc...)</span> --&gt;
@@ -1328,26 +1672,23 @@ return e == entities.iterator().next() ? null : (Long) e.getProperty("value");
     ...
 &lt;/appengine-web-app&gt;
 </pre>
-<p>Détails sur le <a href="https://developers.google.src/main/java/com/appengine/docs/java/config/appconfig">contenu de appengine-web.xml</a>.</p>
-<p>
-    Configuration également possible au travers des propriétés du projet :
-    <span style="margin-top: 10px;float: right; overflow: hidden; height:260px; display:inline-block; border: 1px solid rgb(200,200,200); border-bottom: none; vertical-align: top;"><img src="images/appengine-nameapp.png"/></span>
-</p>
+<p>Documentation de référence sur <a href="https://developers.google.com/appengine/docs/java/config/appconfig">appengine-web.xml</a>.</p>
+<p class="small">Le plugin App Engine pour Eclipse a aussi un réglage de projet pour l'App id : </p>
+<p><img src="images/appengine-nameapp.png"/></p>
 
       </div>
-        <div class="chapter-number g-red">10</div>
+        <div class="chapter-number g-red">11</div>
         <h3 class="num2">
           Déployer sur App Engine!
         </h3>
         <ul>
-         <li>Aller sur <a href="http://appengine.google.com">http://appengine.google.src/main/java/com/</a> et créer un identifiant pour votre application. Elle sera accessible à l'adresse <code>http://monidentifiant.appspot.com</code></li>
+         <li>Aller sur <a href="http://appengine.google.com">http://appengine.google.com</a> et créer un identifiant pour votre application. Elle sera accessible à l'adresse <code>http://monidentifiant.appspot.com</code></li>
          <li>Spécifier cet identifiant dans <code>appengine-web.xml</code></li>
-         <li style="margin-top:40px">Déployer dans AppEngine !
-          <ul style="font-size: 80%">
-            <li>Eclipse (Maven): <code>eclipse-launch-profiles > UpdateApplication.launch > Run As > UpdateApplication</code>
-            <li>NetBeans: (click-droit projet) <code>> Custom > appengine:update</code>
+         <li style="margin-top:40px">Déployer
+          <ul style="font-size: 80%; margin-top: 30px">
+            <li>(maven goal appengine:update)<br/>Eclipse (Maven): Run > Run Cofigurations... > <span class="pop">UpdateApplication</span>
+            <li>App Engine plugin pour Eclipse: choisir "Deploy to App Engine..." dans le menu "g".</li>
           </ul>
-         <li style="margin-top:40px"><i>(avec le plugin Eclipse, choisir "Deploy to App Engine..." dans le menu "g")</i></li>
         </ul>
         
         <translation lang="en">
@@ -1355,9 +1696,9 @@ return e == entities.iterator().next() ? null : (Long) e.getProperty("value");
 Your application id as defined on
 thepresident-is
 The version of your application, it can be a string (alpha, beta, ...)
-        More information on the 
-        contents of appengine-web.xml
-        .
+        Reference documentation on&nbsp;
+appengine-web.xml
+ .
         This configuration is also possible via the Eclipse plugin:
         --self--
         Deploy to App Engine
@@ -1367,12 +1708,11 @@ The version of your application, it can be a string (alpha, beta, ...)
         http://myappid.appspot.com
         Add the app id to 
         --self--
-        Deploy to AppEngine!
+        Deploy
         --self--
-        eclipse-launch-profiles > UpdateApplication.launch > Run As > UpdateApplication
-        NetBeans (project right-click) 
-        > Custom > appengine:update
-        (if using the Eclipse plugin, use "Deploy to App Engine..." from the toolbar "g" menu)
+        --self--
+        --self--
+        App Engine plugin for Eclipse: choose "Deploy to App Engine..." in the  "g" menu.
         </translation>
       </article>
       
@@ -1391,19 +1731,19 @@ The version of your application, it can be a string (alpha, beta, ...)
 		<table><tr><td style="border:none">
 			<p style="font-weight: 600; color:rgb(51, 51, 51); margin-left:-20px">Pour vous perfectionner:</p>
 			<ul>
-			<li><a href="http://developers.google.src/main/java/com/appengine/docs/java/taskqueue/">Task queues</a>
-			et <a href="http://developers.google.src/main/java/com/appengine/docs/java/backends/">Backends</a>
+			<li><a href="http://developers.google.com/appengine/docs/java/taskqueue/">Task queues</a>
+			et <a href="http://developers.google.com/appengine/docs/java/backends/">Backends</a>
 			</li>
-			<li><a href="http://developers.google.src/main/java/com/appengine/docs/java/search/overview">Full Text Search</a></li>
-			<li><a href="http://developers.google.src/main/java/com/cloud-sql/">Google Cloud SQL</a></li>
-			<li><a href="https://developers.google.src/main/java/com/storage/">Google Cloud Storage</a></li>
+			<li><a href="http://developers.google.com/appengine/docs/java/search/overview">Full Text Search</a></li>
+			<li><a href="http://developers.google.com/cloud-sql/">Google Cloud SQL</a></li>
+			<li><a href="https://developers.google.com/storage/">Google Cloud Storage</a></li>
 			</ul>
 		</td><td style="border:none; padding-left:30px">
 			<p style="font-weight: 600; color:rgb(51, 51, 51); margin-left:-20px">Et au-delà d'AppEngine:</p>
 			<ul>
-			<li><a href="http://developers.google.src/main/java/com/bigquery/">Google BigQuery</a></li>
-			<li><a href="http://developers.google.src/main/java/com/prediction/">Google Prediction API</a></li>
-			<li><a href="http://developers.google.src/main/java/com/compute/">Google Compute Engine</a></li>
+			<li><a href="http://developers.google.com/bigquery/">Google BigQuery</a></li>
+			<li><a href="http://developers.google.com/prediction/">Google Prediction API</a></li>
+			<li><a href="http://developers.google.com/compute/">Google Compute Engine</a></li>
 			</ul>
 		</td></table>
 		
@@ -1479,7 +1819,7 @@ public class UploadServlet extends HttpServlet {
 </pre>
 
       </div>
-        <div class="chapter-number g-blue">11</div>
+        <div class="chapter-number g-blue">12</div>
         <h3 class="num2">
           Uploader la photo du président grâce à Blobstore et ImageService
         </h3>
@@ -1539,7 +1879,7 @@ Objectify class) and use these values to display the elected president.
 &lt;/security-constraint&gt;
 </pre>
       </div>
-        <div class="chapter-number g-red">12</div>
+        <div class="chapter-number g-red">13</div>
         <h3 class="num2">
           Protéger les URLs accessibles par les administrateurs
         </h3>
@@ -1569,7 +1909,7 @@ Objectify class) and use these values to display the elected president.
 
       	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: src/main/java/com/moi/lepresident/MailHandlerServlet.java</p>
+<p>fichier: com/myname/lepresident/MailHandlerServlet.java</p>
 <pre class="smallcode lesspace">
 package <span>com.moi.lepresident</span>;
 import java.util.Properties;
@@ -1594,7 +1934,7 @@ public class MailHandlerServlet extends HttpServlet {
 }
 </pre>
       </div>
-        <div class="chapter-number g-yellow">13</div>
+        <div class="chapter-number g-yellow">14</div>
         <h3 class="num2">
           Recevoir un mail
         </h3>
@@ -1612,7 +1952,7 @@ MimeMessage message = new MimeMessage(session, req.getInputStream());</pre>
         </div>
         
         <translation lang="en">
-        file: src/main/java/com/me/thepresident/MailHandler.java
+        file: com/myname/thepresident/MailHandler.java
 com.me.thepresident
 Thank you for your opinion.
         --self--
@@ -1633,16 +1973,17 @@ Thank you for your opinion.
         
         <p style="margin-left: 3em; margin-top: 1em; text-indent: -2em; background-image: url('images/appengine_small.png'); background-repeat: no-repeat; background-position: 100% 0%">
         Contact : <br/>
-          <b>+Ludo Champenois</b>, Google<br/>
           <b>+Alexis Moussine-Pouchkine</b>, Google<br/>
-          <b>+Matt Stephenson</b>, Google<br/>
+          <b>+Martin Görner</b>, Google,
+          <a href="http://gplus.to/martin.gorner">gplus.to/martin.gorner</a><br/>
+
         </p>
         <p style="margin-left: 3em; margin-top: 1.0em; text-indent: -2em;">Cette présentation est en ligne :<br/>
         <a href="http://cloudpresident.appspot.com">http://<b><span class="big">cloudpresident</span></b>.appspot.com</a><br/>
         <p style="margin-left: 3em; margin-top: 1.0em; text-indent: -2em;">Code source (Solution) :<br/>
-        <small><a href="https://github.src/main/java/com/mattstep/appengine-election-tracking-sample">https://github.src/main/java/com/mattstep/appengine-election-tracking-sample</a></small><br/>
+        <small><a href="https://github.com/mattstep/appengine-election-tracking-sample">https://github.com/mattstep/appengine-election-tracking-sample</a></small><br/>
         <p style="margin-left: 3em; margin-top: 1.0em; text-indent: -2em;">More info :<br/>
-        <a href="http://developers.google.src/main/java/com/appengine/">http://developers.google.src/main/java/com/appengine</a>
+        <a href="http://developers.google.com/appengine/">http://developers.google.com/appengine</a>
         </p>
         
         <translation lang="en">

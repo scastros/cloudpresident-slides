@@ -101,7 +101,7 @@ body {
 }
 
 .slides.template-default > article:not(.nobackground):not(.biglogo) {
-  background:   url(template-images/colorbar-google.png) 0 600px no-repeat;
+  background:   url(template-images/colorbar-google-sfeir.png) 0 600px no-repeat;
   background-color: white;  
 }
 

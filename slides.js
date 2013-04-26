@@ -1,4 +1,21 @@
 /*
+ * Copyright 2013 Google Inc.
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ *
+ */
+
+/*
   Google HTML5 slides template
 
   Authors: Luke Mahé (code)
@@ -8,136 +25,33 @@
            Charles Chen (ChromeVox support)
 
   URL: http://code.google.com/p/html5slides/
+  
+  Additions: Martin Gorner
+  
+   --- localization support
+   
+   To localize your slides, add ?lang=xx to the URL.
+   A list of strings needing localization will be displayed.
+   If XX is the language in which your slides are
+   originally written, then say so by adding a lang attribute
+   to the tag <section class="slides" lang="xx"> and the 
+   localization warnings will disappear.
+   To localize your slides to language xx, add a
+   <translation lang="xx"> tag to each <article>.
+   The tag should contain translated strings, one per line.
+   To leave a string untranslated, use --self--
 */
 
 var PERMANENT_URL_PREFIX = '';
 
+var SLIDE_CLASSES_NB = 5;
 var SLIDE_CLASSES = ['far-past', 'past', 'current', 'next', 'far-next'];
-
-var PM_TOUCH_SENSITIVITY = 15;
-
 var curSlide;
+var PM_TOUCH_SENSITIVITY = 15;
+var UIMVT_DETECT_DELAY = 200;
+var uimvtState;
+var centerTimer;
 
-/* ---------------------------------------------------------------------- */
-/* classList polyfill by Eli Grey 
- * (http://purl.eligrey.com/github/classList.js/blob/master/classList.js) */
-
-if (typeof document !== "undefined" && !("classList" in document.createElement("a"))) {
-
-(function (view) {
-
-var
-    classListProp = "classList"
-  , protoProp = "prototype"
-  , elemCtrProto = (view.HTMLElement || view.Element)[protoProp]
-  , objCtr = Object
-    strTrim = String[protoProp].trim || function () {
-    return this.replace(/^\s+|\s+$/g, "");
-  }
-  , arrIndexOf = Array[protoProp].indexOf || function (item) {
-    for (var i = 0, len = this.length; i < len; i++) {
-      if (i in this && this[i] === item) {
-        return i;
-      }
-    }
-    return -1;
-  }
-  // Vendors: please allow content code to instantiate DOMExceptions
-  , DOMEx = function (type, message) {
-    this.name = type;
-    this.code = DOMException[type];
-    this.message = message;
-  }
-  , checkTokenAndGetIndex = function (classList, token) {
-    if (token === "") {
-      throw new DOMEx(
-          "SYNTAX_ERR"
-        , "An invalid or illegal string was specified"
-      );
-    }
-    if (/\s/.test(token)) {
-      throw new DOMEx(
-          "INVALID_CHARACTER_ERR"
-        , "String contains an invalid character"
-      );
-    }
-    return arrIndexOf.call(classList, token);
-  }
-  , ClassList = function (elem) {
-    var
-        trimmedClasses = strTrim.call(elem.className)
-      , classes = trimmedClasses ? trimmedClasses.split(/\s+/) : []
-    ;
-    for (var i = 0, len = classes.length; i < len; i++) {
-      this.push(classes[i]);
-    }
-    this._updateClassName = function () {
-      elem.className = this.toString();
-    };
-  }
-  , classListProto = ClassList[protoProp] = []
-  , classListGetter = function () {
-    return new ClassList(this);
-  }
-;
-// Most DOMException implementations don't allow calling DOMException's toString()
-// on non-DOMExceptions. Error's toString() is sufficient here.
-DOMEx[protoProp] = Error[protoProp];
-classListProto.item = function (i) {
-  return this[i] || null;
-};
-classListProto.contains = function (token) {
-  token += "";
-  return checkTokenAndGetIndex(this, token) !== -1;
-};
-classListProto.add = function (token) {
-  token += "";
-  if (checkTokenAndGetIndex(this, token) === -1) {
-    this.push(token);
-    this._updateClassName();
-  }
-};
-classListProto.remove = function (token) {
-  token += "";
-  var index = checkTokenAndGetIndex(this, token);
-  if (index !== -1) {
-    this.splice(index, 1);
-    this._updateClassName();
-  }
-};
-classListProto.toggle = function (token) {
-  token += "";
-  if (checkTokenAndGetIndex(this, token) === -1) {
-    this.add(token);
-  } else {
-    this.remove(token);
-  }
-};
-classListProto.toString = function () {
-  return this.join(" ");
-};
-
-if (objCtr.defineProperty) {
-  var classListPropDesc = {
-      get: classListGetter
-    , enumerable: true
-    , configurable: true
-  };
-  try {
-    objCtr.defineProperty(elemCtrProto, classListProp, classListPropDesc);
-  } catch (ex) { // IE 8 doesn't support enumerable:true
-    if (ex.number === -0x7FF5EC54) {
-      classListPropDesc.enumerable = false;
-      objCtr.defineProperty(elemCtrProto, classListProp, classListPropDesc);
-    }
-  }
-} else if (objCtr[protoProp].__defineGetter__) {
-  elemCtrProto.__defineGetter__(classListProp, classListGetter);
-}
-
-}(self));
-
-}
 
 /* ---------------------------------------------------------------------- */
 // 3D slides are identified by class="slide3d" and their backsides with class="backslide3d"
@@ -230,23 +144,23 @@ function toggle3D(buttonId)
 
 function remove3D()
 {
-	slide3dEls = document.querySelectorAll('.slide3d');
+	var slide3dEls = document.querySelectorAll('.slide3d');
 	for (var i=0; i<slide3dEls.length; i++)
 		replaceClass(slide3dEls[i], "slide3d", "slideno3d");
 	
 	slide3dEls = document.querySelectorAll('.backslide3d');
-	for (var i=0; i<slide3dEls.length; i++)
+	for (i=0; i<slide3dEls.length; i++)
 		replaceClass(slide3dEls[i], "backslide3d", "backslideno3d");
 }
 
 function add3D()
 {
-	slide3dEls = document.querySelectorAll('.slideno3d');
+	var slide3dEls = document.querySelectorAll('.slideno3d');
 	for (var i=0; i<slide3dEls.length; i++)
 		replaceClass(slide3dEls[i], "slideno3d", "slide3d");
 	
 	slide3dEls = document.querySelectorAll('.backslideno3d');
-	for (var i=0; i<slide3dEls.length; i++)
+	for (i=0; i<slide3dEls.length; i++)
 		replaceClass(slide3dEls[i], "backslideno3d", "backslide3d");
 }
 
@@ -274,7 +188,6 @@ function noop(e)
 	if (e.stopPropagation) e.stopPropagation();
 }
 
-
 /* Slide movement */
 
 function getSlideEl(no) {
@@ -296,7 +209,7 @@ function updateSlideClass(slideNo, className) {
     el.classList.add(className);
   }
     
-  for (var i in SLIDE_CLASSES) {
+  for (var i=0; i< SLIDE_CLASSES_NB; i++) {
     if (className != SLIDE_CLASSES[i]) {
       el.classList.remove(SLIDE_CLASSES[i]);
     }
@@ -343,7 +256,7 @@ function updateSlides() {
   }  
 
   updateHash();
-};
+}
 
 function buildNextItem() {
   var toBuild  = slideEls[curSlide].querySelectorAll('.to-build');
@@ -352,14 +265,14 @@ function buildNextItem() {
     return false;
   }
 
-  toBuild[0].classList.remove('to-build', '');
+  toBuild[0].classList.remove('to-build');
 
   if (isChromeVoxActive()) {
     speakAndSyncToNode(toBuild[0]);
   }
 
   return true;
-};
+}
 
 function prevSlide() {
   if (curSlide > 0) {
@@ -367,7 +280,7 @@ function prevSlide() {
 
     updateSlides();
   }
-};
+}
 
 function nextSlide() {
   if (buildNextItem()) {
@@ -379,7 +292,7 @@ function nextSlide() {
 
     updateSlides();
   }
-};
+}
 
 /* Slide events */
 
@@ -399,7 +312,7 @@ function triggerEnterEvent(no) {
   evt.slideNumber = no + 1; // Make it readable
 
   el.dispatchEvent(evt);
-};
+}
 
 function triggerLeaveEvent(no) {
   var el = getSlideEl(no);
@@ -417,65 +330,142 @@ function triggerLeaveEvent(no) {
   evt.slideNumber = no + 1; // Make it readable
   
   el.dispatchEvent(evt);
-};
+}
 
 /* Touch events */
 
-function handleTouchStart(event) {
-  if (event.touches.length == 1) {
-    touchDX = 0;
-    touchDY = 0;
+function handleSwipeStart(event) {
+    if (event.touches.length == 1) {
+        touchDX = 0;
+        touchDY = 0;
 
-    touchStartX = event.touches[0].pageX;
-    touchStartY = event.touches[0].pageY;
+        touchStartX = event.touches[0].pageX;
+        touchStartY = event.touches[0].pageY;
 
-    document.body.addEventListener('touchmove', handleTouchMove, true);
-    document.body.addEventListener('touchend', handleTouchEnd, true);
-  }
-};
+        document.addEventListener('touchmove', handleSwipeMove);
+        document.addEventListener('touchend', handleSwipeEnd);
+    }
+}
 
-function handleTouchMove(event) {
-  if (event.touches.length > 1) {
-    cancelTouch();
-  } else {
-    touchDX = event.touches[0].pageX - touchStartX;
-    touchDY = event.touches[0].pageY - touchStartY;
-    var aDX = touchDX*touchDX;
-    var aDY = touchDY*touchDY;
-    if (aDX+aDY < 80 || aDX > aDY)
-    	event.preventDefault(); // keep scrolling vertically but not horizontally
+function handleSwipeMove(event) {
+    if (event.touches.length > 1) {
+        cancelSwipe();
+    } else {
+        touchDX = event.touches[0].pageX - touchStartX;
+        touchDY = event.touches[0].pageY - touchStartY;
+        var aDX = touchDX*touchDX;
+        var aDY = touchDY*touchDY;
+        if (aDX+aDY < 80 || aDX > aDY)
+            event.preventDefault(); // keep scrolling vertically but not horizontally
         // this is buggy though: if the user starts scrolling vertically, then scrolling
         // gets enabled for both directions until he lifts her finger
-  }
-};
-
-function handleTouchEnd(event) {
-  var dx = Math.abs(touchDX);
-  var dy = Math.abs(touchDY);
-
-  if ((dx > PM_TOUCH_SENSITIVITY) && (dy < (dx * 2 / 3))) {
-    if (touchDX > 0) {
-      prevSlide();
-    } else {
-      nextSlide();
     }
-  }
-  
-  cancelTouch();
-};
+}
 
-function cancelTouch() {
-  document.body.removeEventListener('touchmove', handleTouchMove, true);
-  document.body.removeEventListener('touchend', handleTouchEnd, true);  
-};
+function handleSwipeEnd(event) {
+    var dx = Math.abs(touchDX);
+    var dy = Math.abs(touchDY);
 
+    if ((dx > PM_TOUCH_SENSITIVITY) && (dy < (dx * 2 / 3))) {
+        if (touchDX > 0)
+            prevSlide();
+        else
+            nextSlide();
+    }
+
+    cancelSwipe();
+    centerTimer = window.setTimeout(detectUIMovement, UIMVT_DETECT_DELAY);
+}
+
+function handleTouchCancel(event)
+{
+    cancelSwipe();
+    centerTimer = window.setTimeout(detectUIMovement, UIMVT_DETECT_DELAY);
+}
+
+function handleTouchLeave(event)
+{
+    // on mobiles, whenever the browser detects a gesture supported by its UI,
+    // it fires a touchCancel ot touchLeave event and does not send additional
+    // touch events until the finger leaves the screen. Only a timer-fired
+    // detection hack can figure out if the viewport was changed (with a pinch to zoom gesture for example)
+    cancelSwipe();
+    centerTimer = window.setTimeout(detectUIMovement, UIMVT_DETECT_DELAY);
+}
+
+function handleOrientationChange()
+{
+    centerViewport();
+}
+
+function detectUIMovement()
+{
+    var oldState = uimvtState;
+    uimvtState = window.pageXOffset << 12 | window.pageYOffset << 8 | window.innerWidth << 4 | window.innerHeight;
+    if (uimvtState == oldState)
+        centerViewport(); // center viewport when movement stops
+    else
+        centerTimer = window.setTimeout(detectUIMovement, UIMVT_DETECT_DELAY); // relaunch detection if movement continues
+}
+
+function cancelSwipe() {
+    document.removeEventListener('touchmove', handleSwipeMove);
+    document.removeEventListener('touchend', handleSwipeEnd);
+}
+
+function centerViewport()
+{
+    window.clearTimeout(centerTimer);
+
+    // desktop vs mobile behaviour
+    // both HTML and BODY tags have width:100%, height:100%, min-width:slide+padding width, min-height:slide+padding height
+    // on desktop, the BODY tag will fill the available window
+    // on mobile, since the virtual viewport is infinite, the BODY tag will have the min-width and min-height dimensions
+    // therefore, we can center the body tag in the window on mobile only
+    // the formula below will produce an offset of 0,0 on desktop
+
+    var el = document.body;
+    var offsetY = 0;
+    var deltaY  = (window.innerHeight - document.body.clientHeight)/2;
+    if (deltaY > 0)
+        offsetY = deltaY;
+    var offsetX = 0;
+    var deltaX = (window.innerWidth - document.body.clientWidth)/2;
+    if (deltaX > 0)
+        offsetX = deltaX;
+
+    // translate the 'body' tag to center it
+    var transform = "translate(" + offsetX + "px, " + offsetY + "px)";
+    if (transform != el.style.webkitTransform)
+    {
+        el.style.webkitTransform = transform;
+        el.style.webkitTransition = "0.5s";
+    }
+
+    // if applicable, scroll to center the slide (X direction only)
+    window.webkitRequestAnimationFrame(continuousXScrollToCenter);
+
+}
+
+function continuousXScrollToCenter()
+{
+    var deltaX = (window.innerWidth - document.body.clientWidth)/2;
+    var targetX = deltaX<0 ? -deltaX : 0;
+    if (Math.abs(targetX - window.pageXOffset) > 50)
+    {
+        window.scrollBy((targetX - window.pageXOffset) / 4, 0);
+        window.webkitRequestAnimationFrame(continuousXScrollToCenter);
+    }
+    else
+        window.scrollTo(targetX, window.pageYOffset);
+}
 
 /* Mouse wheel events*/
 
 function handleMouseWheel(event)
 {	// for webkit, registered on 'mousewheel'
-	dx = Math.abs(event.wheelDeltaX);
-	dy = Math.abs(event.wheelDeltaY);
+	var dx = Math.abs(event.wheelDeltaX);
+	var dy = Math.abs(event.wheelDeltaY);
 	if (dx  > dy*2)
 	{
 		event.preventDefault();
@@ -487,7 +477,7 @@ function handleMouseWheel(event)
 		if (now - window.prevMouseWheelEventTime > 1000)
 		{
 			window.prevMouseWheelEventTime = now;
-			delta = event.wheelDeltaX; // vendors please standardize
+			var delta = event.wheelDeltaX; // vendors please standardize
 			if (delta < 0)
 				nextSlide();
 			if (delta > 0)
@@ -505,11 +495,11 @@ function handleMouseWheel2(event)
 		
 		if (window.prevMouseWheelEventTime === undefined)
 			window.prevMouseWheelEventTime = 0;
-			
+
 		if (now - window.prevMouseWheelEventTime > 1000)
 		{
 			window.prevMouseWheelEventTime = now;
-			delta = event.detail; // vendors please standardize
+			var delta = event.detail; // vendors please standardize
 			if (delta > 0)
 				nextSlide();
 			if (delta < 0)
@@ -530,7 +520,7 @@ function disableSlideFrames(no) {
   for (var i = 0, frame; frame = frames[i]; i++) {
     disableFrame(frame);
   }
-};
+}
 
 function enableSlideFrames(no) {
   var el = getSlideEl(no);
@@ -542,11 +532,11 @@ function enableSlideFrames(no) {
   for (var i = 0, frame; frame = frames[i]; i++) {
     enableFrame(frame);
   }
-};
+}
 
 function disableFrame(frame) {
   frame.src = 'about:blank';
-};
+}
 
 function enableFrame(frame) {
   var src = frame._src;
@@ -554,7 +544,7 @@ function enableFrame(frame) {
   if (frame.src != src && src != 'about:blank') {
     frame.src = src;
   }
-};
+}
 
 function setupFrames() {
   var frames = document.querySelectorAll('iframe');
@@ -566,7 +556,7 @@ function setupFrames() {
   enableSlideFrames(curSlide);
   enableSlideFrames(curSlide + 1);
   enableSlideFrames(curSlide + 2);  
-};
+}
 
 function setup3Dslides() {
 	// decorate slides so that a turned slide comes back to default positino on next/prev slide
@@ -585,30 +575,16 @@ function setup3Dslides() {
 }
 
 function setupInteraction() {
-  /* Clicking and tapping */
-	
-  /*
-  var par = document.querySelector('section.slides');
- 
-  var el = document.createElement('div');
-  el.className = 'slide-area';
-  el.id = 'prev-slide-area';  
-  el.addEventListener('click', prevSlide, false);
-  par.insertBefore(el, par.firstChild);
+    /* Clicking and tapping */
 
-  var el = document.createElement('div');
-  el.className = 'slide-area';
-  el.id = 'next-slide-area';  
-  el.addEventListener('click', nextSlide, false);
-  par.insertBefore(el, par.firstChild);
-  */
-  
-  
-  /* Swiping */
-  document.body.addEventListener('touchstart', handleTouchStart, false);
-  /* mouse wheel and trackpad scrolling*/
-  document.body.addEventListener('DOMMouseScroll', handleMouseWheel2, false);
-  document.body.addEventListener('mousewheel', handleMouseWheel, false);
+    /* Swiping */
+    document.addEventListener('touchstart', handleSwipeStart, false);
+    document.addEventListener('touchcancel', handleTouchCancel);
+    document.addEventListener('touchleave', handleTouchLeave);
+    window.addEventListener('resize', handleOrientationChange);
+    /* mouse wheel and trackpad scrolling*/
+    document.addEventListener('DOMMouseScroll', handleMouseWheel2, false);
+    document.addEventListener('mousewheel', handleMouseWheel, false);
 }
 
 /* ChromeVox support */
@@ -687,13 +663,11 @@ function getCurSlideFromHash() {
   } else {
     curSlide = 0;
   }
-};
+}
 
 function updateHash() {
-  location.replace('#' + (curSlide + 1));
-};
-
-/* Event listeners */
+  location.hash = curSlide + 1;
+}
 
 function handleBodyKeyDown(event) {
   switch (event.keyCode) {
@@ -703,9 +677,9 @@ function handleBodyKeyDown(event) {
       event.preventDefault();
       break;
 
-    case 37: // left arrow
-    case 8: // Backspace
-    case 33: // PgUp
+      case 37: // left arrow
+    //case 8: // Backspace
+      case 33: // PgUp
       prevSlide();
       event.preventDefault();
       break;
@@ -737,7 +711,12 @@ function handleBodyKeyDown(event) {
 };
 
 function addEventListeners() {
-  document.addEventListener('keydown', handleBodyKeyDown, false);  
+  document.addEventListener('keydown', handleBodyKeyDown, false);
+  window.addEventListener('popstate', function(e)
+		  {
+		  	getCurSlideFromHash();
+		  	updateSlides();
+		  });
 };
 
 /* Initialization */
@@ -757,7 +736,7 @@ function addPrettify() {
     prettyPrint();
   }
   document.body.appendChild(el);
-};
+}
 
 function addFontStyle() {
   var el = document.createElement('link');
@@ -767,30 +746,20 @@ function addFontStyle() {
             'Open+Sans:regular,semibold,italic,italicsemibold|Droid+Sans+Mono';
 
   document.body.appendChild(el);
-};
+}
 
 function addGeneralStyle() {
-  var el = document.createElement('link');
-  el.rel = 'stylesheet';
-  el.type = 'text/css';
-  el.href = PERMANENT_URL_PREFIX + 'styles.css';
-  document.body.appendChild(el);
-  
-  var el = document.createElement('meta');
-  el.name = 'viewport';
-  el.content = 'target-densityDpi=device-dpi';
-  document.querySelector('head').appendChild(el);
-  
-  var el = document.createElement('meta');
-  el.name = 'HandheldFriendly';
-  el.content = 'True';
-  document.querySelector('head').appendChild(el);
-  
-  var el = document.createElement('meta');
-  el.name = 'apple-mobile-web-app-capable';
-  el.content = 'yes';
-  document.querySelector('head').appendChild(el);
-};
+    var el = document.createElement('link');
+    el.rel = 'stylesheet';
+    el.type = 'text/css';
+    el.href = PERMANENT_URL_PREFIX + 'styles.css';
+    document.body.appendChild(el);
+
+    // No mobile specific settings here
+    // the default behaviour of mobile browsers is
+    // to zoom the body until its width fills the screen
+    // width which is exactly what we want.
+}
 
 function makeBuildLists() {
   for (var i = curSlide, slide; slide = slideEls[i]; i++) {
@@ -801,7 +770,7 @@ function makeBuildLists() {
       }
     }
   }
-};
+}
 
 function handleDomLoaded() {
   slideEls = document.querySelectorAll('section.slides > article');
@@ -826,22 +795,19 @@ function handleDomLoaded() {
 	 toggle3D('togglebutton1');
 
   document.body.classList.add('loaded');
-};
+}
 
-function capaCss3D()
+/* page numbers */
+function addPageNumbers(slides)
 {
-	if ('perspectiveProperty' in document.body.style)
-		return true;
-	if ('WebkitPerspective' in document.body.style)
-		return true;
-	if ('MozPerspective' in document.body.style)
-		return true;
-	if ('OPerspective' in document.body.style)
-		return true;
-	if ('msPerspective' in document.body.style)
-		return true;
-	
-	return false;
+	for (var slide=1;  slide<slides.length; slide++)
+	{
+		var articleElement = slides[slide];
+		var el = document.createElement('div');
+		el.innerHTML = slide+1 +"/"+slides.length;
+		el.classList.add("pagenumber");
+		articleElement.appendChild(el);
+	}
 }
 
 /* localization helpers */
@@ -978,6 +944,22 @@ function isallblanks(string)
 			return false;
 	}
 	return true;
+}
+
+function capaCss3D()
+{
+    if ('perspectiveProperty' in document.body.style)
+        return true;
+    if ('WebkitPerspective' in document.body.style)
+        return true;
+    if ('MozPerspective' in document.body.style)
+        return true;
+    if ('OPerspective' in document.body.style)
+        return true;
+    if ('msPerspective' in document.body.style)
+        return true;
+
+    return false;
 }
 
 function getQueryVariable(variable)

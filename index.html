@@ -485,7 +485,6 @@
       <div class="backslide3d" style="padding:40px">
          <div class="screenshot-left" style="padding: 0px; text-align: center;margin-top: 80px;"><img src="images/googlemenu.png"/></div>
          <p style="margin-top: 80px">Vous devriez maintenant avoir une icône "g" dans Eclipse.</p>
-         <p style="margin-top: 60px">Java 7 est en mode Expérimental depuis la version 1.7.5 du SDK App Engine</p>
          <p style="margin-top: 260px"><a class="small" href="https://developers.google.com/appengine/docs/java/javadoc/overview-summary">JavaDoc pour AppEngine</a>
         </p>
 
@@ -494,22 +493,22 @@
       
       <img src="images/install-gplugin.png" class="screenshot-right" style="clear:right; padding:0px; margin-top: 00px; margin-right:0px; margin-left:10px" />
       <div class="chapter-number g-blue">0</div>
-      <h3 class="num">Prérequis (option plugin Eclipse)</h3>
+      <h3 class="num">Prérequis <span class="small">(option plugin Eclipse, recommandée pour le codelab)</span></h3>
          <ul style="margin-top:30px">
-            <li> <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK 6 or JDK 7</a> (pas JRE)</li>
+            <li> <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK 7</a> (pas JRE)</li>
             <li> <a href="http://eclipse.org/downloads/">Eclipse for Java EE Developers</a></li>
             <li>La <a href="http://repo1.maven.org/maven2/com/googlecode/objectify/objectify/">librairie objectify-4.xx.jar</a> à télécharger (explications plus loin)<br/><br/><br/></li>
-            <li><code>Google Plugin for Eclipse</code> <br/> et <br/>
+            <li><code>Google Plugin for Eclipse</code> <br/> et
             <code>Google App Engine Java SDK</code><br/>
             <span>à installer via</span> Eclipse: Help › Install New Software › Add ... <code>http://dl.google.com/eclipse/plugin/4.2</code></li>
          </ul>
          
          <translation lang="en">
            You should now have a "g" icon in the Eclipse toolbar.
-           Java 7 is in Experimental status as of App Engine SDK Version 1.7.5
            AppEngine JavaDoc
            --self--
-           Setup (Eclipse plugin option)
+           Setup
+           (Eclipse plugin option, recommended for the codelab)
            --self--
            (not JRE)
            --self--
@@ -517,7 +516,7 @@
 objectify-4.xx.jar library
            Download it, explanations later.
            --self--
-           and
+           and&nbsp;
            --self--
            available in 
            --self--
@@ -530,34 +529,67 @@ objectify-4.xx.jar library
 
 	  <article class="slide3d" > 
       <div class="backslide3d" style="padding:40px">
-        <p>
-            <p>Maven est un format de projet et un système de build pour Java.</p>
-            <p>Les projets Maven sont portables entre IDEs, outils d'intégration continue etc. (Eclipse, NetBeans, IntelliJ, Jenkins).</p>
-            <p>Ils incluent les dépendances, y compris la dépendance vers le SDK App Engine qui sera téléchargé automatiquement.</p>
-            <p style="text-align: center; margin-top: 140px"><img style="width:60%" src="images/mavenlogo.gif" /></p>
-        </p>
+        <div class="small">
+            <p>Maven est un format de projet et un système de build pour Java.
+            Les projets Maven sont portables entre IDEs, outils d'intégration continue etc. (Eclipse, NetBeans, IntelliJ, Jenkins).
+            Ils incluent les dépendances, y compris la dépendance vers le SDK App Engine qui sera téléchargé automatiquement.</p>
+            <p style="text-align: center; margin-top: 40px"><img style="width:50%" src="images/mavenlogo.gif" /></p>
+            <div>
+                <p style="margin-top:1em;">Vore première servlet "Hello App Engine":</p>
+                <ul>
+                    <li>Créer un nouveau <span class="pop">Projet Maven</span> d'après un archetype</li>
+                    <li>Filtrer par <code> com.google.appengine.archetypes</code> et sélectionner <code> skeleton-archetype (1.7.5)</code>
+                    <li>GroupId: <span class="pop">com.myname</span>, ArtefactID: <span class="pop">thepresident</span></li>
+                    <li>Créer une servlet <code> PresidentServlet.java</code> avec<br/><code class="small">response.getWriter().write("Hello App Engine");</code></li>
+                    <li>Lancer en local avec le SDK (goal appengine:devserver)<br />  Eclipse: Run > Run Configurations... > <span class="pop">DevAppServer</span><br/>
+                        Premier run: le SDK App Engine va se télécharger (50MB)
+                </ul>
+            </div>
+        </div>
       </div>
       
       <img src="images/install.png" class="screenshot-right" style="clear:right; padding:0px; margin-top: 00px; margin-right:0px; margin-left:30px" />
       <div class="chapter-number g-blue">0</div>
-      <h3 class="num">Prérequis (option Maven)</h3>
+      <h3 class="num">Prérequis <span class="small">(option Maven, pour un vrai projet)</span></h3>
          <ul style="margin-top:30px">
-            <li> <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK 6 or 7</a> (pas JRE)</li>
-            <li> <a href="http://eclipse.org/downloads/">Eclipse for Java EE Developers</a> (ou un autre éditeur Java)<br/><br/><br/></li>
-            <li>Le plugin Maven<code> m2e-wtp</code> pour Eclipse à installer via <span> Help › Eclipse Marketplace</span></li>
+            <li> <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK 7</a> (pas JRE)</li>
+            <li> <a href="http://eclipse.org/downloads/">Eclipse for Java EE</a> (ou un autre éditeur Java)</li>
+            <li> <a href="http://maven.apache.org/download.cgi">Maven</a> (sur mac, maven est déjà installé)<br/><br/></li>
+            <li>Le plugin Maven<code> m2e-wtp</code> pour Eclipse à installer via <br/><span> Help › Eclipse Marketplace</span></li>
             <li>Se connecter à <code> Maven Central</code><br/> Preferences > Maven > Archetypes > Add Remote ... <code>http://repo1.maven.org/maven2</code></li>
          </ul>
          
          <translation lang="en">
-           Maven is a project format and build system for Java.
-           Maven projects are portable between IDEs or continuous integration tools (Eclipse, NetBeans, IntelliJ, Jenkins).
-           They include dependencies, including our dependency on the App Engine SDK which will be downloaded automatically.
-           --self--
-           Setup (Maven option)
+           Maven is a project format and build system for Java. Maven projects are portable between IDEs or continuous integration tools (Eclipse, NetBeans, IntelliJ, Jenkins). They include dependencies, including our dependency on the App Engine SDK which will be downloaded automatically.
+             Your first "Hello App Engine" servlet:
+             Create a new
+             Maven Project
+             using an archetype
+             Filter by
+             --self--
+             and select
+             --self--
+             --self--
+             --self--
+             --self--
+             --self--
+             Create the servlet
+             --self--
+             with
+             --self--
+             Run local server with the SDK (goal: appengine:devserver)
+             --self--
+             --self--
+             First run: the App Engine SDK will be downloaded (50MB)
+             --self--
+           Setup
+           (Maven option, better for a real project)
            --self--
            (not JRE)
            --self--
            (or your favourite Java IDE)
+           --self--
+           (on mac, maven is already installed)
            The
            --self--
            Maven plugin for Eclipse to install from
@@ -568,116 +600,84 @@ objectify-4.xx.jar library
            --self--
          </translation>
       </article>
-      
+
 
 <!-- ------------------------------------------------------------------------------- -->
 <!-- 1. Ma première servlet "Hello App Engine" -->
 
-    <article class="slide3d" > 
-      <div class="backslide3d" style="padding:40px">
-<img  class="screenshot-left" src="images/project_structure_maven.png" align="left" style="margin-right: 10px"/>
-          <p style="text-align: right">Le projet généré</p>
-          <div style="line-height: 17px; margin-top: -53px; font-size: 20px; color: black">
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <span>←&nbsp;</span> votre servlet
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <span>←&nbsp;</span> dépendances sur app engine
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> App ID, version de l'application et<br/>
-              <br/>
-              <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> autres <a href="https://developers.google.com/appengine/docs/java/config/appconfig">paramères</a> App Engine dans<br/>
-              <br/>
-              <span>←&nbsp;</span> appengine-web.xml
-              <br/>
-              <br/>
-              <span>←&nbsp;</span> web.xml: servlet mapping
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <span>←&nbsp;</span> pom.xml: fichier projet Maven (dépendances)
-          </div>
+<article class="slide3d" >
+    <div class="backslide3d" style="padding:40px">
+        <img  class="screenshot-left" src="images/project_structure.png" align="left"/>
+        Structure du projet Web :
+        <p>En utilisant l'assistant pour créer la servlet, le fichier standard <code>web.xml</code> est mis à jour pour effectuer le mapping de celle-ci.</p>
 
-<p style="clear: both" class="small"><img align="right" style="vertical-align: top" src="images/stop_server.png"/>
-  Erreur <code>"port occupied"</code> en lançant: tuer le serveur local avec le bouton rouge de la <code>"Console"</code> (Window &gt; Show View &gt; Console).
+        <p>
+            Le fichier <code>appengine-web.xml</code> contient des valeurs par défaut et sera utilisé plus tard pour spécifier l'id et la version de l'application et d'autres <a href="https://developers.google.com/appengine/docs/java/config/appconfig">paramètres optionels propres à AppEngine</a>.
+        </p>
 
-      </div>
+        <p>
+        <h3>
+            Problème?
+        </h3>
+
+        Si en relançant vore application vous avez une erreur <code>"port occupied"</code>, utiliser le bouton rouge "Terminate" dans le haut de la fenêtre <code>"Console"</code> (Window &gt; Show View &gt; Console).
+        <img style="vertical-align: top" src="images/stop_server.png"/>
+    </div>
 
     <div class="chapter-number g-red">1</div>
-        <h3 class="num">Ma première servlet "Hello App Engine"
-        </h3>
-        <ul style="margin-top:40px">
-        <li>Créer un nouveau <span class="pop">Projet Maven</span> d'après un archetype</li>
-        <li>Filtrer par <code> com.google.appengine.archetypes</code> et sélectionner <code> skeleton-archetype (1.7.5)</code>
-        <li>GroupId: <span class="pop">com.myname</span>, ArtefactID: <span class="pop">thepresident</span></li>
-        <li>Créer une servlet <code> PresidentServlet.java</code> avec<br/><code class="small">response.getWriter().write("Hello App Engine");</code></li>
-        <li>Lancer en local avec le SDK (goal appengine:devserver)<br />  Eclipse: Run > Run Configurations... > <span class="pop">DevAppServer</span><br/>
-            Premier run: le SDK App Engine va se télécharger (50MB)
-        </ul>
-        <span class="small" style="color: red; font-family: monospace;">INFO: The server is running at <a style="color: red;" href="http://localhost:8080/PresidentServlet">http://localhost:8080/PresidentServlet</a></span><br/>
-            
+    <h3 class="num">Ma première servlet "Hello App Engine" <span class="small">(option plugin Eclipse)</span>
+    </h3>
+    <ul style="margin-top:40px">
+        <li>File › New ... › <img style="height:30px; vertical-align:bottom;" src="images/webappproj.png" /></li>
+        <li>Nom: <span class="pop">LePresident</span>, package: <span class="pop">com.moi.lepresident</span></li>
+        <li><form>Décocher <input type="checkbox" style="vertical-align: middle;" disabled="disabled"/><span class="pop">GWT</span> (pour aujourd'hui), Cocher <input type="checkbox" checked style="vertical-align: middle;" disabled="disabled"/><span class="pop">App Engine</span></form>
+            puis "Finish" pour générer le projet.</li>
+        <li>Personnaliser la servlet: par exemple <span class="pop">"Hello App Engine"</span><br/>(dans src/com/moi/lepresident/LePresidentServlet.java)</li>
+        <li>Lancer en local: Run › Run As... › <img style="height:30px; vertical-align:bottom;" src="images/webapp.png" /><br/>
+            <span class="small" style="color: red; font-family: monospace;">INFO: The server is running at <a style="color: red;" href="http://localhost:8888/">http://localhost:8888/</a></span></li>
+        <li class="small">Puis rajouter la <a href="http://repo1.maven.org/maven2/com/googlecode/objectify/objectify">librairie objectify</a>: (1) glisser-déplacer objectifyxxx.jar sur war/WEB-INF/lib. (2) La référencer dans les propriétés du projet, "Java Build Path", onglet "Libraries", bouton "Add JARs..."</li>
+    </ul>
 
     <translation lang="en">
-        The generated project
-        --self--
-        your servlet
-        --self--
-        dependencies on App Engine
-        App ID, application version and
-        other
-        App Engine parameters
-        in
-        --self--
-        --self--
-        --self--
-        --self--
-        --self--
-        pom.xml: Maven project file (dependencies)
-        Troubleshooting:
-        --self--
-        error: kill the local server using the red button in the
+        Structure of the Web project:
+        When you use the assiatnt to create the servlet, the standard file
+        web.xml
+        is updated to map the servlet.
+        The file
+        appengine-web.xml
+        contains default values and will be used later to specify the application id as well as other
+        App Engine specific parameters
+        .
+        Having trouble ?
+        If you see the error
+        "port occupied"
+        when launching your app, use the red "Terminate" button in the
         --self--
         --self--
         --self--
-        My first "Hello App Engine" servlet
-        Create a new
-        Maven Project
-        using an archetype
-        Filter by
+        My first servlet "Hello App Engine"
+        (Eclipse plugin option)
         --self--
-        and select
-        --self--
-        --self--
-        --self--
-        --self--
-        --self--
-        Create the servlet
-        --self--
-        with
-        --self--
-        Run local server with the SDK (goal: appengine:devserver)
-        --self--
-        --self--
-        First run: the App Engine SDK will be downloaded (50MB)
+        Name:
+        ThePresident
+        , package:
+        com.me.thepresident
+        Uncheck
+        GWT
+        (for now), Check
+        App Engine
+        then "Finish" to generate the project.
+        Customize your servlet: for example
+        "Hello App Engine"
+        (in src/com/me/thepresident/ThePresidentServlet.java)
+        Run locally: Run › Run As... ›
         --self--
         --self--
+        Then add the
+        objectify library
+        : (1) drag and drop the objectifyxxx.jar file in war/WEB-INF/lib. (2) Reference it in Project Properties, "Java Build Path", "Libraries" tab.
     </translation>
-      </article>
+</article>
 
 <!-- ------------------------------------------------------------------------------- -->
 <!-- Passons en JSP -->
@@ -795,7 +795,7 @@ objectify-4.xx.jar library
         --self--
 The president is...
 The president is...
-obama.jpg
+obama.png
 		--self--
 		This page can be set as the default landing  page in WEB-INF/web.xml
 		You fill find pictures of the candidates behind the first slide.
@@ -1986,11 +1986,9 @@ Thank you for your opinion.
           <b>+Didier Girard</b>, SFEIR<br/>
 
         </p>
-        <p style="margin-left: 3em; margin-top: 1.0em; text-indent: -2em;">Cette présentation est en ligne :<br/>
+        <p style="margin-left: 3em; margin-top: 3.0em; text-indent: -2em;">Cette présentation est en ligne :<br/>
         <a href="http://cloudpresident.appspot.com">http://<b><span class="big">cloudpresident</span></b>.appspot.com</a><br/>
-        <p style="margin-left: 3em; margin-top: 1.0em; text-indent: -2em;">Code source (Solution) :<br/>
-        <small><a href="https://github.com/mattstep/appengine-election-tracking-sample">https://github.com/mattstep/appengine-election-tracking-sample</a></small><br/>
-        <p style="margin-left: 3em; margin-top: 1.0em; text-indent: -2em;">Plus d'infos :<br/>
+        <p style="margin-left: 3em; margin-top: 3.0em; text-indent: -2em;">Plus d'infos :<br/>
         <a href="http://developers.google.com/appengine/">http://developers.google.com/appengine</a>
         </p>
         
@@ -2004,8 +2002,6 @@ Thank you for your opinion.
             --self--
             --self--
             This presentation is available online:
-            --self--
-            --self--
             --self--
             --self--
             --self--

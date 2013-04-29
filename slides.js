@@ -425,12 +425,17 @@ function centerViewport()
     // the formula below will produce an offset of 0,0 on desktop
 
     var el = document.body;
+    
+    // don't do this if the body tag is not ready
+    if (!el || el.clientHeight == 0 || el.clientWidth == 0)
+    	return;
+    
     var offsetY = 0;
-    var deltaY  = (window.innerHeight - document.body.clientHeight)/2;
+    var deltaY  = (window.innerHeight - el.clientHeight)/2;
     if (deltaY > 0)
         offsetY = deltaY;
     var offsetX = 0;
-    var deltaX = (window.innerWidth - document.body.clientWidth)/2;
+    var deltaX = (window.innerWidth - el.clientWidth)/2;
     if (deltaX > 0)
         offsetX = deltaX;
 

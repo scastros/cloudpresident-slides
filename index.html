@@ -497,10 +497,11 @@
          <ul style="margin-top:30px">
             <li> <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK 7</a> (pas JRE)</li>
             <li> <a href="http://eclipse.org/downloads/">Eclipse for Java EE Developers</a></li>
-            <li>La <a href="http://repo1.maven.org/maven2/com/googlecode/objectify/objectify/">librairie objectify-4.xx.jar</a> à télécharger (explications plus loin)<br/><br/><br/></li>
+            <li>Les librairies <a href="http://repo1.maven.org/maven2/com/googlecode/objectify/objectify/">objectify-4.xx.jar</a> et
+                <a href="https://code.google.com/p/guava-libraries/">guava-15.x.jar</a> à télécharger (explications plus loin)<br/><br/><br/></li>
             <li><code>Google Plugin for Eclipse</code> <br/> et
             <code>Google App Engine Java SDK</code><br/>
-            <span>à installer via</span> Eclipse: Help › Install New Software › Add ... <code>http://dl.google.com/eclipse/plugin/4.2</code></li>
+            <span>à installer via</span> Eclipse: Help › Install New Software › Add ... <code>http://dl.google.com/eclipse/plugin/4.3</code></li>
          </ul>
          
          <translation lang="en">
@@ -512,9 +513,11 @@
            --self--
            (not JRE)
            --self--
-           The&nbsp;
-objectify-4.xx.jar library
-           Download it, explanations later.
+           The libraries&nbsp;
+           --self--
+           and&nbsp;
+           --self--
+           Download them, explanations later.
            --self--
            and&nbsp;
            --self--
@@ -525,7 +528,7 @@ objectify-4.xx.jar library
       </article>
 
 <!-- ------------------------------------------------------------------------------- -->
-<!-- 0. Prérequis et téléchargements -->
+<!-- 0. Prérequis et téléchargements (MAVEN) -->
 
 	  <article class="slide3d" > 
       <div class="backslide3d" style="padding:40px">
@@ -635,7 +638,8 @@ objectify-4.xx.jar library
         <li>Personnaliser la servlet: par exemple <span class="pop">"Hello App Engine"</span><br/>(dans src/com/moi/lepresident/LePresidentServlet.java)</li>
         <li>Lancer en local: Run › Run As... › <img style="height:30px; vertical-align:bottom;" src="images/webapp.png" /><br/>
             <span class="small" style="color: red; font-family: monospace;">INFO: The server is running at <a style="color: red;" href="http://localhost:8888/">http://localhost:8888/</a></span></li>
-        <li class="small">Puis rajouter la <a href="http://repo1.maven.org/maven2/com/googlecode/objectify/objectify">librairie objectify</a>: (1) glisser-déplacer objectifyxxx.jar sur war/WEB-INF/lib. (2) La référencer dans les propriétés du projet, "Java Build Path", onglet "Libraries", bouton "Add JARs..."</li>
+        <li class="small">Puis rajouter les librairies <a href="http://repo1.maven.org/maven2/com/googlecode/objectify/objectify">objectify</a> et <a href="https://code.google.com/p/guava-libraries/">guava</a>:
+            (1) glisser-déplacer les .jar sur war/WEB-INF/lib. (2) Les référencer dans les propriétés du projet, "Java Build Path", onglet "Libraries", bouton "Add JARs..."</li>
     </ul>
 
     <translation lang="en">
@@ -673,9 +677,11 @@ objectify-4.xx.jar library
         Run locally: Run › Run As... ›
         --self--
         --self--
-        Then add the
-        objectify library
-        : (1) drag and drop the objectifyxxx.jar file in war/WEB-INF/lib. (2) Reference it in Project Properties, "Java Build Path", "Libraries" tab.
+        Then add the&nbsp;
+        --self--
+        and&nbsp;
+        --self--
+        libraries: (1) drag and drop the jar files into war/WEB-INF/lib. (2) Reference it in Project Properties, "Java Build Path", "Libraries" tab.
     </translation>
 </article>
 
@@ -817,6 +823,8 @@ obama.png
 <pre style="margin-bottom:10px" class="smallcode">
 &lt;! DOCTYPE html&gt;
 &lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
+&lt;%@ page import="com.google.common.html.HtmlEscapers" %&gt;&lt;!-- from Guava --&gt;
+
 &lt;html&gt;
   &lt;body&gt;
     &lt;H1&gt;<span>Le président est...</span>&lt;/H1&gt;
@@ -824,7 +832,7 @@ obama.png
     &lt;% 
         String comment = request.getParameter("user-comment");
         if (comment != null)
-            comment = comment.replace("&amp;", "&amp;amp;").replace("&lt;", "&amp;lt;").replace("&gt;", "&amp;gt;");
+	    		comment = HtmlEscapers.htmlEscaper().escape(comment);
     %&gt;
     &lt;p&gt;You: &lt;%= comment %&gt;&lt;/p&gt;
     &lt;form action="" method="post"&gt;
@@ -845,7 +853,7 @@ ATTENTION aux vulnérabilités XSS! Ne jamais insérer dans une page du texte en
         <div style="margin-top:30px;">
         <div class="screenshot-left bigserif scrshottext">
 	        <p>Le président est...</p>
-	        <div class="scrshotimg"><img  src="images/candidate2_fr.png"/></div>
+	        <div class="scrshotimg"><img src="images/candidate2_fr.png"/></div>
 	        <div class="scrshotcomment"><b>Vous</b>: pas mon premier choix...
 	        <div class="scrshotbox"></div>
 	        <form style="text-align: right"><input type="button" value="OK" onclick="noop()"></input></form>
@@ -854,11 +862,11 @@ ATTENTION aux vulnérabilités XSS! Ne jamais insérer dans une page du texte en
         <p>Il vous faut une zone de saisie:</p>
 <pre>
 &lt;form action="" method="post"&gt;
-   &lt;textarea name="user-comment" /&gt;
-   &lt;input type="submit" value="OK" /&gt;
+   &lt;textarea name="user-comment" &gt;<br/><div style="text-align: right;">&lt;/textarea&gt;
+</div>   &lt;input type="submit" value="OK" /&gt;
 &lt;/form&gt; 
 </pre>
-		<p>Et la fonction qui donne la valeur d'un paramètre de requête:</p>
+		<p>Et la fonction qui donne un paramètre de requête:</p>
 <pre>
 request.getParameter("user-comment")
 </pre>
@@ -875,7 +883,8 @@ romney.png
         You:
         not my first choice...
         You need an input box:
-		and a way to get request parameters:
+--self--
+		And a way to get request parameters:
         </translation>
       </article>
       
@@ -1310,11 +1319,12 @@ public class Comment <span class="u">implements Serializable</span>
 <pre class="lesspace smallcode">
 public static List&lt;Comment&gt; retrieveAllCached() {
     MemcacheService cache = MemcacheServiceFactory.getMemcacheService();
-    List&lt;Comment&gt; comments = (List&lt;Comment&gt;)cache.get("100Comments");
+    List&lt;Comment&gt; comments = (ArrayList&lt;Comment&gt;)cache.get("100Comments");
     if (comments == null) {
-        comments = retrieveAll(); <span>// lecture à partir du Datastore</span>
-        if (comments != null)
-            cache.put("100Comments", comments); <span>// enregistrement dans Memcache  </span>
+        <span>// lecture à partir du Datastore</span>
+        comments = retrieveAll();
+        <span>// enregistrement dans Memcache  </span>
+        cache.put("100Comments", new ArrayList&lt;Comment&gt;(comments));
     }
     return comments;
 }
@@ -1361,7 +1371,7 @@ cache.delete("myKey");
           --self--
           Create a new method for retrieving comments with caching:
 // read from Datastore
-// write to MemCache
+// write to Memcache
           Finally, invalidate the cache on each new comment:
           --self--
           --self--

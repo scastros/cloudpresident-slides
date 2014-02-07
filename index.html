@@ -37,6 +37,18 @@
 		text-align: justify;
 		text-indent: 1.5em;
 	}
+	.footnote
+	{
+		font-size: 0.5em;
+		line-height: 1em;
+		color: black;
+		font-family: serif;
+	}
+	.footnote-title
+	{
+		font-weight: bold;
+		color: #94230a;
+	}
 	
 	div.chapter-number
 	{
@@ -483,12 +495,50 @@
 
     <article class="slide3d" > 
       <div class="backslide3d" style="padding:40px">
-         <div class="screenshot-left" style="padding: 0px; text-align: center;margin-top: 80px;"><img src="images/googlemenu.png"/></div>
-         <p style="margin-top: 80px">Vous devriez maintenant avoir une icône "g" dans Eclipse.</p>
-         <p style="margin-top: 260px"><a class="small" href="https://developers.google.com/appengine/docs/java/javadoc/overview-summary">JavaDoc pour AppEngine</a>
-        </p>
-
-</p>
+         <div class="screenshot-left" style="padding: 0px; text-align: center;margin-top: 20px;"><img src="images/googlemenu.png"/></div>
+         <p style="margin-top: 120px">Vous devriez maintenant avoir une icône "g" dans Eclipse.</p>
+         
+         
+         <div class="footnote" style="clear:left; padding-top: 70px">
+         <p style="font-size: 1.1em; font-style: oblique;">Problèmes avec Eclipse et Java 7 ?</p>
+         <table style="margin-top: 10px">
+         	<tr>
+         		<td><p class="footnote-title">Où est mon JDK Java 7 ?</p>
+         		<p>Sur MacOS, lancer ceci dans le terminal:<br /><code>/usr/libexec/java_home</code></p>
+         		<p>Sur Windows, habituellement: <br/><code>C:\Program Files\Java\jdk1.7.XXXX</code></p></td>
+         		<td colspan="2"><span class="footnote-title">Eclipse se lance sur JRE 6 et le plugin Google n'aime pas ça:</span>
+	         		forcer Java 7 dans <code>eclipse.ini</code> (à côté de l'exécutable Eclipse, dans la app bundle sur mac) en ajoutant:
+	         		
+	         		<table class="table-noborders" style="margin-top: 1em">
+	         		<tr>
+	         			<td style="vertical-align: middle; border-right: grey solid 1px; padding-right: 5px">Sur MacOS:</td>
+	         			<td style="padding-left:5px">
+	         			<code>-vm<br/>
+         				/Library/Java/JavaVirtualMachines/jdk1.7.XXXX.jdk/Contents/Home</code>
+         				</td>
+         			</tr>
+         			<tr><td>&nbsp;</td></tr>
+         			<tr>
+         				<td style="vertical-align: middle; border-right: grey solid 1px; padding-right: 5px">Sur Windows:</td>
+         				<td style="padding-left:5px">	
+         				<code>-vm<br/>
+         				C:\Program Files\Java\jdk1.7.XXXX\bin\javaw.exe</code></td>
+         			</tr>
+         			
+         			</table>
+	         		</td>
+         	</tr>
+         	<tr>
+         		<td width="33%"><p class="footnote-title">Quel est le JDK avec lequel Eclipse compile vos projets ?</p>
+	         		<code>Eclipse &gt; Préférences &gt; Java &gt; JREs Installés</code></td>
+         		<td width="33%"><p class="footnote-title">Quelle librairie système Java est utilisée par votre projet ?</p>
+	         		<code>Projet &gt; Propriétés &gt; Java Build Path (onglet Librairies)</code></td>
+         		<td width="33%"><p class="footnote-title">Comment compiler en Java 7 ?</p>
+	         		<code>Projet &gt; Propriétés &gt; Compilateur Java</code></td>
+         	</tr>
+         </table>
+         
+      	</div>
       </div>
       
       <img src="images/install-gplugin.png" class="screenshot-right" style="clear:right; padding:0px; margin-top: 00px; margin-right:0px; margin-left:10px" />
@@ -506,7 +556,28 @@
          
          <translation lang="en">
            You should now have a "g" icon in the Eclipse toolbar.
-           AppEngine JavaDoc
+           Eclipse and Java 7 troubleshooting:
+           Where is my JDK Java 7 ?
+           On MacOS, run this in a terminal:
+           --self--
+           On Windows, usually
+           --self--
+           Eclipse starts on JRE 6 and the Google plugin does not like it:
+           force java 7 in&nbsp;
+           --self--
+           (next to the Eclipse executable, in the app bundle on mac)
+           On MacOS:
+           --self--
+           --self--
+           On Windows:
+           --self--
+           --self--
+           Which JDK does Eclipse use to compile my projects ?
+           Eclipse &gt; Preferences &gt; Java &gt; Installed JREs
+           What Java system libraries does Eclipse use for my project ?
+           Project &gt; Properties &gt; Java Build Path (Librairies tab)
+           How to compile in Java 7 ?
+           Project &gt; Properties &gt; Java Compiler
            --self--
            Setup
            (Eclipse plugin option, recommended for the codelab)

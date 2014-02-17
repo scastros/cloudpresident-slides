@@ -1411,7 +1411,7 @@ public static void store(String text, String user) {
 </pre>
       </div>
       
-            <div class="chapter-number g-red">7</div>
+            <div class="chapter-number g-yellow">7</div>
       		<h3 class="num">Optimiser les commentaires avec Memcache</h3>
       		<div style="margin-top:70px;">
 				<div class="screenshot-left" style="margin-right: 45px; width:258px">
@@ -1453,13 +1453,140 @@ cache.delete("myKey");
           Memcache offers fast access and less contention for data primarily fetched from the datastore.
           </translation>
       </article>
+
+<!-- ------------------------------------------------------------------------------- -->      
+<!-- 10. deploy to App Engine -->
+
+      <article class="slide3d" > 
+      <div class="backslide3d">
       
-<!-- ------------------------------------------------------------------------------- -->  
+<p>fichier: WEB-INF/appengine-web.xml</p>
+<pre class="smallcode lesspace">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;appengine-web-app xmlns=&quot;http://appengine.google.com/ns/1.0&quot;&gt;
+    &lt;!-- <span>Le nom de votre ApplicationId sur</span> http://appengine.google.com --&gt;
+    &lt;application&gt;<span>lepresident-est</span>&lt;/application&gt;
+    &lt;!-- <span>Version de votre application, cela peut etre un texte (alpha, beta, etc...)</span> --&gt;
+    &lt;version&gt;1&lt;/version&gt;
+    ...
+&lt;/appengine-web-app&gt;
+</pre>
+<p>Documentation de référence sur <a href="https://developers.google.com/appengine/docs/java/config/appconfig">appengine-web.xml</a>.</p>
+<p class="small">Le plugin App Engine pour Eclipse a aussi un réglage de projet pour l'App id : </p>
+<p><img src="images/appengine-nameapp.png"/></p>
+
+      </div>
+        <div class="chapter-number g-red">8</div>
+        <h3 class="num">
+          Déployer sur App Engine!
+        </h3>
+        <p>&nbsp;</p>
+        <ul>
+         <li>Aller sur <a href="http://appengine.google.com">http://appengine.google.com</a> et créer un identifiant pour votre application. Elle sera accessible à l'adresse <code>http://monidentifiant.appspot.com</code></li>
+         <li>Spécifier cet identifiant dans <code>appengine-web.xml</code></li>
+         <li>Déployer (plugin Eclipse): choisir "Deploy to App Engine..." dans le menu "g".</li>
+        </ul>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+        <div class="small">(option maven: maven goal <span class="pop">appengine:update</span><br/>Eclipse (Maven): Run > Run Cofigurations... > <span class="pop">UpdateApplication)</div>
+        
+        <translation lang="en">
+        file: WEB-INF/appengine-web.xml
+Your application id as defined on
+thepresident-is
+The version of your application, it can be a string (alpha, beta, ...)
+        Reference documentation on&nbsp;
+appengine-web.xml
+ .
+        This configuration is also possible via the Eclipse plugin:
+        --self--
+        Deploy to App Engine
+        Go to 
+        --self--
+        and create an application id. Your app will be accessible at the URL
+        http://myappid.appspot.com
+        Add the app id to
+        appengine-web.xml
+        Deploy (App Engine plugin for Eclipse): choose "Deploy to App Engine..." in the  "g" menu.
+        (maven option: maven goal
+        appengine:update
+        --self--
+        --self--
+        </translation>
+      </article>
+      
+<!-- ------------------------------------------------------------------------------- -->
+<!-- keep building ? -->
+	
+	<article class="fill slide3d">
+		<div class="backslide3d" style="padding:60px;color: black;">
+		
+		<h3 style="padding-left:45px">Il vous reste à découvrir:</h3>
+		<ol start="12" style="list-style-image: none;">
+		<li>Uploader une image avec Blobstore et ImageService</li>
+		<li>Protéger les URLs administrateur</li>
+		<li>Recevoir des emails</li>
+		</ol>
+		
+		<table><tr><td style="border:none">
+			<p style="font-weight: 600; color:rgb(51, 51, 51); margin-left:-20px">Pour vous perfectionner:</p>
+			<ul>
+			<li><a href="http://developers.google.com/appengine/docs/java/taskqueue/">Task queues</a>
+			et <a href="http://developers.google.com/appengine/docs/java/backends/">Backends</a>
+			</li>
+			<li><a href="http://developers.google.com/appengine/docs/java/search/overview">Full Text Search</a></li>
+			<li><a href="http://developers.google.com/cloud-sql/">Google Cloud SQL</a></li>
+			<li><a href="https://developers.google.com/storage/">Google Cloud Storage</a></li>
+			</ul>
+		</td><td style="border:none; padding-left:30px">
+			<p style="font-weight: 600; color:rgb(51, 51, 51); margin-left:-20px">Et au-delà d'AppEngine:</p>
+			<ul>
+			<li><a href="http://developers.google.com/bigquery/">Google BigQuery</a></li>
+			<li><a href="http://developers.google.com/prediction/">Google Prediction API</a></li>
+			<li><a href="http://developers.google.com/compute/">Google Compute Engine</a></li>
+			</ul>
+		</td></table>
+		
+		</div>
+		<img src="images/spacestation.jpg" />
+		
+		<H1 style="background-color: white;
+		           opacity:1;
+		           padding: 40px 20px;
+		           background-image: url('images/appengine_small.png');
+		           background-repeat: no-repeat;
+		           background-position: 95% 50%;
+		           border-radius: 10px;
+		           ">On continue ?
+		</H1>
+		
+		
+		<translation lang="en">
+		On the following slides:
+		Upload an image with Blobstore and ImageService
+		Secure admin URLs
+		Receive emails
+		More on App Engine:
+		--self--
+		and 
+		--self--
+		--self--
+		--self--
+		--self--
+		And beyond:
+		--self--
+		--self--
+		--self--
+		Keep building ?
+		</translation>
+	</article>
+
+<!-- ------------------------------------------------------------------------------- -->
 <!-- 7. Cron pour afficher le président élu -->
 
-      <article class="slide3d">
-      <div class="backslide3d">
-      <p class="small">La servlet: elle écrit le nom du président élu dans le datastore<br/>fichier /src/main/java/com/myname/thepresident/CronServlet.java</p>
+<article class="slide3d">
+    <div class="backslide3d">
+        <p class="small">La servlet: elle écrit le nom du président élu dans le datastore<br/>fichier /src/main/java/com/myname/thepresident/CronServlet.java</p>
       <pre class="x-smallcode lesspace">
 public class CronServlet extends HttpServlet
 {   @Override
@@ -1470,7 +1597,7 @@ public class CronServlet extends HttpServlet
         DatastoreServiceFactory.getDatastoreService().put(Elected);
     }
 }</pre>
-      <p class="small">Son mapping dans WEB-INF/web.xml, avec restriction d'accès:</p>
+        <p class="small">Son mapping dans WEB-INF/web.xml, avec restriction d'accès:</p>
       <pre class="x-smallcode lesspace">
 &lt;servlet&gt;
    &lt;servlet-name&gt;CronServlet&lt;/servlet-name&gt; &lt;servlet-class&gt;com.me.thepresident.CronServlet&lt;/servlet-class&gt;
@@ -1482,27 +1609,27 @@ public class CronServlet extends HttpServlet
   &lt;web-resource-collection&gt;   &lt;url-pattern&gt;/cron*&lt;/url-pattern&gt;   &lt;/web-resource-collection&gt;
   &lt;auth-constraint&gt;           &lt;role-name&gt;admin&lt;/role-name&gt;        &lt;/auth-constraint&gt;
 &lt;/security-constraint&gt;</pre>
-      <p class="small">Affichage conditionnel (fichier src/main/webapp/comments.jsp):</p>
+        <p class="small">Affichage conditionnel (fichier src/main/webapp/comments.jsp):</p>
       <pre class="x-smallcode lesspace" style="margin-bottom: 0px">
 Entity e = DatastoreServiceFactory.getDatastoreService().prepare(new Query("Elected")).asSingleEntity();
 if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</span>*/ e.getProperty("name");</pre>
-<p class="x-small poplow" style="margin-top: 10px">(Pour afficher également la photo du président, récupérez les images au dos da la <a href="#2">première slide</a>.)</p>
-      </div> 
-      
-            <div class="chapter-number g-yellow">8</div>
-      		<h3 class="num">Afficher le nom du président à 20h00 précises avec une tâche planifiée Cron</h3>
-      		
-	        <div style="margin-top:20px;">
-	        <div class="screenshot-left bigserif scrshottext" style="margin-right: 40px; margin-top: 40px">
-	        <p>Le président est...</p>
-	        <div class="scrshotimg"><img src="images/candidate5_fr.png"/></div>
-	        <div style="text-align: center"><small>François Hollande</small></div>
-	        </div>
-	        
-	        <p>Les Cron lancent des servlets dont l'URL est définie dans web.xml.</p>
-	        <p style="margin-bottom: 20px;">
-	        Périodicité à configurer dans WEB-INF/cron.xml (<a href="https://developers.google.com/appengine/docs/java/config/cron">syntaxe complète</a>):</p>
-	        
+        <p class="x-small poplow" style="margin-top: 10px">(Pour afficher également la photo du président, récupérez les images au dos da la <a href="#2">première slide</a>.)</p>
+    </div>
+
+    <div class="chapter-number g-yellow">9</div>
+    <h3 class="num">Afficher le nom du président à 20h00 précises avec une tâche planifiée Cron</h3>
+
+    <div style="margin-top:20px;">
+        <div class="screenshot-left bigserif scrshottext" style="margin-right: 40px; margin-top: 40px">
+            <p>Le président est...</p>
+            <div class="scrshotimg"><img src="images/candidate5_fr.png"/></div>
+            <div style="text-align: center"><small>François Hollande</small></div>
+        </div>
+
+        <p>Les Cron lancent des servlets dont l'URL est définie dans web.xml.</p>
+        <p style="margin-bottom: 20px;">
+            Périodicité à configurer dans WEB-INF/cron.xml (<a href="https://developers.google.com/appengine/docs/java/config/cron">syntaxe complète</a>):</p>
+
 	        <pre class="smallcode">
 &lt;?xml version="1.0" ?&gt;
 &lt;cronentries&gt;
@@ -1513,47 +1640,47 @@ if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</spa
     &lt;timezone&gt;Europe/Paris&lt;/timezone&gt;
   &lt;/cron&gt;
 &lt;/cronentries&gt;</pre>
-        
+
         <translation lang="en">
-        The cron servlet writes the name of the elected president into the datastore.
-        file: /src/main/java/com/me/thepresident/CronServlet.java
-Barack obama
-or Mitt Romney
-		Servlet mapping in WEB-INF/web.xml, with access restrictions:
-		Conditional display (file src/main/webapp/comments.jsp)
-wait message
-display president
-		(If you want to show the picture of the president, you can get it on the backside of the 
-		first slide of this presentation.
-		--self--
-		--self--
-		Display the name of the president at 08:00PM sharp using a Cron job
-		The president is:
-		Barack Obama
-		Cron jobs are servlets. Their URL is defined in web.xml.
-		Their periodicity can be set in WEB-INF/cron.xml ( 
-		full syntax
-		) :
+            The cron servlet writes the name of the elected president into the datastore.
+            file: /src/main/java/com/me/thepresident/CronServlet.java
+            Barack obama
+            or Mitt Romney
+            Servlet mapping in WEB-INF/web.xml, with access restrictions:
+            Conditional display (file src/main/webapp/comments.jsp)
+            wait message
+            display president
+            (If you want to show the picture of the president, you can get it on the backside of the
+            first slide of this presentation.
+            --self--
+            --self--
+            Display the name of the president at 08:00PM sharp using a Cron job
+            The president is:
+            Barack Obama
+            Cron jobs are servlets. Their URL is defined in web.xml.
+            Their periodicity can be set in WEB-INF/cron.xml (
+            full syntax
+            ) :
         </translation>
-      </article>
+</article>
 
 <!-- ------------------------------------------------------------------------------- -->
 <!-- info slide Sharded Counters -->
-      
-      <article class="slide3d info">
-      <div class="empty backslide3d"></div> 
-      		<h3 class="info">Qu'est-ce qu'un compteur éclaté ?</h3>
-      		<p class="small" style="font-size: 80%; margin-top: -10px">Les écritures sur la même entité du datastore sont limitées<br/>à quelques-unes par seconde: comment faire un compteur ?
-      		<br/>⇒Incrément atomique dans Memcache et compteur éclaté dans Datastore.</p>
-      		<p style="text-align: center;"><img src="images/shardedcounter.svg" width="100%"/></p>
-      		
-      	<translation lang="en">
-      	What is a sharded counter ?
-      	Writes to the same datastore entity are limited to a few
-      	writes per second: so how can I implement a counter ?
-      	⇒Atomic increment in Memcache and a sharded counter in Datastore.
-      	</translation>
-      </article>
+
+<article class="slide3d info">
+    <div class="empty backslide3d"></div>
+    <h3 class="info">Qu'est-ce qu'un compteur éclaté ?</h3>
+    <p class="small" style="font-size: 80%; margin-top: -10px">Les écritures sur la même entité du datastore sont limitées<br/>à quelques-unes par seconde: comment faire un compteur ?
+        <br/>⇒Incrément atomique dans Memcache et compteur éclaté dans Datastore.</p>
+    <p style="text-align: center;"><img src="images/shardedcounter.svg" width="100%"/></p>
+
+    <translation lang="en">
+        What is a sharded counter ?
+        Writes to the same datastore entity are limited to a few
+        writes per second: so how can I implement a counter ?
+        ⇒Atomic increment in Memcache and a sharded counter in Datastore.
+    </translation>
+</article>
 
 <!-- ------------------------------------------------------------------------------- -->
 <!-- 9. Implémenter un compteur éclaté -->
@@ -1652,8 +1779,8 @@ public class Counter {
         <div class="x-small" style="margin-top:10px">usage: &nbsp;&nbsp;<span style="color: black;">Counter.increment("pluscounter"); &nbsp;&nbsp;Counter.value("minuscounter");</span></div>
     </div>
 
-    <div class="chapter-number g-blue">9</div>
-    <h3 class="num">
+    <div class="chapter-number g-blue">10</div>
+    <h3 class="num2">
         Implémenter un compteur qui tient la charge
     </h3>
 
@@ -1697,13 +1824,13 @@ ofy().save().entity(new Counter(name,shard_N,C));</pre>
             Read: if Memcache fails, MAX of the counters in the datastore:
         </translation>
 </article>
- 
+
 <!-- ------------------------------------------------------------------------------- -->
 <!-- 9. Ajouter un index composite sur une entité -->
 
-            <article class="slide3d">
-      <div class="backslide3d" style="padding:40px">
-<p>fichier: WEB-INF/appengine/datastore-indexes.xml</p>
+<article class="slide3d">
+    <div class="backslide3d" style="padding:40px">
+        <p>fichier: WEB-INF/appengine/datastore-indexes.xml</p>
 <pre>
 &lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;datastore-indexes autoGenerate="false"&gt;
@@ -1713,24 +1840,25 @@ ofy().save().entity(new Counter(name,shard_N,C));</pre>
     &lt;/datastore-index&gt;
 &lt;/datastore-indexes&gt;
 </pre>
-<p>Le SDK autogénère ce fichier dans le le répertoire <code>WEB-INF/appengine-generated/datastore-indexes-auto.xml</code> à copier dans <code>WEB-INF/appengine/datastore-indexes.xml</code></p>
-</div>
-		<div class="chapter-number g-green">10</div>
-        <h3 class="num2">
-          Ajouter un index multiple sur une entité
-        </h3>
-        <ul>
+        <p>Le SDK autogénère ce fichier dans le le répertoire <code>WEB-INF/appengine-generated/datastore-indexes-auto.xml</code> à copier dans <code>WEB-INF/appengine/datastore-indexes.xml</code></p>
+    </div>
+    <div class="chapter-number g-green">11</div>
+    <h3 class="num2">
+        Ajouter un index multiple sur une entité
+    </h3>
+    <p>&nbsp;</p>
+    <ul>
         <li>Le datastore exécute uniquement des requêtes indexées.</li>
         <li>Objectify crée un index simple sur chaque propriété annotée avec <code> @Index</code>.</li>
         <li>Si l'on fait une requête sur plus d'une propriété, il faut créer un index pour chaque combinaison manuellement.</li>
         <li style="margin-top: 60px;">Pour notre compteur, il nous faut un index combiné avec "name" et "value" DESC</li>
-        </ul>
-        
-        <translation lang="en">
+    </ul>
+
+    <translation lang="en">
         file: WEB-INF/appengine/datastore-indexes.xml
-        The SDK generates this file automatically in 
+        The SDK generates this file automatically in
         --self--
-        copy it to 
+        copy it to
         --self--
         --self--
         Add a composite index on an entity
@@ -1740,134 +1868,8 @@ ofy().save().entity(new Counter(name,shard_N,C));</pre>
         --self--
         If you want to request on multiple properties, you have to create an index for each combination manually.
         For our counter, we need a composite index on "name" and "value" DESC.
-        </translation>
+    </translation>
 </article>
-
-<!-- ------------------------------------------------------------------------------- -->      
-<!-- 10. deploy to App Engine -->
-
-      <article class="slide3d" > 
-      <div class="backslide3d">
-      
-<p>fichier: WEB-INF/appengine-web.xml</p>
-<pre class="smallcode lesspace">
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;appengine-web-app xmlns=&quot;http://appengine.google.com/ns/1.0&quot;&gt;
-    &lt;!-- <span>Le nom de votre ApplicationId sur</span> http://appengine.google.com --&gt;
-    &lt;application&gt;<span>lepresident-est</span>&lt;/application&gt;
-    &lt;!-- <span>Version de votre application, cela peut etre un texte (alpha, beta, etc...)</span> --&gt;
-    &lt;version&gt;1&lt;/version&gt;
-    ...
-&lt;/appengine-web-app&gt;
-</pre>
-<p>Documentation de référence sur <a href="https://developers.google.com/appengine/docs/java/config/appconfig">appengine-web.xml</a>.</p>
-<p class="small">Le plugin App Engine pour Eclipse a aussi un réglage de projet pour l'App id : </p>
-<p><img src="images/appengine-nameapp.png"/></p>
-
-      </div>
-        <div class="chapter-number g-red">11</div>
-        <h3 class="num2">
-          Déployer sur App Engine!
-        </h3>
-        <ul>
-         <li>Aller sur <a href="http://appengine.google.com">http://appengine.google.com</a> et créer un identifiant pour votre application. Elle sera accessible à l'adresse <code>http://monidentifiant.appspot.com</code></li>
-         <li>Spécifier cet identifiant dans <code>appengine-web.xml</code></li>
-         <li style="margin-top:40px">Déployer
-          <ul style="font-size: 80%; margin-top: 30px">
-            <li>(maven goal appengine:update)<br/>Eclipse (Maven): Run > Run Cofigurations... > <span class="pop">UpdateApplication</span>
-            <li>App Engine plugin pour Eclipse: choisir "Deploy to App Engine..." dans le menu "g".</li>
-          </ul>
-        </ul>
-        
-        <translation lang="en">
-        file: WEB-INF/appengine-web.xml
-Your application id as defined on
-thepresident-is
-The version of your application, it can be a string (alpha, beta, ...)
-        Reference documentation on&nbsp;
-appengine-web.xml
- .
-        This configuration is also possible via the Eclipse plugin:
-        --self--
-        Deploy to App Engine
-        Go to 
-        --self--
-        and create an application id. Your app will be accessible at the URL
-        http://myappid.appspot.com
-        Add the app id to 
-        --self--
-        Deploy
-        --self--
-        --self--
-        --self--
-        App Engine plugin for Eclipse: choose "Deploy to App Engine..." in the  "g" menu.
-        </translation>
-      </article>
-      
-<!-- ------------------------------------------------------------------------------- -->
-	
-	<article class="fill slide3d">
-		<div class="backslide3d" style="padding:60px;color: black;">
-		
-		<h3 style="padding-left:45px">Il vous reste à découvrir:</h3>
-		<ol start="12" style="list-style-image: none;">
-		<li>Uploader une image avec Blobstore et ImageService</li>
-		<li>Protéger les URLs administrateur</li>
-		<li>Recevoir des emails</li>
-		</ol>
-		
-		<table><tr><td style="border:none">
-			<p style="font-weight: 600; color:rgb(51, 51, 51); margin-left:-20px">Pour vous perfectionner:</p>
-			<ul>
-			<li><a href="http://developers.google.com/appengine/docs/java/taskqueue/">Task queues</a>
-			et <a href="http://developers.google.com/appengine/docs/java/backends/">Backends</a>
-			</li>
-			<li><a href="http://developers.google.com/appengine/docs/java/search/overview">Full Text Search</a></li>
-			<li><a href="http://developers.google.com/cloud-sql/">Google Cloud SQL</a></li>
-			<li><a href="https://developers.google.com/storage/">Google Cloud Storage</a></li>
-			</ul>
-		</td><td style="border:none; padding-left:30px">
-			<p style="font-weight: 600; color:rgb(51, 51, 51); margin-left:-20px">Et au-delà d'AppEngine:</p>
-			<ul>
-			<li><a href="http://developers.google.com/bigquery/">Google BigQuery</a></li>
-			<li><a href="http://developers.google.com/prediction/">Google Prediction API</a></li>
-			<li><a href="http://developers.google.com/compute/">Google Compute Engine</a></li>
-			</ul>
-		</td></table>
-		
-		</div>
-		<img src="images/spacestation.jpg" />
-		
-		<H1 style="background-color: white;
-		           opacity:1;
-		           padding: 40px 20px;
-		           background-image: url('images/appengine_small.png');
-		           background-repeat: no-repeat;
-		           background-position: 95% 50%;
-		           border-radius: 10px;
-		           ">On continue ?
-		</H1>
-		
-		
-		<translation lang="en">
-		On the following slides:
-		Upload an image with Blobstore and ImageService
-		Secure admin URLs
-		Receive emails
-		More on App Engine:
-		--self--
-		and 
-		--self--
-		--self--
-		--self--
-		--self--
-		And beyond:
-		--self--
-		--self--
-		--self--
-		Keep building ?
-		</translation>
-	</article>
 
 <!-- ------------------------------------------------------------------------------- -->
 <!-- 11. Blobstore and user uploads -->
@@ -1971,7 +1973,7 @@ Objectify class) and use these values to display the elected president.
         <h3 class="num2">
           Protéger les URLs accessibles par les administrateurs
         </h3>
-        
+        <p>&nbsp;</p>
         <ul>
         <li>Il suffit d'ajouter une contrainte de sécurité dans le fichier web.xml</li>
         <li>Indiquez le role : <strong>admin</strong></li>
@@ -2026,8 +2028,8 @@ public class MailHandlerServlet extends HttpServlet {
         <h3 class="num2">
           Recevoir un mail
         </h3>
-        
-        <div style="margin-top:20px;">
+        <p>&nbsp;</p>
+        <div>
         <p>Indiquez que l'application peut recevoir des mails sur <span class="u"><span>nom</span>@id_application.appspotmail.com</span></p>
 <pre class="smallcode lesspace">&lt;inbound-services&gt;
       &lt;service&gt;mail&lt;/service&gt;

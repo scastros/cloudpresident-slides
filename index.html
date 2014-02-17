@@ -836,7 +836,7 @@
       </style>
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: src/main/webapp/comments.jsp</p>
+<p>fichier: war/comments.jsp</p>
 <pre>
 &lt;! DOCTYPE html&gt;
 &lt;%@ page contentType="text/html;charset=UTF-8" language="java" <span style="color:grey">%&gt;</span>
@@ -868,7 +868,7 @@
         </div>
         
        <translation lang="en">
-        file: src/main/webapp/comments.jsp
+        file: war/comments.jsp
         --self--
 The president is...
 The president is...
@@ -890,7 +890,7 @@ obama.png
 
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: src/main/webapp/comments.jsp</p>
+<p>fichier: war/comments.jsp</p>
 <pre style="margin-bottom:10px" class="smallcode">
 &lt;! DOCTYPE html&gt;
 &lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
@@ -944,7 +944,7 @@ request.getParameter("user-comment")
         </div>
         
         <translation lang="en">
-        file: src/main/webapp/comments.jsp
+        file: war/comments.jsp
 The president is...
 romney.png
         XSS vulnerability WARNING! DO NOT insert user-generated text into an HTML page without escaping.
@@ -964,11 +964,12 @@ romney.png
 
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: src/main/webapp/comments.jsp</p>
+<p>fichier: war/comments.jsp</p>
 <pre class="x-smallcode">
 &lt;! DOCTYPE html&gt;
 &lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
 <span class="u">&lt;%@ page import="com.google.appengine.api.users.*" %&gt;</span>
+&lt;%@ page import="com.google.common.html.HtmlEscapers" %&gt; &lt;!-- Guava --&gt;
 
 &lt;html&gt;&lt;body&gt;
     &lt;H1&gt;<span>Le président est...</span>&lt;/H1&gt; &lt;img src="<span>hollande.png</span>" /&gt;
@@ -984,7 +985,7 @@ romney.png
     {
         String comment = request.getParameter("user-comment");
         if (comment != null)
-            comment = comment.replace("&amp;", "&amp;amp;").replace("&lt;", "&amp;lt;").replace("&gt;", "&amp;gt;");
+            comment = HtmlEscapers.htmlEscaper().escape(comment);
 %&gt;
         &lt;p&gt;&lt;b&gt;&lt;%=<span class="u">user.getNickname()</span>%&gt;:&lt;/b&gt; &lt;%=comment%&gt;&lt;/p&gt;
     
@@ -1032,7 +1033,7 @@ userService.createLogoutURL("myTargetURL");
         </div>
         
         <translation lang="en">
-        file: src/main/webapp/comments.jsp
+        file: war/comments.jsp
         --self--
 The president is...
 obama.jpg
@@ -1088,7 +1089,7 @@ logout
 
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: src/main/java/com/myname/thepresident/Comments.java</p>
+<p>fichier: src/com/moi/lepresident/Comments.java</p>
 <pre class="x-smallcode lesspace" style="margin-bottom: 15px;">
 package <span>com.moi.lepresident</span>;
 import java.util.*;
@@ -1165,7 +1166,7 @@ List&lt;Entity&gt; results =
         </div>
         
         <translation lang="en">
-        file: src/main/java/com/myname/thepresident/Comments.java
+        file: src/com/me/thepresident/Comments.java
 com.me.thepresident
 Usage: 
         --self--
@@ -1190,9 +1191,9 @@ Usage:
 
 <article class="slide3d" >
     <div class="backslide3d">
-        <p>fichier: src/com/myname/thepresident/ObjectifyDAO.java</p>
+        <p>fichier: src/com/moi/lepresident/ObjectifyDAO.java</p>
 <pre class="x-smallcode lesspace">
-package com.myname.thepresident;
+<span>package com.moi.lepresident;</span>
 import com.googlecode.objectify.Objectify;     import com.googlecode.objectify.ObjectifyService;
 
 public class ObjectifyDAO
@@ -1201,9 +1202,9 @@ public class ObjectifyDAO
     static Objectify ofy() { return ObjectifyService.ofy(); }  <span>// proxy pour Objectify</span>
 }
 </pre>
-        <p>fichier: src/com/myname/thepresident/Comment.java</p>
+        <p>fichier: src/com/moi/lepresident/Comment.java</p>
 <pre class="x-smallcode lesspace">
-package com.myname.thepresident;
+<span>package com.moi.lepresident;</span>
 import java.util.Date; import java.util.List;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -1277,10 +1278,12 @@ for (Comment c: list) { ... }
     </div>
 
     <translation lang="en">
-        file: src/com/myname/thepresident/ObjectifyDAO.java
-        // register all @Entity classes
-        // proxy for Objectify
-        file: src/com/myname/thepresident/Comment.java
+        file: src/com/me/thepresident/ObjectifyDAO.java
+package com.me.thepresident;
+// register all @Entity classes
+// proxy for Objectify
+        file: src/com/me/thepresident/Comment.java
+package com.me.thepresident;
  // now ofy() goes through the DAO
         --self--
         The same thing with Objectify 4
@@ -1381,7 +1384,7 @@ for (Comment c: list) { ... }
       
       <article class="slide3d">
       <div class="backslide3d">
-          <p>fichier: src/com/myname/thepresident/Comment.java</p>
+          <p>fichier: src/com/moi/lepresident/Comment.java</p>
           <p class="small" >La classe Comment doit devenir sérialisable:</p>
 <pre class="lesspace smallcode">
 public class Comment <span class="u">implements Serializable</span>
@@ -1437,7 +1440,7 @@ cache.delete("myKey");
           </div>
           
           <translation lang="en">
-          file: /java/com/myname/thepresident/Comment.java
+          file: /src/com/me/thepresident/Comment.java
           The Commen class must become Serializable
           --self--
           Create a new method for retrieving comments with caching:
@@ -1460,7 +1463,7 @@ cache.delete("myKey");
       <article class="slide3d" > 
       <div class="backslide3d">
       
-<p>fichier: WEB-INF/appengine-web.xml</p>
+<p>fichier: war/WEB-INF/appengine-web.xml</p>
 <pre class="smallcode lesspace">
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;appengine-web-app xmlns=&quot;http://appengine.google.com/ns/1.0&quot;&gt;
@@ -1491,7 +1494,7 @@ cache.delete("myKey");
         <div class="small">(option maven: maven goal <span class="pop">appengine:update</span><br/>Eclipse (Maven): Run > Run Cofigurations... > <span class="pop">UpdateApplication)</div>
         
         <translation lang="en">
-        file: WEB-INF/appengine-web.xml
+        file: war/WEB-INF/appengine-web.xml
 Your application id as defined on
 thepresident-is
 The version of your application, it can be a string (alpha, beta, ...)
@@ -1586,7 +1589,7 @@ appengine-web.xml
 
 <article class="slide3d">
     <div class="backslide3d">
-        <p class="small">La servlet: elle écrit le nom du président élu dans le datastore<br/>fichier /src/main/java/com/myname/thepresident/CronServlet.java</p>
+        <p class="small">La servlet: elle écrit le nom du président élu dans le datastore<br/>fichier /src/com/moi/lepresident/CronServlet.java</p>
       <pre class="x-smallcode lesspace">
 public class CronServlet extends HttpServlet
 {   @Override
@@ -1609,11 +1612,10 @@ public class CronServlet extends HttpServlet
   &lt;web-resource-collection&gt;   &lt;url-pattern&gt;/cron*&lt;/url-pattern&gt;   &lt;/web-resource-collection&gt;
   &lt;auth-constraint&gt;           &lt;role-name&gt;admin&lt;/role-name&gt;        &lt;/auth-constraint&gt;
 &lt;/security-constraint&gt;</pre>
-        <p class="small">Affichage conditionnel (fichier src/main/webapp/comments.jsp):</p>
+        <p class="small">Affichage conditionnel (fichier war/comments.jsp):</p>
       <pre class="x-smallcode lesspace" style="margin-bottom: 0px">
 Entity e = DatastoreServiceFactory.getDatastoreService().prepare(new Query("Elected")).asSingleEntity();
-if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</span>*/ e.getProperty("name");</pre>
-        <p class="x-small poplow" style="margin-top: 10px">(Pour afficher également la photo du président, récupérez les images au dos da la <a href="#2">première slide</a>.)</p>
+if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage du président</span>*/ e.getProperty("name");</pre>
     </div>
 
     <div class="chapter-number g-yellow">9</div>
@@ -1643,16 +1645,13 @@ if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</spa
 
         <translation lang="en">
             The cron servlet writes the name of the elected president into the datastore.
-            file: /src/main/java/com/me/thepresident/CronServlet.java
+            file: /src/com/me/thepresident/CronServlet.java
             Barack obama
             or Mitt Romney
             Servlet mapping in WEB-INF/web.xml, with access restrictions:
-            Conditional display (file src/main/webapp/comments.jsp)
-            wait message
-            display president
-            (If you want to show the picture of the president, you can get it on the backside of the
-            first slide of this presentation.
-            --self--
+            Conditional display (file war/comments.jsp)
+wait message
+display president
             --self--
             Display the name of the president at 08:00PM sharp using a Cron job
             The president is:
@@ -1716,8 +1715,7 @@ if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</spa
 <article id="shardedcounterslide" class="slide3d">
     <div class="backslide3d">
       <pre class="lesspace smallcode" style="float:left; width:400px; height:610px; margin-right: 20px; font-size: 0.5em">
-import static com.myname
-               .thepresident.ObjectifyDAO.ofy;
+<span>import static com.moi.lepresident.ObjectifyDAO.ofy;</span>
 
 @Entity
 public class Counter {
@@ -1776,7 +1774,7 @@ public class Counter {
   }
 }
       </pre>
-        <div class="x-small" style="margin-top:10px">usage: &nbsp;&nbsp;<span style="color: black;">Counter.increment("pluscounter"); &nbsp;&nbsp;Counter.value("minuscounter");</span></div>
+        <div class="x-small" style="margin-top:10px">utilisation: &nbsp;&nbsp;<span style="color: black;">Counter.increment("pluscounter"); &nbsp;&nbsp;Counter.value("minuscounter");</span></div>
     </div>
 
     <div class="chapter-number g-blue">10</div>
@@ -1809,7 +1807,8 @@ ofy().save().entity(new Counter(name,shard_N,C));</pre>
              name).order("-value").first().get();</pre>
 
         <translation lang="en">
-            usage:
+import static com.me.thepresident.ObjectifyDAO.ofy;
+            usage:&nbsp;&nbsp;
             --self--
             --self--
             Implement a counter that scales under load
@@ -1830,7 +1829,7 @@ ofy().save().entity(new Counter(name,shard_N,C));</pre>
 
 <article class="slide3d">
     <div class="backslide3d" style="padding:40px">
-        <p>fichier: WEB-INF/appengine/datastore-indexes.xml</p>
+        <p>fichier: war/WEB-INF/appengine/datastore-indexes.xml</p>
 <pre>
 &lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;datastore-indexes autoGenerate="false"&gt;
@@ -1855,7 +1854,7 @@ ofy().save().entity(new Counter(name,shard_N,C));</pre>
     </ul>
 
     <translation lang="en">
-        file: WEB-INF/appengine/datastore-indexes.xml
+        file: war/WEB-INF/appengine/datastore-indexes.xml
         The SDK generates this file automatically in
         --self--
         copy it to
@@ -1876,7 +1875,7 @@ ofy().save().entity(new Counter(name,shard_N,C));</pre>
      
       <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: admin.jsp</p>
+<p>fichier: war/admin.jsp</p>
 <pre class="smallcode lesspace">
 &lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
 &lt;%@page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory"%&gt;
@@ -1932,7 +1931,7 @@ BlobKey key = bs.getUploads(req).get("president-pic").get(0); ...</pre>
         <pre class="lesspace">ImagesServiceFactory.getImagesService().getServingUrl(key);</pre>
 
         <translation lang="en">
-        file: admin.jsp
+        file: war/admin.jsp
 President's name
 President's picture
         file: UploadServlet.java (map it on /upload)
@@ -1955,7 +1954,7 @@ Objectify class) and use these values to display the elected president.
 
       	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: WEB-INF/web.xml</p>
+<p>fichier: war/WEB-INF/web.xml</p>
 <pre class="smallcode lesspace">
 &lt;security-constraint&gt;
     &lt;web-resource-collection&gt;
@@ -1982,7 +1981,7 @@ Objectify class) and use these values to display the elected president.
         </ul>
         
         <translation lang="en">
-        file: WEB-INF/web.xml
+        file: war/WEB-INF/web.xml
         --self--
         Secure admin URLs
         You can set security constraints in the web.xml file.
@@ -1999,7 +1998,7 @@ Objectify class) and use these values to display the elected president.
 
       	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: com/myname/lepresident/MailHandlerServlet.java</p>
+<p>fichier: src/com/moi/lepresident/MailHandlerServlet.java</p>
 <pre class="smallcode lesspace">
 package <span>com.moi.lepresident</span>;
 import java.util.Properties;
@@ -2042,7 +2041,7 @@ MimeMessage message = new MimeMessage(session, req.getInputStream());</pre>
         </div>
         
         <translation lang="en">
-        file: com/myname/thepresident/MailHandler.java
+        file: src/com/me/thepresident/MailHandler.java
 com.me.thepresident
 Thank you for your opinion.
         --self--

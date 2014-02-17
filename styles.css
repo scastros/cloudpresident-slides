@@ -703,7 +703,7 @@ article.smaller q::after {
 	}
 	.backslideno3d.empty:before
 	{
-		margin-left: 47%;
+		margin-left: 45%;
 		text-align: center;
 		color: rgb(200,200,200);
 		content: '-empty-';

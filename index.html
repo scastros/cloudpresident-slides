@@ -364,6 +364,7 @@
 			</translation>
 		</article>
 
+<!-- ------------------------------------------------------------------------------- -->
 <!-- Page de titre -->
 	<style>
 		
@@ -422,14 +423,13 @@
 	</div>
 	
 	 
-	 <h1 style="padding:0px;margin-top: 20px;">
-	   Le président est...<img style="width:300px" src="images/appengine.png" />
+	 <h1 style="padding:0px;margin-top: 130px">
+	   Le président est...<img style="width:300px; vertical-align:-230%; margin-left:40px; margin-right: -30px" src="images/appengine.png" />
 	 </h1>
-	 &nbsp;
-	 <h3>
-	   Un exercice de style et de montée en charge <br/>sur App Engine
+	 <h3 style="margin-top:-110px">
+	   Un exercice de style et de montée<br/>en charge sur App Engine
 	 </h3>
-	 <p style="font-size: 0.75em; margin-top: 140px;">
+	 <p style="font-size: 0.75em; margin-top: 190px;">
 	   Martin Görner, Alexis Moussine-Pouchkine, Didier Girard<br/>
 	 </p>
 	 
@@ -457,7 +457,7 @@
 		Pour ceci vous disposez d'une plateforme, Google AppEngine et d'experts pour vous guider.
 	</p>
 	 <p style="margin:30px">
-		Le défi est à relever en 3 heures seulement.
+		Le défi est à relever en 2 heures seulement.
 	 </p>
 	 
 	 <p class="pop" style="font-size: larger; text-align: center; margin-top:410px;">
@@ -477,7 +477,7 @@
 		
 		<translation lang="en">
 		  To help you in this challenge, you can use a powerful tool: App Engine. Our cloud experts will guide you along the way.
-		  One more thing, you have only 3 hours.
+		  One more thing, you have only 2 hours.
 		  Ready to scale ?
 		  You won the contract of your life. Your job is to build the web site announcing, on D-day, the results of the presidential election.
 		  The site will have to withstand a peak of potentially
@@ -829,7 +829,7 @@
       </style>
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: src/main/webapp/comments.jsp</p>
+<p>fichier: war/comments.jsp</p>
 <pre>
 &lt;! DOCTYPE html&gt;
 &lt;%@ page contentType="text/html;charset=UTF-8" language="java" <span style="color:grey">%&gt;</span>
@@ -861,7 +861,7 @@
         </div>
         
        <translation lang="en">
-        file: src/main/webapp/comments.jsp
+        file: war/comments.jsp
         --self--
 The president is...
 The president is...
@@ -883,7 +883,7 @@ obama.png
 
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: src/main/webapp/comments.jsp</p>
+<p>fichier: war/comments.jsp</p>
 <pre style="margin-bottom:10px" class="smallcode">
 &lt;! DOCTYPE html&gt;
 &lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
@@ -937,7 +937,7 @@ request.getParameter("user-comment")
         </div>
         
         <translation lang="en">
-        file: src/main/webapp/comments.jsp
+        file: war/comments.jsp
 The president is...
 romney.png
         XSS vulnerability WARNING! DO NOT insert user-generated text into an HTML page without escaping.
@@ -957,11 +957,12 @@ romney.png
 
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: src/main/webapp/comments.jsp</p>
+<p>fichier: war/comments.jsp</p>
 <pre class="x-smallcode">
 &lt;! DOCTYPE html&gt;
 &lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
 <span class="u">&lt;%@ page import="com.google.appengine.api.users.*" %&gt;</span>
+&lt;%@ page import="com.google.common.html.HtmlEscapers" %&gt; &lt;!-- Guava --&gt;
 
 &lt;html&gt;&lt;body&gt;
     &lt;H1&gt;<span>Le président est...</span>&lt;/H1&gt; &lt;img src="<span>hollande.png</span>" /&gt;
@@ -977,7 +978,7 @@ romney.png
     {
         String comment = request.getParameter("user-comment");
         if (comment != null)
-            comment = comment.replace("&amp;", "&amp;amp;").replace("&lt;", "&amp;lt;").replace("&gt;", "&amp;gt;");
+            comment = HtmlEscapers.htmlEscaper().escape(comment);
 %&gt;
         &lt;p&gt;&lt;b&gt;&lt;%=<span class="u">user.getNickname()</span>%&gt;:&lt;/b&gt; &lt;%=comment%&gt;&lt;/p&gt;
     
@@ -1025,7 +1026,7 @@ userService.createLogoutURL("myTargetURL");
         </div>
         
         <translation lang="en">
-        file: src/main/webapp/comments.jsp
+        file: war/comments.jsp
         --self--
 The president is...
 obama.jpg
@@ -1081,7 +1082,7 @@ logout
 
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: src/main/java/com/myname/thepresident/Comments.java</p>
+<p>fichier: src/com/moi/lepresident/Comments.java</p>
 <pre class="x-smallcode lesspace" style="margin-bottom: 15px;">
 package <span>com.moi.lepresident</span>;
 import java.util.*;
@@ -1158,7 +1159,7 @@ List&lt;Entity&gt; results =
         </div>
         
         <translation lang="en">
-        file: src/main/java/com/myname/thepresident/Comments.java
+        file: src/com/me/thepresident/Comments.java
 com.me.thepresident
 Usage: 
         --self--
@@ -1183,9 +1184,9 @@ Usage:
 
 <article class="slide3d" >
     <div class="backslide3d">
-        <p>fichier: src/com/myname/thepresident/ObjectifyDAO.java</p>
+        <p>fichier: src/com/moi/lepresident/ObjectifyDAO.java</p>
 <pre class="x-smallcode lesspace">
-package com.myname.thepresident;
+<span>package com.moi.lepresident;</span>
 import com.googlecode.objectify.Objectify;     import com.googlecode.objectify.ObjectifyService;
 
 public class ObjectifyDAO
@@ -1194,9 +1195,9 @@ public class ObjectifyDAO
     static Objectify ofy() { return ObjectifyService.ofy(); }  <span>// proxy pour Objectify</span>
 }
 </pre>
-        <p>fichier: src/com/myname/thepresident/Comment.java</p>
+        <p>fichier: src/com/moi/lepresident/Comment.java</p>
 <pre class="x-smallcode lesspace">
-package com.myname.thepresident;
+<span>package com.moi.lepresident;</span>
 import java.util.Date; import java.util.List;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -1270,10 +1271,12 @@ for (Comment c: list) { ... }
     </div>
 
     <translation lang="en">
-        file: src/com/myname/thepresident/ObjectifyDAO.java
-        // register all @Entity classes
-        // proxy for Objectify
-        file: src/com/myname/thepresident/Comment.java
+        file: src/com/me/thepresident/ObjectifyDAO.java
+package com.me.thepresident;
+// register all @Entity classes
+// proxy for Objectify
+        file: src/com/me/thepresident/Comment.java
+package com.me.thepresident;
  // now ofy() goes through the DAO
         --self--
         The same thing with Objectify 4
@@ -1374,7 +1377,7 @@ for (Comment c: list) { ... }
       
       <article class="slide3d">
       <div class="backslide3d">
-          <p>fichier: src/com/myname/thepresident/Comment.java</p>
+          <p>fichier: src/com/moi/lepresident/Comment.java</p>
           <p class="small" >La classe Comment doit devenir sérialisable:</p>
 <pre class="lesspace smallcode">
 public class Comment <span class="u">implements Serializable</span>
@@ -1404,7 +1407,7 @@ public static void store(String text, String user) {
 </pre>
       </div>
       
-            <div class="chapter-number g-red">7</div>
+            <div class="chapter-number g-yellow">7</div>
       		<h3 class="num">Optimiser les commentaires avec Memcache</h3>
       		<div style="margin-top:70px;">
 				<div class="screenshot-left" style="margin-right: 45px; width:258px">
@@ -1430,7 +1433,7 @@ cache.delete("myKey");
           </div>
           
           <translation lang="en">
-          file: /java/com/myname/thepresident/Comment.java
+          file: /src/com/me/thepresident/Comment.java
           The Commen class must become Serializable
           --self--
           Create a new method for retrieving comments with caching:
@@ -1446,295 +1449,6 @@ cache.delete("myKey");
           Memcache offers fast access and less contention for data primarily fetched from the datastore.
           </translation>
       </article>
-      
-<!-- ------------------------------------------------------------------------------- -->  
-<!-- 7. Cron pour afficher le président élu -->
-
-      <article class="slide3d">
-      <div class="backslide3d">
-      <p class="small">La servlet: elle écrit le nom du président élu dans le datastore<br/>fichier /src/main/java/com/myname/thepresident/CronServlet.java</p>
-      <pre class="x-smallcode lesspace">
-public class CronServlet extends HttpServlet
-{   @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
-    {
-        Entity Elected = new Entity("Elected");
-        Elected.setProperty("name", "<span>François Hollande</span>"); //<span>ou un autre</span>
-        DatastoreServiceFactory.getDatastoreService().put(Elected);
-    }
-}</pre>
-      <p class="small">Son mapping dans WEB-INF/web.xml, avec restriction d'accès:</p>
-      <pre class="x-smallcode lesspace">
-&lt;servlet&gt;
-   &lt;servlet-name&gt;CronServlet&lt;/servlet-name&gt; &lt;servlet-class&gt;com.me.thepresident.CronServlet&lt;/servlet-class&gt;
-&lt;/servlet&gt;
-&lt;servlet-mapping&gt;
-   &lt;servlet-name&gt;CronServlet&lt;/servlet-name&gt; &lt;url-pattern&gt;/cronAllowPresidentDisplay&lt;/url-pattern&gt;
-&lt;/servlet-mapping&gt
-&lt;security-constraint&gt;
-  &lt;web-resource-collection&gt;   &lt;url-pattern&gt;/cron*&lt;/url-pattern&gt;   &lt;/web-resource-collection&gt;
-  &lt;auth-constraint&gt;           &lt;role-name&gt;admin&lt;/role-name&gt;        &lt;/auth-constraint&gt;
-&lt;/security-constraint&gt;</pre>
-      <p class="small">Affichage conditionnel (fichier src/main/webapp/comments.jsp):</p>
-      <pre class="x-smallcode lesspace" style="margin-bottom: 0px">
-Entity e = DatastoreServiceFactory.getDatastoreService().prepare(new Query("Elected")).asSingleEntity();
-if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage de</span>*/ e.getProperty("name");</pre>
-<p class="x-small poplow" style="margin-top: 10px">(Pour afficher également la photo du président, récupérez les images au dos da la <a href="#2">première slide</a>.)</p>
-      </div> 
-      
-            <div class="chapter-number g-yellow">8</div>
-      		<h3 class="num">Afficher le nom du président à 20h00 précises avec une tâche planifiée Cron</h3>
-      		
-	        <div style="margin-top:20px;">
-	        <div class="screenshot-left bigserif scrshottext" style="margin-right: 40px; margin-top: 40px">
-	        <p>Le président est...</p>
-	        <div class="scrshotimg"><img src="images/candidate5_fr.png"/></div>
-	        <div style="text-align: center"><small>François Hollande</small></div>
-	        </div>
-	        
-	        <p>Les Cron lancent des servlets dont l'URL est définie dans web.xml.</p>
-	        <p style="margin-bottom: 20px;">
-	        Périodicité à configurer dans WEB-INF/cron.xml (<a href="https://developers.google.com/appengine/docs/java/config/cron">syntaxe complète</a>):</p>
-	        
-	        <pre class="smallcode">
-&lt;?xml version="1.0" ?&gt;
-&lt;cronentries&gt;
-  &lt;cron&gt;
-    &lt;url&gt;/cronAllowPresidentDisplay&lt;/url&gt;
-    &lt;schedule&gt;6 of May 20:00&lt;/schedule&gt;
-&lt;!-- every 2 mins, every sunday 9:00 --&gt;
-    &lt;timezone&gt;Europe/Paris&lt;/timezone&gt;
-  &lt;/cron&gt;
-&lt;/cronentries&gt;</pre>
-        
-        <translation lang="en">
-        The cron servlet writes the name of the elected president into the datastore.
-        file: /src/main/java/com/me/thepresident/CronServlet.java
-Barack obama
-or Mitt Romney
-		Servlet mapping in WEB-INF/web.xml, with access restrictions:
-		Conditional display (file src/main/webapp/comments.jsp)
-wait message
-display president
-		(If you want to show the picture of the president, you can get it on the backside of the 
-		first slide of this presentation.
-		--self--
-		--self--
-		Display the name of the president at 08:00PM sharp using a Cron job
-		The president is:
-		Barack Obama
-		Cron jobs are servlets. Their URL is defined in web.xml.
-		Their periodicity can be set in WEB-INF/cron.xml ( 
-		full syntax
-		) :
-        </translation>
-      </article>
-
-<!-- ------------------------------------------------------------------------------- -->
-<!-- info slide Sharded Counters -->
-      
-      <article class="slide3d info">
-      <div class="empty backslide3d"></div> 
-      		<h3 class="info">Qu'est-ce qu'un compteur éclaté ?</h3>
-      		<p class="small" style="font-size: 80%; margin-top: -10px">Les écritures sur la même entité du datastore sont limitées<br/>à quelques-unes par seconde: comment faire un compteur ?
-      		<br/>⇒Incrément atomique dans Memcache et compteur éclaté dans Datastore.</p>
-      		<p style="text-align: center;"><img src="images/shardedcounter.svg" width="100%"/></p>
-      		
-      	<translation lang="en">
-      	What is a sharded counter ?
-      	Writes to the same datastore entity are limited to a few
-      	writes per second: so how can I implement a counter ?
-      	⇒Atomic increment in Memcache and a sharded counter in Datastore.
-      	</translation>
-      </article>
-
-<!-- ------------------------------------------------------------------------------- -->
-<!-- 9. Implémenter un compteur éclaté -->
-
-<style>
-    .counter
-    {
-        display: inline-block;
-        width: 40px;
-        height: 40px;
-        background-color: #0076CC;
-        border-radius: 4px;
-        border: 1px solid #4486DD;
-        color:white;
-        font-weight: bold;
-        text-align: center;
-    }
-    td.countercell
-    {
-        padding:0px;
-        text-align: center;
-        border: none;
-        font-size: large;
-        font-weight: normal;
-        line-height: 36px;
-    }
-    #shardedcounterslide pre
-    { margin-bottom: 0px; }
-    #shardedcounterslide p
-    { margin-top: 15px; }
-
-</style>
-<article id="shardedcounterslide" class="slide3d">
-    <div class="backslide3d">
-      <pre class="lesspace smallcode" style="float:left; width:400px; height:610px; margin-right: 20px; font-size: 0.5em">
-import static com.myname
-               .thepresident.ObjectifyDAO.ofy;
-
-@Entity
-public class Counter {
-  @Id String key;
-  @Index String name;
-  @Index Long value;
-
-  Counter() {}  // Empty constructor
-  Counter(String name, Integer shard_N, Long val) {
-    this.name = name;
-    this.value = val;
-    key = name + "_shard" + shard_N.toString();
-  }
-
-  public static void increment(String name) {
-    MemcacheService cache =
-      MemcacheServiceFactory.getMemcacheService();
-    Long val = cache.increment(name, 1); // atomic
-    if (val == null) {
-       val = Counter.read(name);
-       Long init = (val == null) ? 0L : val;
-       // atomic increment with initial value
-       val = cache.increment(name, 1, init);
-    }
-    Counter.write(name, val);
-  }
-      </pre>
-      <pre class="lesspace smallcode" style="width:400px; height:610px; font-size: 0.5em">
-  // Counter.java continued
-
-  public static Long value(String name) {
-    MemcacheService cache =
-      MemcacheServiceFactory.getMemcacheService();
-    Long val = (Long)cache.get(name);
-    if (val == null) {
-      val = Counter.read(name);
-      if (val != null) {
-        cache.put(name, val);
-      }
-    }
-    return val;
-  }
-
-  static Long read(String name) {
-    Counter c = ofy().load().type(Counter.class)
-            .filter("name", name).order("-value")
-                                    .first().get();
-    return (c == null ? null : c.value);
-  }
-
-  static void write(String name, Long value) {
-    Random r = new Random();
-    Integer shard_N = r.nextInt(10);
-    ofy().save().entity(
-              new Counter(name, shard_N, value));
-  }
-}
-      </pre>
-        <div class="x-small" style="margin-top:10px">usage: &nbsp;&nbsp;<span style="color: black;">Counter.increment("pluscounter"); &nbsp;&nbsp;Counter.value("minuscounter");</span></div>
-    </div>
-
-    <div class="chapter-number g-blue">9</div>
-    <h3 class="num">
-        Implémenter un compteur qui tient la charge
-    </h3>
-
-    <pre class="lesspace smallcode">//key = name+shard_N
-public class @Entity Counter {@Id String key; @Index String name; @Index Long value;}</pre>
-
-
-    <div style="margin-top:20px;">
-        <div class="screenshot-left bigserif scrshottext" style="margin-right: 30px;">
-            <p style="margin-top: 0px">Le président est...</p>
-            <div class="scrshotimg"><img src="images/candidate2_fr.png"/></div>
-            <div style="text-align: center;"><small>Nicolas Sarkozy</small></div>
-            <table style="margin-top:10px"><tr><td class="countercell"><div class="counter">+1</div> (17K)</td><td class="countercell"><div class="counter">-1</div> (10K)</td></tr></table>
-        </div>
-
-        <p>Memcache: incrément atomique </p>
-         <pre class="lesspace smallcode">Long C = MemcacheServiceFactory
-.getMemcacheService().increment("myCounter", 1);</pre>
-
-        <p>Sauver la nouvelle valeur dans un parmi 10 compteurs du Datastore.</p>
-         <pre class="lesspace smallcode">
-Integer shard_N = new Random().nextInt(10);
-ofy().save().entity(new Counter(name,shard_N,C));</pre>
-        <p>Lecture: si échec du Memcache, MAX des compteurs du datastore.</p>
-		 <pre class="lesspace smallcode">ofy().load().type(Counter.class).filter("name",
-             name).order("-value").first().get();</pre>
-
-        <translation lang="en">
-            usage:
-            --self--
-            --self--
-            Implement a counter that scales under load
-            The president is:
-            Mitt Romney
-            --self--
-            --self--
-            --self--
-            --self--
-            Atomic increment in Memcache:
-            Save the new value in one of 10 counters in the datastore:
-            Read: if Memcache fails, MAX of the counters in the datastore:
-        </translation>
-</article>
- 
-<!-- ------------------------------------------------------------------------------- -->
-<!-- 9. Ajouter un index composite sur une entité -->
-
-            <article class="slide3d">
-      <div class="backslide3d" style="padding:40px">
-<p>fichier: WEB-INF/appengine/datastore-indexes.xml</p>
-<pre>
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;datastore-indexes autoGenerate="false"&gt;
-     &lt;datastore-index kind="Counter" ancestor="false" source="manual"&gt;
-         &lt;property name="name" direction="asc"/&gt;
-         &lt;property name="value" direction="desc"/&gt;
-    &lt;/datastore-index&gt;
-&lt;/datastore-indexes&gt;
-</pre>
-<p>Le SDK autogénère ce fichier dans le le répertoire <code>WEB-INF/appengine-generated/datastore-indexes-auto.xml</code> à copier dans <code>WEB-INF/appengine/datastore-indexes.xml</code></p>
-</div>
-		<div class="chapter-number g-green">10</div>
-        <h3 class="num2">
-          Ajouter un index multiple sur une entité
-        </h3>
-        <ul>
-        <li>Le datastore exécute uniquement des requêtes indexées.</li>
-        <li>Objectify crée un index simple sur chaque propriété annotée avec <code> @Index</code>.</li>
-        <li>Si l'on fait une requête sur plus d'une propriété, il faut créer un index pour chaque combinaison manuellement.</li>
-        <li style="margin-top: 60px;">Pour notre compteur, il nous faut un index combiné avec "name" et "value" DESC</li>
-        </ul>
-        
-        <translation lang="en">
-        file: WEB-INF/appengine/datastore-indexes.xml
-        The SDK generates this file automatically in 
-        --self--
-        copy it to 
-        --self--
-        --self--
-        Add a composite index on an entity
-        The datastore can execute indexed request only.
-        Objectify creates an index for each property annotated with
-        --self--
-        --self--
-        If you want to request on multiple properties, you have to create an index for each combination manually.
-        For our counter, we need a composite index on "name" and "value" DESC.
-        </translation>
-</article>
 
 <!-- ------------------------------------------------------------------------------- -->      
 <!-- 10. deploy to App Engine -->
@@ -1742,7 +1456,7 @@ ofy().save().entity(new Counter(name,shard_N,C));</pre>
       <article class="slide3d" > 
       <div class="backslide3d">
       
-<p>fichier: WEB-INF/appengine-web.xml</p>
+<p>fichier: war/WEB-INF/appengine-web.xml</p>
 <pre class="smallcode lesspace">
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;appengine-web-app xmlns=&quot;http://appengine.google.com/ns/1.0&quot;&gt;
@@ -1758,22 +1472,22 @@ ofy().save().entity(new Counter(name,shard_N,C));</pre>
 <p><img src="images/appengine-nameapp.png"/></p>
 
       </div>
-        <div class="chapter-number g-red">11</div>
-        <h3 class="num2">
+        <div class="chapter-number g-red">8</div>
+        <h3 class="num">
           Déployer sur App Engine!
         </h3>
+        <p>&nbsp;</p>
         <ul>
          <li>Aller sur <a href="http://appengine.google.com">http://appengine.google.com</a> et créer un identifiant pour votre application. Elle sera accessible à l'adresse <code>http://monidentifiant.appspot.com</code></li>
          <li>Spécifier cet identifiant dans <code>appengine-web.xml</code></li>
-         <li style="margin-top:40px">Déployer
-          <ul style="font-size: 80%; margin-top: 30px">
-            <li>(maven goal appengine:update)<br/>Eclipse (Maven): Run > Run Cofigurations... > <span class="pop">UpdateApplication</span>
-            <li>App Engine plugin pour Eclipse: choisir "Deploy to App Engine..." dans le menu "g".</li>
-          </ul>
+         <li>Déployer (plugin Eclipse): choisir "Deploy to App Engine..." dans le menu "g".</li>
         </ul>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+        <div class="small">(option maven: maven goal <span class="pop">appengine:update</span><br/>Eclipse (Maven): Run > Run Cofigurations... > <span class="pop">UpdateApplication)</div>
         
         <translation lang="en">
-        file: WEB-INF/appengine-web.xml
+        file: war/WEB-INF/appengine-web.xml
 Your application id as defined on
 thepresident-is
 The version of your application, it can be a string (alpha, beta, ...)
@@ -1787,17 +1501,18 @@ appengine-web.xml
         --self--
         and create an application id. Your app will be accessible at the URL
         http://myappid.appspot.com
-        Add the app id to 
+        Add the app id to
+        appengine-web.xml
+        Deploy (App Engine plugin for Eclipse): choose "Deploy to App Engine..." in the  "g" menu.
+        (maven option: maven goal
+        appengine:update
         --self--
-        Deploy
         --self--
-        --self--
-        --self--
-        App Engine plugin for Eclipse: choose "Deploy to App Engine..." in the  "g" menu.
         </translation>
       </article>
       
 <!-- ------------------------------------------------------------------------------- -->
+<!-- keep building ? -->
 	
 	<article class="fill slide3d">
 		<div class="backslide3d" style="padding:60px;color: black;">
@@ -1863,11 +1578,297 @@ appengine-web.xml
 	</article>
 
 <!-- ------------------------------------------------------------------------------- -->
+<!-- 7. Cron pour afficher le président élu -->
+
+<article class="slide3d">
+    <div class="backslide3d">
+        <p class="small">La servlet: elle écrit le nom du président élu dans le datastore<br/>fichier /src/com/moi/lepresident/CronServlet.java</p>
+      <pre class="x-smallcode lesspace">
+public class CronServlet extends HttpServlet
+{   @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
+    {
+        Entity Elected = new Entity("Elected");
+        Elected.setProperty("name", "<span>François Hollande</span>"); //<span>ou un autre</span>
+        DatastoreServiceFactory.getDatastoreService().put(Elected);
+    }
+}</pre>
+        <p class="small">Son mapping dans WEB-INF/web.xml, avec restriction d'accès:</p>
+      <pre class="x-smallcode lesspace">
+&lt;servlet&gt;
+   &lt;servlet-name&gt;CronServlet&lt;/servlet-name&gt; &lt;servlet-class&gt;com.me.thepresident.CronServlet&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+   &lt;servlet-name&gt;CronServlet&lt;/servlet-name&gt; &lt;url-pattern&gt;/cronAllowPresidentDisplay&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt
+&lt;security-constraint&gt;
+  &lt;web-resource-collection&gt;   &lt;url-pattern&gt;/cron*&lt;/url-pattern&gt;   &lt;/web-resource-collection&gt;
+  &lt;auth-constraint&gt;           &lt;role-name&gt;admin&lt;/role-name&gt;        &lt;/auth-constraint&gt;
+&lt;/security-constraint&gt;</pre>
+        <p class="small">Affichage conditionnel (fichier war/comments.jsp):</p>
+      <pre class="x-smallcode lesspace" style="margin-bottom: 0px">
+Entity e = DatastoreServiceFactory.getDatastoreService().prepare(new Query("Elected")).asSingleEntity();
+if (e == null) /*<span>message d'attente</span>*/ else /*<span>affichage du président</span>*/ e.getProperty("name");</pre>
+    </div>
+
+    <div class="chapter-number g-yellow">9</div>
+    <h3 class="num">Afficher le nom du président à 20h00 précises avec une tâche planifiée Cron</h3>
+
+    <div style="margin-top:20px;">
+        <div class="screenshot-left bigserif scrshottext" style="margin-right: 40px; margin-top: 40px">
+            <p>Le président est...</p>
+            <div class="scrshotimg"><img src="images/candidate5_fr.png"/></div>
+            <div style="text-align: center"><small>François Hollande</small></div>
+        </div>
+
+        <p>Les Cron lancent des servlets dont l'URL est définie dans web.xml.</p>
+        <p style="margin-bottom: 20px;">
+            Périodicité à configurer dans WEB-INF/cron.xml (<a href="https://developers.google.com/appengine/docs/java/config/cron">syntaxe complète</a>):</p>
+
+	        <pre class="smallcode">
+&lt;?xml version="1.0" ?&gt;
+&lt;cronentries&gt;
+  &lt;cron&gt;
+    &lt;url&gt;/cronAllowPresidentDisplay&lt;/url&gt;
+    &lt;schedule&gt;6 of May 20:00&lt;/schedule&gt;
+&lt;!-- every 2 mins, every sunday 9:00 --&gt;
+    &lt;timezone&gt;Europe/Paris&lt;/timezone&gt;
+  &lt;/cron&gt;
+&lt;/cronentries&gt;</pre>
+
+        <translation lang="en">
+            The cron servlet writes the name of the elected president into the datastore.
+            file: /src/com/me/thepresident/CronServlet.java
+            Barack obama
+            or Mitt Romney
+            Servlet mapping in WEB-INF/web.xml, with access restrictions:
+            Conditional display (file war/comments.jsp)
+wait message
+display president
+            --self--
+            Display the name of the president at 08:00PM sharp using a Cron job
+            The president is:
+            Barack Obama
+            Cron jobs are servlets. Their URL is defined in web.xml.
+            Their periodicity can be set in WEB-INF/cron.xml (
+            full syntax
+            ) :
+        </translation>
+</article>
+
+<!-- ------------------------------------------------------------------------------- -->
+<!-- info slide Sharded Counters -->
+
+<article class="slide3d info">
+    <div class="empty backslide3d"></div>
+    <h3 class="info">Qu'est-ce qu'un compteur éclaté ?</h3>
+    <p class="small" style="font-size: 80%; margin-top: -10px">Les écritures sur la même entité du datastore sont limitées<br/>à quelques-unes par seconde: comment faire un compteur ?
+        <br/>⇒Incrément atomique dans Memcache et compteur éclaté dans Datastore.</p>
+    <p style="text-align: center;"><img src="images/shardedcounter.svg" width="100%"/></p>
+
+    <translation lang="en">
+        What is a sharded counter ?
+        Writes to the same datastore entity are limited to a few
+        writes per second: so how can I implement a counter ?
+        ⇒Atomic increment in Memcache and a sharded counter in Datastore.
+    </translation>
+</article>
+
+<!-- ------------------------------------------------------------------------------- -->
+<!-- 9. Implémenter un compteur éclaté -->
+
+<style>
+    .counter
+    {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        background-color: #0076CC;
+        border-radius: 4px;
+        border: 1px solid #4486DD;
+        color:white;
+        font-weight: bold;
+        text-align: center;
+    }
+    td.countercell
+    {
+        padding:0px;
+        text-align: center;
+        border: none;
+        font-size: large;
+        font-weight: normal;
+        line-height: 36px;
+    }
+    #shardedcounterslide pre
+    { margin-bottom: 0px; }
+    #shardedcounterslide p
+    { margin-top: 15px; }
+
+</style>
+<article id="shardedcounterslide" class="slide3d">
+    <div class="backslide3d">
+      <pre class="lesspace smallcode" style="float:left; width:400px; height:610px; margin-right: 20px; font-size: 0.5em">
+<span>import static com.moi.lepresident.ObjectifyDAO.ofy;</span>
+
+@Entity
+public class Counter {
+  @Id String key;
+  @Index String name;
+  @Index Long value;
+
+  Counter() {}  // Empty constructor
+  Counter(String name, Integer shard_N, Long val) {
+    this.name = name;
+    this.value = val;
+    key = name + "_shard" + shard_N.toString();
+  }
+
+  public static void increment(String name) {
+    MemcacheService cache =
+      MemcacheServiceFactory.getMemcacheService();
+    Long val = cache.increment(name, 1); // atomic
+    if (val == null) {
+       val = Counter.read(name);
+       Long init = (val == null) ? 0L : val;
+       // atomic increment with initial value
+       val = cache.increment(name, 1, init);
+    }
+    Counter.write(name, val);
+  }
+      </pre>
+      <pre class="lesspace smallcode" style="width:400px; height:610px; font-size: 0.5em">
+  // Counter.java continued
+
+  public static Long value(String name) {
+    MemcacheService cache =
+      MemcacheServiceFactory.getMemcacheService();
+    Long val = (Long)cache.get(name);
+    if (val == null) {
+      val = Counter.read(name);
+      if (val != null) {
+        cache.put(name, val);
+      }
+    }
+    return val;
+  }
+
+  static Long read(String name) {
+    Counter c = ofy().load().type(Counter.class)
+            .filter("name", name).order("-value")
+                                    .first().get();
+    return (c == null ? null : c.value);
+  }
+
+  static void write(String name, Long value) {
+    Random r = new Random();
+    Integer shard_N = r.nextInt(10);
+    ofy().save().entity(
+              new Counter(name, shard_N, value));
+  }
+}
+      </pre>
+        <div class="x-small" style="margin-top:10px">utilisation: &nbsp;&nbsp;<span style="color: black;">Counter.increment("pluscounter"); &nbsp;&nbsp;Counter.value("minuscounter");</span></div>
+    </div>
+
+    <div class="chapter-number g-blue">10</div>
+    <h3 class="num2">
+        Implémenter un compteur qui tient la charge
+    </h3>
+
+    <pre class="lesspace smallcode">//key = name+shard_N
+public class @Entity Counter {@Id String key; @Index String name; @Index Long value;}</pre>
+
+
+    <div style="margin-top:20px;">
+        <div class="screenshot-left bigserif scrshottext" style="margin-right: 30px;">
+            <p style="margin-top: 0px">Le président est...</p>
+            <div class="scrshotimg"><img src="images/candidate2_fr.png"/></div>
+            <div style="text-align: center;"><small>Nicolas Sarkozy</small></div>
+            <table style="margin-top:10px"><tr><td class="countercell"><div class="counter">+1</div> (17K)</td><td class="countercell"><div class="counter">-1</div> (10K)</td></tr></table>
+        </div>
+
+        <p>Memcache: incrément atomique </p>
+         <pre class="lesspace smallcode">Long C = MemcacheServiceFactory
+.getMemcacheService().increment("myCounter", 1);</pre>
+
+        <p>Sauver la nouvelle valeur dans un parmi 10 compteurs du Datastore.</p>
+         <pre class="lesspace smallcode">
+Integer shard_N = new Random().nextInt(10);
+ofy().save().entity(new Counter(name,shard_N,C));</pre>
+        <p>Lecture: si échec du Memcache, MAX des compteurs du datastore.</p>
+		 <pre class="lesspace smallcode">ofy().load().type(Counter.class).filter("name",
+             name).order("-value").first().get();</pre>
+
+        <translation lang="en">
+import static com.me.thepresident.ObjectifyDAO.ofy;
+            usage:&nbsp;&nbsp;
+            --self--
+            --self--
+            Implement a counter that scales under load
+            The president is:
+            Mitt Romney
+            --self--
+            --self--
+            --self--
+            --self--
+            Atomic increment in Memcache:
+            Save the new value in one of 10 counters in the datastore:
+            Read: if Memcache fails, MAX of the counters in the datastore:
+        </translation>
+</article>
+
+<!-- ------------------------------------------------------------------------------- -->
+<!-- 9. Ajouter un index composite sur une entité -->
+
+<article class="slide3d">
+    <div class="backslide3d" style="padding:40px">
+        <p>fichier: war/WEB-INF/appengine/datastore-indexes.xml</p>
+<pre>
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;datastore-indexes autoGenerate="false"&gt;
+     &lt;datastore-index kind="Counter" ancestor="false" source="manual"&gt;
+         &lt;property name="name" direction="asc"/&gt;
+         &lt;property name="value" direction="desc"/&gt;
+    &lt;/datastore-index&gt;
+&lt;/datastore-indexes&gt;
+</pre>
+        <p>Le SDK autogénère ce fichier dans le le répertoire <code>WEB-INF/appengine-generated/datastore-indexes-auto.xml</code> à copier dans <code>WEB-INF/appengine/datastore-indexes.xml</code></p>
+    </div>
+    <div class="chapter-number g-green">11</div>
+    <h3 class="num2">
+        Ajouter un index multiple sur une entité
+    </h3>
+    <p>&nbsp;</p>
+    <ul>
+        <li>Le datastore exécute uniquement des requêtes indexées.</li>
+        <li>Objectify crée un index simple sur chaque propriété annotée avec <code> @Index</code>.</li>
+        <li>Si l'on fait une requête sur plus d'une propriété, il faut créer un index pour chaque combinaison manuellement.</li>
+        <li style="margin-top: 60px;">Pour notre compteur, il nous faut un index combiné avec "name" et "value" DESC</li>
+    </ul>
+
+    <translation lang="en">
+        file: war/WEB-INF/appengine/datastore-indexes.xml
+        The SDK generates this file automatically in
+        --self--
+        copy it to
+        --self--
+        --self--
+        Add a composite index on an entity
+        The datastore can execute indexed request only.
+        Objectify creates an index for each property annotated with
+        --self--
+        --self--
+        If you want to request on multiple properties, you have to create an index for each combination manually.
+        For our counter, we need a composite index on "name" and "value" DESC.
+    </translation>
+</article>
+
+<!-- ------------------------------------------------------------------------------- -->
 <!-- 11. Blobstore and user uploads -->
      
       <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: admin.jsp</p>
+<p>fichier: war/admin.jsp</p>
 <pre class="smallcode lesspace">
 &lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
 &lt;%@page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory"%&gt;
@@ -1923,7 +1924,7 @@ BlobKey key = bs.getUploads(req).get("president-pic").get(0); ...</pre>
         <pre class="lesspace">ImagesServiceFactory.getImagesService().getServingUrl(key);</pre>
 
         <translation lang="en">
-        file: admin.jsp
+        file: war/admin.jsp
 President's name
 President's picture
         file: UploadServlet.java (map it on /upload)
@@ -1946,7 +1947,7 @@ Objectify class) and use these values to display the elected president.
 
       	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: WEB-INF/web.xml</p>
+<p>fichier: war/WEB-INF/web.xml</p>
 <pre class="smallcode lesspace">
 &lt;security-constraint&gt;
     &lt;web-resource-collection&gt;
@@ -1964,7 +1965,7 @@ Objectify class) and use these values to display the elected president.
         <h3 class="num2">
           Protéger les URLs accessibles par les administrateurs
         </h3>
-        
+        <p>&nbsp;</p>
         <ul>
         <li>Il suffit d'ajouter une contrainte de sécurité dans le fichier web.xml</li>
         <li>Indiquez le role : <strong>admin</strong></li>
@@ -1973,7 +1974,7 @@ Objectify class) and use these values to display the elected president.
         </ul>
         
         <translation lang="en">
-        file: WEB-INF/web.xml
+        file: war/WEB-INF/web.xml
         --self--
         Secure admin URLs
         You can set security constraints in the web.xml file.
@@ -1990,7 +1991,7 @@ Objectify class) and use these values to display the elected president.
 
       	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>fichier: com/myname/lepresident/MailHandlerServlet.java</p>
+<p>fichier: src/com/moi/lepresident/MailHandlerServlet.java</p>
 <pre class="smallcode lesspace">
 package <span>com.moi.lepresident</span>;
 import java.util.Properties;
@@ -2019,8 +2020,8 @@ public class MailHandlerServlet extends HttpServlet {
         <h3 class="num2">
           Recevoir un mail
         </h3>
-        
-        <div style="margin-top:20px;">
+        <p>&nbsp;</p>
+        <div>
         <p>Indiquez que l'application peut recevoir des mails sur <span class="u"><span>nom</span>@id_application.appspotmail.com</span></p>
 <pre class="smallcode lesspace">&lt;inbound-services&gt;
       &lt;service&gt;mail&lt;/service&gt;
@@ -2033,7 +2034,7 @@ MimeMessage message = new MimeMessage(session, req.getInputStream());</pre>
         </div>
         
         <translation lang="en">
-        file: com/myname/thepresident/MailHandler.java
+        file: src/com/me/thepresident/MailHandler.java
 com.me.thepresident
 Thank you for your opinion.
         --self--

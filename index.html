@@ -1092,9 +1092,9 @@ déconnexion
 
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>file: src/com/me/thepresident/Comments.java</p>
+<p><span>file:</span> src/com/me/president/Comments.java</p>
 <pre class="x-smallcode lesspace" style="margin-bottom: 15px;">
-package <span>com.me.thepresident</span>;
+package <span>com.me.president</span>;
 import java.util.*;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.datastore.Entity;
@@ -1169,8 +1169,9 @@ List&lt;Entity&gt; results =
         </div>
         
         <translation lang="fr">
-        fichier: src/com/moi/lepresident/Comments.java
-com.moi.lepresident
+        fichier:
+        --self--
+--self--
 Utilisation:
         --self--
         Conserver les commentaires sur le serveur
@@ -1194,9 +1195,9 @@ Utilisation:
 
 <article class="slide3d" >
     <div class="backslide3d">
-        <p>file: src/com/me/thepresident/ObjectifyDAO.java</p>
+        <p><span>file:</span> src/com/me/president/ObjectifyDAO.java</p>
 <pre class="x-smallcode lesspace">
-<span>package com.me.thepresident;</span>
+package com.me.president;
 import com.googlecode.objectify.Objectify;     import com.googlecode.objectify.ObjectifyService;
 
 public class ObjectifyDAO
@@ -1205,14 +1206,14 @@ public class ObjectifyDAO
     static Objectify ofy() { return ObjectifyService.ofy(); }  <span>// proxy for Objectify</span>
 }
 </pre>
-        <p>file: src/com/me/thepresident/Comment.java</p>
+        <p><span>file:</span> src/com/me/president/Comment.java</p>
 <pre class="x-smallcode lesspace">
-<span>package com.me.thepresident;</span>
+package com.me.president;
 import java.util.Date; import java.util.List;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
-import static com.myname.thepresident.ObjectifyDAO.ofy; <span>// now ofy() goes through the DAO</span>
+import static com.me.president.ObjectifyDAO.ofy; <span>// now ofy() goes through the DAO</span>
 
 @Entity public class Comment
 {
@@ -1262,7 +1263,7 @@ public class ObjectifyDAO
  static Objectify ofy() {return ObjectifyService.ofy();}
 }
 <span>// then use ofy() thanks to the declaration:</span>
-import static com.myname.thepresident.ObjectifyDAO.ofy;
+import static com.me.president.ObjectifyDAO.ofy;
 </pre>
         <p>Write:</p>
 <pre class="smallcode lesspace">
@@ -1281,12 +1282,12 @@ for (Comment c: list) { ... }
     </div>
 
     <translation lang="fr">
-        fichier: src/com/moi/lepresident/ObjectifyDAO.java
-package com.moi.lepresident;
+        fichier:
+        --self--
 // enregistrement des classes @Entity
 // proxy pour Objectify
-        fichier: src/com/moi/lepresident/Comment.java
-package com.moi.lepresident;
+        fichier:
+        --self--
 // ofy() passe désormais par le DAO
         --self--
         La même chose avec Objectify 4
@@ -1387,7 +1388,7 @@ package com.moi.lepresident;
       
       <article class="slide3d">
       <div class="backslide3d">
-          <p>file: /src/com/me/thepresident/Comment.java</p>
+          <p><span>file:</span> /src/com/me/president/Comment.java</p>
           <p class="small" >The Comment class must be Serializable</p>
 <pre class="lesspace smallcode">
 public class Comment <span class="u">implements Serializable</span>
@@ -1408,7 +1409,7 @@ public static List&lt;Comment&gt; retrieveAllCached() {
 </pre>
           <p class="small" style="margin:0">Finally, invalidate the cache on each new comment:</p>
 <pre class="lesspace smallcode">
-import static com.myname.thepresident.ObjectifyDAO.ofy;
+import static com.me.president.ObjectifyDAO.ofy;
 
 public static void store(String text, String user) {
 	ofy().save().entity(new Comment(text, user));
@@ -1443,7 +1444,8 @@ cache.delete("myKey");
           </div>
           
           <translation lang="fr">
-          fichier: src/com/moi/lepresident/Comment.java
+          fichier:
+          --self--
           La classe Comment doit devenir sérialisable:
           --self--
           On crée une nouvelle méthode pour la lecture des commentaires (avec cache):
@@ -1498,7 +1500,7 @@ cache.delete("myKey");
         
         <translation lang="fr">
         fichier: war/WEB-INF/appengine-web.xml
-Le nom de votre ApplicationId sur
+Votre ApplicationId sur
 lepresident-est
 Version de votre application, cela peut etre un texte (alpha, beta, etc...)
         Documentation de référence sur 
@@ -1592,7 +1594,7 @@ appengine-web.xml
 
 <article class="slide3d">
     <div class="backslide3d">
-        <p class="small">The cron servlet writes the name of the elected president into the datastore.<br/>file: /src/com/me/thepresident/CronServlet.java</p>
+        <p class="small">The cron servlet writes the name of the elected president into the datastore.<br/><span>file:</span> /src/com/me/president/CronServlet.java</p>
       <pre class="x-smallcode lesspace">
 public class CronServlet extends HttpServlet
 {   @Override
@@ -1648,7 +1650,8 @@ if (e == null) /*<span>wait message</span>*/ else /*<span>display president</spa
 
         <translation lang="fr">
             La servlet: elle écrit le nom du président élu dans le datastore
-            fichier /src/com/moi/lepresident/CronServlet.java
+            fichier:
+            --self--
             François Hollande
             ou un autre
             Son mapping dans WEB-INF/web.xml, avec restriction d'accès:
@@ -1718,7 +1721,7 @@ affichage du président
 <article id="shardedcounterslide" class="slide3d">
     <div class="backslide3d">
       <pre class="lesspace smallcode" style="float:left; width:400px; height:610px; margin-right: 20px; font-size: 0.5em">
-<span>import static com.me.thepresident.ObjectifyDAO.ofy;</span>
+import static com.me.president.ObjectifyDAO.ofy;
 
 @Entity
 public class Counter {
@@ -1810,7 +1813,6 @@ ofy().save().entity(new Counter(name,shard_N,C));</pre>
              name).order("-value").first().get();</pre>
 
         <translation lang="fr">
-import static com.moi.lepresident.ObjectifyDAO.ofy;
             utilisation: &nbsp;&nbsp;
             --self--
             --self--
@@ -1894,7 +1896,7 @@ import static com.moi.lepresident.ObjectifyDAO.ofy;
 
 file: UploadServlet.java (map it on /upload)
 <pre class="smallcode lesspace">
-package <span>com.me.thepresident</span>;
+package com.me.president;
 
 public class UploadServlet extends HttpServlet {
   @Override protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -1940,7 +1942,6 @@ BlobKey key = bs.getUploads(req).get("president-pic").get(0); ...</pre>
 Nom du président
 Photo du président
         fichier: UploadServlet.java (servlet à mapper sur /upload)
-com.moi.lepresident
 juste pour débugger
 A FAIRE: conserver le nom et l'URL de l'image du président dans le datastore
 (une classe Objectify) et utiliser ces valeurs pour afficher le président à l'heure H.
@@ -2003,9 +2004,9 @@ A FAIRE: conserver le nom et l'URL de l'image du président dans le datastore
 
       	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>file: src/com/me/thepresident/MailHandler.java</p>
+<p><span>file:</span> src/com/me/president/MailHandler.java</p>
 <pre class="smallcode lesspace">
-package <span>com.me.thepresident</span>;
+package com.me.president;
 import java.util.Properties;
 import javax.mail.*;
 import javax.servlet.ServletException;
@@ -2046,8 +2047,8 @@ MimeMessage message = new MimeMessage(session, req.getInputStream());</pre>
         </div>
         
         <translation lang="fr">
-        fichier: src/com/moi/lepresident/MailHandlerServlet.java
-com.moi.lepresident
+        fichier:
+        --self--
 Merci pour votre commentaire
         --self--
         Recevoir un mail

@@ -682,7 +682,7 @@
     <div class="backslide3d" style="padding:40px">
         <img  class="screenshot-left" src="images/project_structure.png" align="left"/>
         Structure of the Web project:
-        <p>When you use the assiatnt to create the servlet, the standard file <code>web.xml</code> is updated to map the servlet.</p>
+        <p>When you use the assistant to create the servlet, the standard file <code>web.xml</code> is updated to map the servlet.</p>
 
         <p>
             The file <code>appengine-web.xml</code> contains default values and will be used later to specify the application id as well as other <a href="https://developers.google.com/appengine/docs/java/config/appconfig">App Engine specific parameters</a>.
@@ -708,7 +708,7 @@
         <li>Customize your servlet: for example <span class="pop">"Hello App Engine"</span><br/><span>(in</span> src/com/me/president/ThePresidentServlet.java)</li>
         <li><span>Run locally:</span> Run › Run As... › <img style="height:30px; vertical-align:bottom;" src="images/webapp.png" /><br/>
             <span class="small" style="color: red; font-family: monospace;">INFO: The server is running at <a style="color: red;" href="http://localhost:8888/">http://localhost:8888/</a></span></li>
-        <li class="small">Then add the <a href="http://repo1.maven.org/maven2/com/googlecode/objectify/objectify">objectify</a> and <a href="https://code.google.com/p/guava-libraries/">guava</a>
+        <li class="small">Then add the <a href="http://repo1.maven.org/maven2/com/googlecode/objectify/objectify">objectify</a>, <a href="https://code.google.com/p/guava-libraries/">guava</a> and <a href="http://search.maven.org/remotecontent?filepath=com/github/spullara/mustache/java/compiler/0.8.14/compiler-0.8.14.jar">mustache</a>
             libraries: (1) drag and drop the jar files into war/WEB-INF/lib. (2) Reference them in Project Properties, "Java Build Path", "Libraries" tab.</li>
     </ul>
 
@@ -758,19 +758,31 @@
 </article>
 
 <!-- ------------------------------------------------------------------------------- -->
-<!-- Passons en JSP -->
+<!-- Passons en Mustache -->
 
 	  <article class="info slide3d">
 	  <div class="empty backslide3d"></div>
         <h3 class="info">
-            Let us switch to JSP.<br/>JSP is like HTML, but you can:
+            Let's add Mustache.java.<br/>The syntax of a mustache file:
         </h3>
-        <ul style="margin-top:100px">
-          <li>run java code between <span class="pop" style="font-family: monospace;"><span style="color:red"> &lt;%</span>...java code...<span style="color:red">%&gt;</span></span>
-          <li>display a value with  <span class="pop" style="font-family: monospace;"><span style="color:red"> &lt;%=</span>foo.getBar()<span style="color:red">%&gt;</span></span>
-          <li>access the following JSP objects:<br/><span style="font-family: monospace;"> HttpServletRequest <span class="pop">request</span>, HttpServletResponse <span class="pop">response</span>, JspWriter <span class="pop">out</span></span>
-        </ul>
-        <p class="small" style="margin-top: 70px;">(Next time, to write cleaner code, prefer GWT or a JavaScript framework like AngularJS)</p>
+<pre class="smallcode">
+  {{! Escape HTML code by default }}
+  {{ foo.bar }}
+
+  {{! To not escape contents, use triple braces }}
+  {{{ foo.getBar }}}
+
+  {{! If foo is not null, zero or an empty list }}
+  {{#foo}} Foo is not null {{/foo}}
+
+  {{! If foo is null, zero or an empty list }}
+  {{^foo}} Foo is null {{/foo}}
+
+  {{! To iterate a list/array }}
+  {{#userList}}
+    Username: {{username}}
+  {{/userList}}
+</pre>
       
       <translation lang="fr">
           Passons en JSP.
@@ -837,35 +849,41 @@ truc.getMachin()
       </style>
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p><span>file:</span> war/comments.jsp</p>
+<p><span>file:</span> war/WEB-INF/comments.html</p>
 <pre>
-&lt;! DOCTYPE html&gt;
-&lt;%@ page contentType="text/html;charset=UTF-8" language="java" <span style="color:grey">%&gt;</span>
-&lt;html&gt;
-  &lt;head&gt;&lt;title&gt;<span>The president is...</span>&lt;/title&gt;&lt;/head&gt;
-  &lt;body&gt;
-    &lt;H1&gt;<span>The president is...</span>&lt;/H1&gt;
-    &lt;img src="<span>obama.png</span>"&gt;
-    &lt;p&gt;&lt;%=request.getProtocol() <span style="color:grey">%&gt;</span>&lt;/p&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
+&lt;!doctype html>
+&lt;html>
+  &lt;head>&lt;title>The president is...&lt;/title>&lt;/head>
+  &lt;body>
+    &lt;h1>The president is...&lt;/h1> &lt;img src="obama.png">
+    &lt;p>{{name}}&lt;/p>
+
+    &lt;form action="" method="post">
+      &lt;textarea name="user-comment" placeholder="Introduce your comment">&lt;/textarea>&lt;br>
+      &lt;input type="submit" value="OK">
+    &lt;/form> 
+  &lt;/body>
+&lt;/html>
 </pre>
-<p>This page can be set as the default landing  page in WEB-INF/web.xml</p>
-<p>You fill find pictures of the candidates behind the first slide.</p>
+<p>Set the welcome file in war/WEB-INF/web.xml</p>
+<pre>
+&lt;welcome-file-list>
+  &lt;welcome-file>ThePresident&lt;/welcome-file>
+&lt;/welcome-file-list>
+</pre>
       </div>
         <div class="chapter-number g-yellow">2</div>
         <h3 class="num">
-            Add a JSP page<br/><br/>
+            Add a Mustache page<br/><br/>
         </h3>
         
         <div style="margin-top:20px;">
         <div class="screenshot-left bigserif scrshottext">
         <p>The president is...</p>
         <div class="scrshotimg"><img src="images/candidate5_en.png"/></div>
-        <small><small>HTTP/1.1</small></small>
+        <small><small>Obama?</small></small>
         </div>
-        <p>&nbsp;<br/>&nbsp;<br/>The name of the new president is not known yet so we display something else, for instance:</p>
-        <pre>request.getProtocol()</pre>
+        <p>&nbsp;<br/>&nbsp;<br/>The name of the new president is not known yet so we will display something else.</p><p> Save the candidates pictures from behind slide 1 into <code>war/</code></p>
         </div>
         
        <translation lang="fr">
@@ -888,118 +906,83 @@ hollande.png
       </article>
 
 <!-- ------------------------------------------------------------------------------- -->
-<!-- 3. Ajouter un formulaire et sa réponse -->
+<!-- 3 Modify the servlet -->
 
-	  <article class="slide3d" > 
+    <article class="slide3d" > 
       <div class="backslide3d">
-<p><span>file:</span> war/comments.jsp</p>
-<pre style="margin-bottom:10px" class="smallcode">
-&lt;! DOCTYPE html&gt;
-&lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
-&lt;%@ page import="com.google.common.html.HtmlEscapers" %&gt; &lt;!-- Guava --&gt;
+<pre class="prettyprint smallcode" >
+public class ThePresidentServlet extends HttpServlet {
+  
+  MustacheFactory mf = new DefaultMustacheFactory();
 
-&lt;html&gt;
-  &lt;body&gt;
-    &lt;H1&gt;<span>The president is...</span>&lt;/H1&gt;
-    &lt;img src="<span>romney.png</span>" /&gt;
-    &lt;% 
-        String comment = request.getParameter("user-comment");
-        if (comment != null)
-	    		comment = HtmlEscapers.htmlEscaper().escape(comment);
-    %&gt;
-    &lt;p&gt;You: &lt;%=comment %&gt;&lt;/p&gt;
-    &lt;form action="" method="post"&gt;
-         &lt;textarea name="user-comment" &gt;&lt;/textarea&gt;&lt;br/&gt;
-         &lt;input type="submit" value="OK" /&gt;
-     &lt;/form&gt; 
-  &lt;/body&gt;
-&lt;/html&gt;
+  public void doGet(HttpServletRequest req, HttpServletResponse resp)
+    throws IOException {
+    InputStream template = getServletContext()
+        .getResourceAsStream("/WEB-INF/comments.html");
+    Mustache mustache = mf.compile(
+        new InputStreamReader(template, "UTF-8"), "example");
+    
+    Writer writer = resp.getWriter();
+    mustache.execute(writer, initArgs());
+    writer.flush();
+  }
+  
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+    String comment = req.getParameter("user-comment"); // TODO: store the comment
+    resp.sendRedirect("/");
+  }
+
+  private Map<String, Object> initArgs() {
+    return ImmutableMap.<String, Object>of("name", "Obama?");
+  }
+  
+}
 </pre>
-          XSS vulnerability WARNING! DO NOT insert user-generated text into an HTML page without escaping.
       </div>
-      
         <div class="chapter-number g-blue">3</div>
         <h3 class="num">
-            Add a comments field - without persistency for now
+            Modify the servlet
         </h3>
-        
-        <div style="margin-top:30px;">
-        <div class="screenshot-left bigserif scrshottext">
-	        <p>The president is...</p>
-	        <div class="scrshotimg"><img src="images/candidate2_en.png"/></div>
-	        <div class="scrshotcomment"><b>You:</b> not my first choice...
-	        <div class="scrshotbox"></div>
-	        <form style="text-align: right"><input type="button" value="OK" onclick="noop()"></input></form>
-	        </div>
-        </div>
-        <p>You need an input box:</p>
-<pre>
-&lt;form action="" method="post"&gt;
-   &lt;textarea name="user-comment" &gt;<br/><div style="text-align: right;">&lt;/textarea&gt;
-</div>   &lt;input type="submit" value="OK" /&gt;
-&lt;/form&gt; 
-</pre>
-		<p>And a way to get request parameters:</p>
-<pre>
-request.getParameter("user-comment")
-</pre>
-        </div>
-        
-        <translation lang="fr">
-            fichier:
-            --self--
-Le président est...
-sarkozy.png
-            ATTENTION aux vulnérabilités XSS! Ne jamais insérer dans une page du texte en provenance d'un utilisateur sans escaping.
-            --self--
-            Ajouter un champ de commentaire - sans persistence pour l'instant
-            Le président est...
-            Vous:
-            pas mon premier choix...
-            Il vous faut une zone de saisie:
---self--
-            Et la fonction qui donne un paramètre de requête:
-        </translation>
-      </article>
-      
+        <p>Modify ThePresidentServlet to <b>forward requests to the mustache file</b>.</p>
+        <p><b>Keep in mind:</b> We are not accessing the Datastore yet.</p>
+    </article>
+
 <!-- ------------------------------------------------------------------------------- -->
 <!-- 4. Identifier l'utilisateur par son compte Google-->
 
 	  <article class="slide3d" > 
       <div class="backslide3d">
-<p>file: war/comments.jsp</p>
-<pre class="x-smallcode">
-&lt;! DOCTYPE html&gt;
-&lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
-<span class="u">&lt;%@ page import="com.google.appengine.api.users.*" %&gt;</span>
-&lt;%@ page import="com.google.common.html.HtmlEscapers" %&gt; &lt;!-- Guava --&gt;
-
-&lt;html&gt;&lt;body&gt;
-    &lt;H1&gt;<span>The president is...</span>&lt;/H1&gt; &lt;img src="<span>obama.jpg</span>" /&gt;
-&lt;%
-    <span class="u">UserService userService = UserServiceFactory.getUserService();</span>
-    <span class="u">User user = userService.getCurrentUser();</span>
-    <span class="u">if (user == null)</span>
-    {%&gt;
-        &lt;p&gt;<span>Hello</span>, &lt;a href="&lt;%= <span class="u">userService.createLoginURL(request.getRequestURI())</span> %&gt;"&gt;
-        <span>please log in</span>&lt;/a&gt; <span>to post comments</span>.&lt;/p&gt;
-    &lt;%}
-    else
-    {
-        String comment = request.getParameter("user-comment");
-        if (comment != null)
-            comment = HtmlEscapers.htmlEscaper().escape(comment);
-%&gt;
-        &lt;p&gt;&lt;b&gt;&lt;%=<span class="u">user.getNickname()</span>%&gt;:&lt;/b&gt; &lt;%=comment%&gt;&lt;/p&gt;
-    
-        &lt;form action="" method="post"&gt;
-            &lt;textarea name="user-comment"&gt;&lt;/textarea&gt;&lt;br/&gt;
-            &lt;input type="submit" value="OK" /&gt;
-            &lt;!-- <span>logout link</span> --&gt;
-            &lt;a href="&lt;%= <span class="u">userService.createLogoutURL(request.getRequestURI())</span> %&gt;"&gt;<span>logout</span>&lt;/a&gt;
-        &lt;/form&gt;
-&lt;% } %&gt;
-&lt;/body&gt;&lt;/html&gt;
+<p>file: ThePresidentServlet</p>
+<pre class="smallcode" style="margin: 10px 0">
+private Map<String, Object> initArgs(HttpServletRequest req) {
+  UserService userService = UserServiceFactory.getUserService();
+  Map<String, Object> args = Maps.newHashMap();
+  args.put("name", "Obama?");
+  <b>args.put("user", userService.getCurrentUser());
+  args.put("loginUrl", userService.createLoginURL(req.getRequestURI()));
+  args.put("logoutUrl", userService.createLogoutURL(req.getRequestURI()));</b>
+  return args;
+}
+</pre>
+<p>file: war/WEB-INF/comments.html</p>
+<pre class="smallcode" style="margin: 10px 0">
+&lt;!doctype html>
+&lt;html>
+  &lt;head>&lt;title>The president is...&lt;/title>&lt;/head>
+  &lt;body>
+    &lt;h1>The president is...&lt;/h1> &lt;img src="obama.png"> &lt;p>{{name}}&lt;/p>
+    &lt;p>
+    {{^user}}Hello, &lt;a href="{{loginUrl}}">please log in&lt;/a> to post comments.{{/user}}
+    {{#user}}
+    Hello, &lt;b>{{nickname}}&lt;/b> - &lt;a href="{{logoutUrl}}">logout&lt;/a>
+    &lt;form action="" method="post">
+      &lt;textarea name="user-comment" placeholder="Introduce your comment">&lt;/textarea>&lt;br>
+      &lt;input type="submit" value="OK">
+    &lt;/form> 
+    {{/user}}
+  &lt;/body>
+&lt;/html>
 </pre>
       </div>
       
@@ -1094,7 +1077,7 @@ déconnexion
       <div class="backslide3d">
 <p><span>file:</span> src/com/me/president/Comments.java</p>
 <pre class="x-smallcode lesspace" style="margin-bottom: 15px;">
-package <span>com.me.president</span>;
+package com.me.president;
 import java.util.*;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.datastore.Entity;
@@ -1106,15 +1089,14 @@ public class Comments {
         commentEntity.setProperty("date", new Date());
         commentEntity.setProperty("text", text);
 
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        datastore.put(commentEntity);
+        DatastoreServiceFactory.getDatastoreService().put(commentEntity);
     }
-	
-    static public List&lt;Entity&gt; retrieveAll() {
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
+  
+    static public List<Entity> retrieveAll() {
         Query query = new Query("Comment");
         query.addSort("date", Query.SortDirection.DESCENDING);
+        
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         return datastore.prepare(query).asList(FetchOptions.Builder.withLimit(100));
     }
 }
@@ -1122,7 +1104,7 @@ public class Comments {
 Usage: 
 <pre class="x-smallcode lesspace" style="display:inline-block; margin-top:0px; vertical-align: top;">
 // store:
-Comments.store("Hello", "Nicolas");
+Comments.store("Hello", user.getNickname());
 // retrieve:
 List&lt;Entity&gt; comments = Comments.retrieveAll();
 for (Entity commentEntity: comments) { ... commentEntity.getProperty("text") ... }
@@ -1190,42 +1172,76 @@ Utilisation:
         </translation>
       </article>
 
+
+
+<article class="slide3d" >
+  <div class="backslide3d">
+    <p>war/WEB-INF/comments.html
+<pre>
+  {{#comments}}{{.}}&lt;br>{{/comments}}
+</pre>    
+  </div>
+  <h3>Modifications in ThePresidentServlet.java</h3>
+<pre class="smallcode">
+// option 1: transform our list of comments into Strings
+List<String> comments = Lists.newArrayList();
+for (Entity comment : Comments.retrieveAll()) {
+  comments.add(comment.getProperty("user") + ": " + comment.getProperty("text"));
+}
+args.put("comments", comments);
+
+// option 2: use Guava transformations
+args.put("comments", 
+  Collections2.transform(Comments.retrieveAll(), new Function<Entity, String>() {
+
+    @Override
+    public String apply(Entity comment) {
+      return comment.getProperty("user") + ": " + comment.getProperty("text");
+    }
+    
+  })
+);
+</pre>
+</article>
+
 <!-- ------------------------------------------------------------------------------- -->
 <!-- 6. Conserver les commentaires sur le serveur avec Objectify -->
 
 <article class="slide3d" >
     <div class="backslide3d">
         <p><span>file:</span> src/com/me/president/ObjectifyDAO.java</p>
-<pre class="x-smallcode lesspace">
+<pre class="x-smallcode lesspace" style="margin: 0">
 package com.me.president;
-import com.googlecode.objectify.Objectify;     import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.*;
 
-public class ObjectifyDAO
-{
-    static { ObjectifyService.register(Comment.class); } <span>// register all @Entity classes</span>
-    static Objectify ofy() { return ObjectifyService.ofy(); }  <span>// proxy for Objectify</span>
+public class ObjectifyDAO {
+    static { ObjectifyService.register(Comment.class); } // register all @Entity classes
+    static Objectify ofy() { return ObjectifyService.ofy(); }  // proxy for Objectify
 }
 </pre>
         <p><span>file:</span> src/com/me/president/Comment.java</p>
-<pre class="x-smallcode lesspace">
+<pre class="x-smallcode lesspace" style="margin: 0">
 package com.me.president;
-import java.util.Date; import java.util.List;
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Index;
-import static com.me.president.ObjectifyDAO.ofy; <span>// now ofy() goes through the DAO</span>
+import java.util.*;
+import com.googlecode.objectify.annotation.*;
+import static com.me.president.ObjectifyDAO.ofy; // now ofy() goes through the DAO
 
-@Entity public class Comment
-{
-   @Id Long id;     @Index Date date;     public String user, text;
+@Entity public class Comment {
+   
+  @Id Long id;     
+  @Index Date date;     
+  public String user, text;
 
-   public Comment() {}
-   public Comment(String text, String user) { this.user = user; this.text = text; this.date = new Date(); }
+  public Comment() {}
+  public Comment(String text, String user) { this.user = user; this.text = text; this.date = new Date(); }
 
-   public static void store(String text, String user) { ofy().save().entity(new Comment(text, user)); }
+  public static void store(String text, String user) { 
+    ofy().save().entity(new Comment(text, user)); 
+  }
 
-   public static List&lt;Comment&gt; retrieveAll()
-   { return ofy().load().type(Comment.class).order("-date").limit(100).list(); }
+  public static List<Comment> retrieveAll() { 
+    return ofy().load().type(Comment.class).order("-date").limit(100).list(); 
+  }
 }
 </pre>
 
@@ -1241,8 +1257,7 @@ import static com.me.president.ObjectifyDAO.ofy; <span>// now ofy() goes through
             Use a Plain Old Java Object (POJO):
 <pre class="smallcode lesspace">
 @Entity
-public class Comment
-{
+public class Comment {
     @Id Long id;
     @Index Date date;
     String user;
@@ -1256,13 +1271,13 @@ public class Comment
         </div>
         <p>Registering data classes in a Data Access Object:</p>
 <pre class="x-smallcode lesspace">
-public class ObjectifyDAO
-{<span>// register all @Entity classes</span>
- static { ObjectifyService.register(Comment.class); }
-<span>// proxy for Objectify</span>
- static Objectify ofy() {return ObjectifyService.ofy();}
+public class ObjectifyDAO {
+<span>  // register all @Entity classes</span>
+  static { ObjectifyService.register(Comment.class); }
+<span>  // proxy for Objectify</span>
+  static Objectify ofy() {return ObjectifyService.ofy();}
 }
-<span>// then use ofy() thanks to the declaration:</span>
+<span>// then import ofy() to use it:</span>
 import static com.me.president.ObjectifyDAO.ofy;
 </pre>
         <p>Write:</p>
@@ -1304,6 +1319,43 @@ for (Comment c: list) { ... }
         ObjectifyFilter dans web.xml
         --self--
     </translation>
+</article>
+
+<article class="info slide3d" >
+  <div class="backslide3d">
+    <p>ThePresidentServlet.java
+<pre>
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+    User currentUser = UserServiceFactory.getUserService().getCurrentUser();
+    <b>Comment.store(req.getParameter("user-comment"), currentUser.getNickname());</b>
+    resp.sendRedirect("/");
+  }
+  
+  private Map<String, Object> initArgs(HttpServletRequest req) {
+    Map<String, Object> args = Maps.newHashMap();
+    // ...
+    <b>args.put("comments", Comment.retrieveAll());</b>
+    return args;
+  }
+</pre>
+<p>war/WEB-INF/comments.html
+<pre>
+{{#comments}}{{user}}: {{text}}&lt;br>{{/comments}}
+</pre>
+  </div>
+  <p>Now we don't need Comments.java (you can delete it). Instead, we will directly use the DAO and persistent object.
+  <p>Add this to web.xml:
+  <pre>
+&lt;filter>
+  &lt;filter-name>ObjectifyFilter&lt;/filter-name>
+  &lt;filter-class>com.googlecode.objectify.ObjectifyFilter&lt;/filter-class>
+&lt;/filter>
+&lt;filter-mapping>
+  &lt;filter-name>ObjectifyFilter&lt;/filter-name>
+  &lt;url-pattern>/*&lt;/url-pattern>
+&lt;/filter-mapping>
+</pre>
 </article>
 
 <!-- ------------------------------------------------------------------------------- -->
